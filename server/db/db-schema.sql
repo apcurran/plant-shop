@@ -16,3 +16,9 @@ CREATE TABLE product_img(
     height INT,
     url VARCHAR
 );
+
+CREATE TABLE product_extra_info(
+    product_extra_info_id SERIAL PRIMARY KEY,
+    size INT,
+    price DECIMAL(5, 2)
+);
