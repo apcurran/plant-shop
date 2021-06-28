@@ -19,6 +19,10 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
+app.get("/api/test", (req, res) => {
+    res.json({ msg: "Test works" });
+});
+
 // General server error handling
 app.use((err, req, res, next) => {
     console.error(err);
