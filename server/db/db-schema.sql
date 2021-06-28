@@ -22,3 +22,12 @@ CREATE TABLE product_extra_info(
     size INT,
     price DECIMAL(5, 2)
 );
+
+CREATE TABLE app_user(
+    user_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    password VARCHAR(50),
+    is_admin BOOLEAN
+);
