@@ -6,6 +6,8 @@ const express = require("express");
 const path = require("path");
 
 const PORT = process.env.PORT || 5000;
+// Import routers
+const productsRouter = require("./api/routes/products-router");
 
 const app = express();
 
@@ -18,6 +20,9 @@ if (process.env.NODE_ENV === "development") {
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
+
+// API routers
+app.use("/api/products", productsRouter);
 
 // General server error handling
 app.use((err, req, res, next) => {
