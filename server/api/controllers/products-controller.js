@@ -36,7 +36,7 @@ async function getProducts(req, res, next) {
 async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
-        console.log(productId);
+        
 
     } catch (err) {
         next(err);

@@ -7,7 +7,7 @@ const productsController = require("../controllers/products-controller");
 const router = express.Router();
 
 // GET specific product
-router.get("/:productId", productsController.getProducts);
+router.get("/:productId", productsController.getProduct);
 // GET all products
 router.get("/", productsController.getProducts);
 
