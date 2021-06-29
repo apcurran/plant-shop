@@ -37,6 +37,31 @@ async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
         
+        const product = (await db.query(
+            `
+            SELECT
+                product.title,
+                product.description,
+                product.category,
+
+                product_img.url,
+                product_img.alt_text,
+                product_img.width,
+                product_img.height,
+
+                product_extra_info.size,
+                product_extra_info.price
+            FROM product
+            INNER JOIN product_img
+                ON product.product_id = product_img.product_id
+            INNER JOIN product_extra_info
+                ON product.product_id = product_extra_info.product_id
+            WHERE product.product_id = $1
+            `,
+            [productId] // Values
+        )).rows;
+
+        res.status(200).json(product);
 
     } catch (err) {
         next(err);
