@@ -22,6 +22,7 @@ async function getProducts(req, res, next) {
             INNER JOIN product_extra_info
                 ON product.product_id = product_extra_info.product_id
                 AND product_extra_info.size = 1
+                -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
             ORDER BY product.category
         `)).rows;
         console.log(products);
