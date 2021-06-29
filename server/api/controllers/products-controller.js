@@ -45,7 +45,7 @@ async function getProduct(req, res, next) {
                 product.category,
 
                 product_img.url,
-                product_img.alt_text,
+                product_img.alt_text AS "altText",
                 product_img.width,
                 product_img.height,
 
@@ -58,7 +58,7 @@ async function getProduct(req, res, next) {
                 ON product.product_id = product_extra_info.product_id
             WHERE product.product_id = $1
             `,
-            [productId] // Values
+            [productId]
         )).rows;
 
         res.status(200).json(product);
