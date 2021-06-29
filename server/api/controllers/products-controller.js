@@ -25,7 +25,18 @@ async function getProducts(req, res, next) {
                 -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
             ORDER BY product.category
         `)).rows;
-        console.log(products);
+        
+        res.status(200).json(products);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getProduct(req, res, next) {
+    try {
+        const { productId } = req.params;
+        console.log(productId);
 
     } catch (err) {
         next(err);
@@ -34,4 +45,5 @@ async function getProducts(req, res, next) {
 
 module.exports = {
     getProducts,
+    getProduct,
 };
