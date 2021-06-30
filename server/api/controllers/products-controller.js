@@ -7,12 +7,12 @@ async function getProducts(req, res, next) {
     try {
         const products = (await db.query(`
             SELECT
-                product.product_id,
+                product.product_id AS "productId",
                 product.title,
                 product.category,
 
                 product_img.url,
-                product_img.alt_text,
+                product_img.alt_text AS "altText",
                 product_img.width,
                 product_img.height,
 
