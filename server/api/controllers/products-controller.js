@@ -177,10 +177,30 @@ async function patchProduct(req, res, next) {
     }
 }
 
+async function deleteProduct(req, res, next) {
+    try {
+        const { productId } = req.params;
+
+        await db.query(
+            `
+            DELETE FROM product
+            WHERE product.product_id = $1
+            `,
+            [productId]
+        );
+
+        res.status(200).json({ msg: "Product removed." });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     getProducts,
     getProduct,
     getProductsByCategory,
     postProduct,
     patchProduct,
+    deleteProduct
 };

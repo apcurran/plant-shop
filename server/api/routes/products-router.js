@@ -12,6 +12,8 @@ router.get("/category", productsController.getProductsByCategory);
 router.get("/:productId", productsController.getProduct);
 // PATCH specific product
 router.patch("/:productId", productsController.patchProduct);
+// DELETE specific product
+router.delete("/:productId", productsController.deleteProduct);
 // GET all products
 router.get("/", productsController.getProducts);
 // POST new product
