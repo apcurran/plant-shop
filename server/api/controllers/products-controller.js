@@ -168,9 +168,19 @@ async function postProduct(req, res, next) {
     }
 }
 
+async function patchProduct(req, res, next) {
+    try {
+        const { productId } = req.params;
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     getProducts,
     getProduct,
     getProductsByCategory,
     postProduct,
+    patchProduct,
 };
