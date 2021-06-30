@@ -70,7 +70,42 @@ async function getProduct(req, res, next) {
     }
 }
 
+async function getProductsByCategory(req, res, next) {
+    try {
+        const { q } = req.query;
+        console.log(q);
+        const products = (await db.query(`
+            SELECT
+                product.product_id AS "productId",
+                product.title,
+                product.category,
+
+                product_img.url,
+                product_img.alt_text AS "altText",
+                product_img.width,
+                product_img.height,
+
+                product_extra_info.price
+            FROM product
+            INNER JOIN product_img
+                ON product.product_id = product_img.product_id
+            INNER JOIN product_extra_info
+                ON product.product_id = product_extra_info.product_id
+                AND product_extra_info.size = 1
+                -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
+            WHERE product.category = $1
+        `,
+        [q])).rows;
+        
+        res.status(200).json(products);
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     getProducts,
     getProduct,
+    getProductsByCategory,
 };
