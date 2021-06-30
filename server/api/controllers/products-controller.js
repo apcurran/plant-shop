@@ -73,7 +73,6 @@ async function getProduct(req, res, next) {
 async function getProductsByCategory(req, res, next) {
     try {
         const { q } = req.query;
-        console.log(q);
         const products = (await db.query(`
             SELECT
                 product.product_id AS "productId",
