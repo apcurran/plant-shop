@@ -115,24 +115,56 @@ async function postProduct(req, res, next) {
         imgHeight
     } = req.body;
 
-    console.log(req.body);
+    // node-postgres requires the use of client instead of pool.query here
+    const client = await db.pool.connect();
 
     try {
-        
-
-        // await db.query(`
-        //     INSERT INTO product
-        //         (title, description, category)
-        //     VALUES
-        //         ($1, $2, $3)
-        //     `,
-        //     [title, description, category]
-        // );
-
-        // res.status(201).json({ msg: "New product added." });
+        // SQL Transaction
+        await client.query("Begin");
+        // Save to product table (returning the product_id)
+        const insertedProductId = (await client.query(
+            `
+            INSERT INTO product
+                (title, description, category)
+            VALUES
+                ($1, $2, $3)
+            RETURNING product_id
+            `,
+            [title, description, category]
+        )).rows[0].product_id;
+        // Iterate productExtraInfo and save each obj data to product_extra_info table (save product_id as FK)
+        for (let obj of productExtraInfo) {
+            await client.query(
+                `
+                INSERT INTO product_extra_info
+                    (product_id, size, price)
+                VALUES
+                    ($1, $2, $3)
+                `,
+                [insertedProductId, obj.size, obj.price]
+            );
+        }
+        // Save to product_img table (save product_id as FK)
+        await client.query(
+            `
+            INSERT INTO product_img
+                (product_id, alt_text, width, height, url)
+            VALUES
+                ($1, $2, $3, $4, $5)
+            `,
+            [insertedProductId, imgAltText, imgWidth, imgHeight, imgUrl]
+        );
+        // Commit transaction to client
+        await client.query("COMMIT");
         
     } catch (err) {
+        await client.query("ROLLBACK");
+
         next(err);
+    } finally {
+        client.release();
+
+        res.status(201).json({ msg: "Product information added." });
     }
 }
 
