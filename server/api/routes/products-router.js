@@ -13,4 +13,7 @@ router.get("/:productId", productsController.getProduct);
 // GET all products
 router.get("/", productsController.getProducts);
 
+// POST new product
+router.post("/", productsController.postProduct);
+
 module.exports = router;

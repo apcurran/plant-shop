@@ -103,8 +103,42 @@ async function getProductsByCategory(req, res, next) {
     }
 }
 
+async function postProduct(req, res, next) {
+    const {
+        title,
+        description,
+        category,
+        productExtraInfo, // Array
+        imgUrl,
+        imgAltText,
+        imgWidth,
+        imgHeight
+    } = req.body;
+
+    console.log(req.body);
+
+    try {
+        
+
+        // await db.query(`
+        //     INSERT INTO product
+        //         (title, description, category)
+        //     VALUES
+        //         ($1, $2, $3)
+        //     `,
+        //     [title, description, category]
+        // );
+
+        // res.status(201).json({ msg: "New product added." });
+        
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     getProducts,
     getProduct,
     getProductsByCategory,
+    postProduct,
 };
