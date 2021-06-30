@@ -1,6 +1,7 @@
 "use strict";
 
 const db = require("../../db/index");
+const { transformProductResults } = require("../../util/transform-product-results");
 
 async function getProducts(req, res, next) {
     try {
@@ -36,7 +37,6 @@ async function getProducts(req, res, next) {
 async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
-        
         const product = (await db.query(
             `
             SELECT
@@ -60,8 +60,10 @@ async function getProduct(req, res, next) {
             `,
             [productId]
         )).rows;
+        
+        const formattedProduct = transformProductResults(product);
 
-        res.status(200).json(product);
+        res.status(200).json(formattedProduct);
 
     } catch (err) {
         next(err);
