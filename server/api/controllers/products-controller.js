@@ -60,7 +60,7 @@ async function getProduct(req, res, next) {
             `,
             [productId]
         )).rows;
-        
+
         const formattedProduct = transformProductResults(product);
 
         res.status(200).json(formattedProduct);
