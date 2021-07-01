@@ -114,13 +114,12 @@ async function postProduct(req, res, next) {
         imgWidth,
         imgHeight
     } = req.body;
-
     // node-postgres requires the use of client instead of pool.query here
     const client = await db.pool.connect();
 
     try {
         // SQL Transaction
-        await client.query("Begin");
+        await client.query("BEGIN");
         // Save to product table (returning the product_id)
         const insertedProductId = (await client.query(
             `
@@ -169,11 +168,69 @@ async function postProduct(req, res, next) {
 }
 
 async function patchProduct(req, res, next) {
+    const { productId } = req.params;
+    const {
+        title,
+        description,
+        category,
+        productExtraInfo, // Array
+        imgUrl,
+        imgAltText,
+        imgWidth,
+        imgHeight
+    } = req.body;
+    const client = await db.pool.connect();
+
     try {
-        const { productId } = req.params;
+        // SQL Transaction
+        await client.query("BEGIN");
+        await client.query(
+            `
+            UPDATE product
+            SET
+                title = COALESCE($1, title),
+                description = COALESCE($2, description),
+                category = COALESCE($3, category)
+            WHERE product.product_id = $4
+            `,
+            [title, description, category, productId]
+        );
+
+        for (let obj of productExtraInfo) {
+            await client.query(
+                `
+                UPDATE product_extra_info
+                SET
+                    size = COALESCE($1, size),
+                    price = COALESCE($2, price)
+                WHERE product_extra_info.product_id = $3
+                `,
+                [obj.size, obj.price, productId]
+            );
+        }
+
+        await client.query(
+            `
+            UPDATE product_img
+            SET
+                alt_text = COALESCE($1, alt_text),
+                width = COALESCE($2, width),
+                height = COALESCE($3, height),
+                url = COALESCE($4, url)
+            WHERE product_img.product_id = $5
+            `,
+            [imgAltText, imgWidth, imgHeight, imgUrl, productId]
+        );
+        await client.query("COMMIT");
 
     } catch (err) {
+        await client.query("ROLLBACK");
+
         next(err);
+    } finally {
+        client.release();
+
+        res.status(200).json({ msg: "Product information updated." });
     }
 }
 
