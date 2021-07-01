@@ -17,7 +17,11 @@
 function transformProductResults(rowsArr) {
     const primaryProductData = rowsArr[0];
     const prodInfoArr = rowsArr.map((obj) => {
-        return { size: obj.size, price: obj.price };
+        return {
+            productExtraInfoId: obj.productExtraInfoId,
+            size: obj.size,
+            price: obj.price
+        };
     });
     
     return {

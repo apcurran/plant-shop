@@ -49,6 +49,7 @@ async function getProduct(req, res, next) {
                 product_img.width,
                 product_img.height,
 
+                product_extra_info.product_extra_info_id AS "productExtraInfoId",
                 product_extra_info.size,
                 product_extra_info.price
             FROM product
@@ -203,9 +204,12 @@ async function patchProduct(req, res, next) {
                 SET
                     size = COALESCE($1, size),
                     price = COALESCE($2, price)
-                WHERE product_extra_info.product_id = $3
+                WHERE
+                    product_extra_info.product_id = $3
+                    AND
+                    product_extra_info.product_extra_info_id = $4
                 `,
-                [obj.size, obj.price, productId]
+                [obj.size, obj.price, productId, obj.productExtraInfoId]
             );
         }
 
