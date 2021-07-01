@@ -61,7 +61,8 @@ async function getProduct(req, res, next) {
             `,
             [productId]
         )).rows;
-
+        console.log(product);
+        
         const formattedProduct = transformProductResults(product);
 
         res.status(200).json(formattedProduct);
