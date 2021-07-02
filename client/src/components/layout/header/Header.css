@@ -1,0 +1,24 @@
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 2.5rem 0;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    width: 80rem;
+}
+
+.nav__standard-links-list,
+.nav__right-group,
+.nav__links-list--auth {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav__standard-links-list,
+.nav__links-list--auth {
+    list-style: none;
+}

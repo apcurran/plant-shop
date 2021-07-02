@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function StandardLinks() {
     return (
-        <ul className="nav__standard-links">
+        <ul className="nav__standard-links-list">
             <li className="nav__item">
                 <NavLink to="/about" className="nav__link">About</NavLink>
             </li>
