@@ -4,8 +4,21 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+:root {
+  /* Colors */
+  --base-font-dark-clr: #292524;
+
+  --cta-accent-clr: #fef3c7;
+}
+
+body,
+h1,
+h2,
+h3,
+textarea,
+input,
+button,
+a {
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--base-font-dark-clr);
 }

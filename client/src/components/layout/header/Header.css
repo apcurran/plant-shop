@@ -22,3 +22,13 @@
 .nav__links-list--auth {
     list-style: none;
 }
+
+.nav__link,
+.nav__logo-link {
+    text-decoration: none;
+}
+
+.nav__logo-link {
+    font-size: 1.25rem;
+    font-weight: 700;
+}

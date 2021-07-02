@@ -1,0 +1,8 @@
+.nav__cart-btn {
+    padding: .5rem 1.25rem;
+    border-radius: 500px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--cta-accent-clr);
+    font-size: 1rem;
+}
