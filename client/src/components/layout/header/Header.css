@@ -35,13 +35,7 @@
 }
 
 /* Header Styling Specific to Home Page */
-/* .header--home {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-} */
-
 .header--home {
+    grid-column: 1 / -1;
     align-self: start;
 }
