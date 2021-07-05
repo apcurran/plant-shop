@@ -17,3 +17,8 @@
     display: block;
     font-size: 3.5rem;
 }
+
+.arrow-icon--down {
+    display: block;
+    margin-left: auto;
+}
