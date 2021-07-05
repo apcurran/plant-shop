@@ -9,6 +9,9 @@
   --base-font-dark-clr: #292524;
 
   --cta-accent-clr: #fef3c7;
+
+  /* Widths */
+  --base-container-width: 80rem;
 }
 
 body,

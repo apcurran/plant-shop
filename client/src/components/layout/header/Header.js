@@ -7,7 +7,7 @@ import CartBtn from "../../ui/cart-btn/CartBtn";
 
 function Header({ homePageRendering }) {
     // If the About page is rendering from the current route, apply CSS class
-    const headerAboutPageClass = Boolean(homePageRendering) ? "header--about" : "";
+    const headerAboutPageClass = Boolean(homePageRendering) ? "header--home" : "";
 
     return (
         <header className={`header ${headerAboutPageClass}`}>
