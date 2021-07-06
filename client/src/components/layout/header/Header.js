@@ -7,10 +7,10 @@ import CartBtn from "../../ui/cart-btn/CartBtn";
 
 function Header({ homePageRendering }) {
     // If the About page is rendering from the current route, apply CSS class
-    const headerAboutPageClass = Boolean(homePageRendering) ? "header--home" : "";
+    const homePageHeaderClass = Boolean(homePageRendering) ? "header--home" : "";
 
     return (
-        <header className={`header ${headerAboutPageClass}`}>
+        <header className={`header ${homePageHeaderClass}`}>
             <nav className="nav">
                 <StandardLinks />
                 <NavLink to="/" className="nav__logo-link">
