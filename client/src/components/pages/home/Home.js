@@ -1,6 +1,7 @@
 import "./Home.css";
 import Header from "../../layout/header/Header";
 import HeroSection from "./hero-section/HeroSection";
+import CollectionCards from "./collection-cards/CollectionCards";
 
 function Home() {
     return (
@@ -9,6 +10,7 @@ function Home() {
                 <Header homePageRendering="true" />
                 <HeroSection />
             </div>
+            <CollectionCards />
         </div>
     );
 }
