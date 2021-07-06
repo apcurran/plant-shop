@@ -1,3 +1,4 @@
+import "./CollectionCards.css";
 import CollectionCard from "./collection-card/CollectionCard";
 
 function CollectionCards() {
@@ -39,8 +40,9 @@ function CollectionCards() {
 
     return (
         <div className="home__collection-cards-container">
-            {collectionCardsData.map((card) => (
+            {collectionCardsData.map((card, index) => (
                 <CollectionCard
+                    index={index}
                     key={card.title}
                     title={card.title}
                     desc={card.desc}

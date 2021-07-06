@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 
-function CollectionCard({ title, desc, linkHref, imgPublicId, imgAlt, imgWidth, imgHeight }) {
+import "./CollectionCard.css";
+
+function CollectionCard({ index, title, desc, linkHref, imgPublicId, imgAlt, imgWidth, imgHeight }) {
     return (
         <section className="home__collection-card">
             <div className="home__collection-card__inner-container">

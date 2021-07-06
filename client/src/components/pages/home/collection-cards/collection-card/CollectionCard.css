@@ -1,0 +1,37 @@
+.home__collection-card:not(:last-child) {
+    margin-bottom: 3rem;
+}
+
+.home__collection-card__inner-container {
+    width: var(--base-container-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 18rem;
+}
+
+.home__collection-card__fig {
+    border-radius: 50%;
+}
+
+.home__collection-card:nth-of-type(even) .home__collection-card__article {
+    order: -1;
+}
+
+.home__collection-card__fig__img {
+    display: block;
+    width: 20rem;
+    height: 20rem;
+    border: none;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.home__collection-card__article__badge {
+    padding: .75rem 1.25rem;
+    border: none;
+    background-color: var(--cta-accent-clr);
+    color: var(--cta-accent-clr-dark);
+    font-weight: 700;
+    font-size: 1rem;
+}
