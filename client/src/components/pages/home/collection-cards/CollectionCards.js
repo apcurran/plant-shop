@@ -21,9 +21,9 @@ function CollectionCards() {
 
     return (
         <div className="home__collection-cards-container">
-            <CollectionCard />
-            <CollectionCard />
-            <CollectionCard />
+            {collectionCardsData.map((card) => (
+                <CollectionCard title={card.title} desc={card.desc} linkHref={card.linkHref} />
+            ))}
         </div>
     );
 }
