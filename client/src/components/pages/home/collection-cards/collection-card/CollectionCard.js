@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
+import { Image, Transformation } from "cloudinary-react";
 
-function CollectionCard({ title, desc, linkHref, imgSrc, imgAlt, imgWidth, imgHeight }) {
+function CollectionCard({ title, desc, linkHref, imgPublicId, imgAlt, imgWidth, imgHeight }) {
     return (
         <section className="home__collection-card">
             <div className="home__collection-card__inner-container">
                 <figure className="home__collection-card__fig">
-                    <img src="" alt="" className="home__collection-card__fig__img" />
+                    <Image publicId={imgPublicId} alt={imgAlt} className="home__collection-card__fig__img" loading="lazy" width={imgWidth} height={imgHeight}>
+                        <Transformation quality="auto" fetchFormat="auto" />
+                    </Image>
                 </figure>
                 <article className="home__collection-card__article">
                     <Link to={linkHref}>
