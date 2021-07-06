@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function CollectionCard({ title, desc, linkHref }) {
+function CollectionCard({ title, desc, linkHref, imgSrc, imgAlt, imgWidth, imgHeight }) {
     return (
         <section className="home__collection-card">
             <div className="home__collection-card__inner-container">
