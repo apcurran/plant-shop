@@ -11,10 +11,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/">
-            <div className="home-grid-wrapper">
-              <Header homePageRendering="true" />
-              <Home />
-            </div>
+            <Home />
           </Route>
           <Route exact path="/about">
             <Header />
