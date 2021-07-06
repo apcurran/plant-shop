@@ -1,7 +1,3 @@
-.home__collection-card:not(:last-child) {
-    margin-bottom: 3rem;
-}
-
 .home__collection-card__inner-container {
     width: var(--base-container-width);
     margin: 0 auto;
@@ -12,6 +8,15 @@
 
 .home__collection-card__fig {
     border-radius: 50%;
+}
+
+.home__collection-card:nth-of-type(odd) {
+    padding: 6rem 0;
+}
+
+.home__collection-card:nth-of-type(even) {
+    padding: 6rem 0;
+    background-color: var(--light-warm-grey);
 }
 
 .home__collection-card:nth-of-type(even) .home__collection-card__article {
@@ -42,7 +47,14 @@
     margin-bottom: 1.5rem;
 }
 
+.home__collection-card__article__cta-btn-link-wrapper {
+    text-decoration: none;
+}
+
 .home__collection-card__article__cta-btn {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
     font-size: 1rem;
     font-weight: 700;
     color: var(--dark-green);

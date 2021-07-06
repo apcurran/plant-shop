@@ -18,8 +18,11 @@ function CollectionCard({ title, desc, linkHref, imgPublicId, imgAlt, imgWidth, 
                     </Link>
                     <h1 className="home__collection-card__article__title">{title}</h1>
                     <p className="home__collection-card__article__desc">{desc}</p>
-                    <Link to={linkHref}>
-                        <button className="home__collection-card__article__cta-btn">Shop Now</button>
+                    <Link to={linkHref} className="home__collection-card__article__cta-btn-link-wrapper">
+                        <button className="home__collection-card__article__cta-btn">
+                            <span>Shop Now</span>
+                            <svg width="21" height="16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.707 8.707a1 1 0 000-1.414L14.343.929a1 1 0 10-1.414 1.414L18.586 8l-5.657 5.657a1 1 0 001.414 1.414l6.364-6.364zM0 9h20V7H0v2z" fill="#047857" /></svg>
+                        </button>
                     </Link>
                 </article>
             </div>
