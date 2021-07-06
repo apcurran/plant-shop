@@ -42,7 +42,6 @@ function CollectionCards() {
         <div className="home__collection-cards-container">
             {collectionCardsData.map((card, index) => (
                 <CollectionCard
-                    index={index}
                     key={card.title}
                     title={card.title}
                     desc={card.desc}

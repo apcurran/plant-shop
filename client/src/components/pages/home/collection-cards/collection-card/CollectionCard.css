@@ -28,10 +28,27 @@
 }
 
 .home__collection-card__article__badge {
+    margin-bottom: 1rem;
     padding: .75rem 1.25rem;
     border: none;
     background-color: var(--cta-accent-clr);
     color: var(--cta-accent-clr-dark);
     font-weight: 700;
     font-size: 1rem;
+    cursor: pointer;
+}
+
+.home__collection-card__article__desc {
+    margin-bottom: 1.5rem;
+}
+
+.home__collection-card__article__cta-btn {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--dark-green);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    border: none;
+    cursor: pointer;
+    background: none;
 }
