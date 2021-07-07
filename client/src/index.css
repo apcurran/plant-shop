@@ -9,10 +9,13 @@
   --base-font-dark-clr: #292524;
   --med-warm-grey: #57534e;
   --light-warm-grey: #f5f5f4;
+  --dark-emerald-green: #065f46;
+  --med-emerald-green: #10b981;
+  --very-dark-emerald-green: #064e3b;
+  --light-green: #bbf7d0;
 
   --cta-accent-clr: #fef3c7;
   --cta-accent-clr-dark: #b45309;
-  --dark-green: #047857;
 
   /* Font Sizes */
   --fz-sm: .9375rem;

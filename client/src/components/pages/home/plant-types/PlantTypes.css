@@ -1,0 +1,42 @@
+.home__plant-types {
+    background: conic-gradient(from -90deg at 50% -25%, var(--dark-emerald-green), var(--light-green));
+}
+
+.home__plant-types-inner-wrapper {
+    width: var(--base-container-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.home__plant-types__column--left,
+.home__plant-types__column--right {
+    padding: 10rem 2rem;
+}
+
+.home__plant-types__title,
+.home__plant-types__item {
+    color: var(--very-dark-emerald-green);
+}
+
+.home__plant-types__title {
+    margin-bottom: .25rem;
+}
+
+.home__plant-types__sub-heading {
+    margin-bottom: 1.75rem;
+    color: var(--med-emerald-green);
+}
+
+.home__plant-types__item {
+    margin-bottom: 1.25rem;
+}
+
+.home__plant-types__desc {
+    color: var(--very-dark-emerald-green);
+}
+
+.home__plant-types__desc:first-of-type {
+    margin-bottom: 1.75rem;
+}
