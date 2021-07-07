@@ -28,3 +28,7 @@ a {
   font-family: 'Segoe UI', sans-serif;
   color: var(--base-font-dark-clr);
 }
+
+p {
+  line-height: 1.6;
+}
