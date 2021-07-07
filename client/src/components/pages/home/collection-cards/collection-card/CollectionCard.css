@@ -11,11 +11,11 @@
 }
 
 .home__collection-card:nth-of-type(odd) {
-    padding: 8rem 0;
+    padding: 9rem 0;
 }
 
 .home__collection-card:nth-of-type(even) {
-    padding: 8rem 0;
+    padding: 9rem 0;
     background-color: var(--light-warm-grey);
 }
 
