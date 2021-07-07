@@ -1,0 +1,7 @@
+.home-grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    min-height: 100vh;
+    background-image: url("https://res.cloudinary.com/dev-project/image/upload/v1625242585/evergreen-app/leaf-rain-bg_modldu.jpg");
+}

@@ -4,8 +4,9 @@ import Header from "../../layout/header/Header";
 function About() {
     return (
         <div className="about">
-            <Header />
-            <h1>About Section</h1>
+            <div className="about-grid-wrapper">
+                <Header />
+            </div>
         </div>
     );
 }
