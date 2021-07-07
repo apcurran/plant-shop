@@ -2,6 +2,7 @@ import "./Home.css";
 import Header from "../../layout/header/Header";
 import HeroSection from "./hero-section/HeroSection";
 import CollectionCards from "./collection-cards/CollectionCards";
+import Footer from "../../layout/footer/Footer";
 
 function Home() {
     return (
@@ -11,6 +12,7 @@ function Home() {
                 <HeroSection />
             </div>
             <CollectionCards />
+            <Footer />
         </div>
     );
 }

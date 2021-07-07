@@ -30,7 +30,7 @@
 }
 
 .nav__logo-link {
-    font-size: 1.75rem;
+    font-size: var(--fz-lg);
     font-weight: 700;
 }
 
