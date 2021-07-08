@@ -9,7 +9,7 @@ function CollectionCard({ title, desc, linkHref, imgPublicId, imgAlt, imgWidth, 
             <div className="home__collection-card__inner-container">
                 <figure className="home__collection-card__fig">
                     <Image publicId={imgPublicId} alt={imgAlt} className="home__collection-card__fig__img" loading="lazy" width={imgWidth} height={imgHeight}>
-                        <Transformation quality="auto" fetchFormat="auto" />
+                        <Transformation width="550" height="550" crop="fill" quality="auto" fetchFormat="auto" />
                     </Image>
                 </figure>
                 <article className="home__collection-card__article">
