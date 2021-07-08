@@ -14,7 +14,7 @@ function Footer() {
                     <div className="footer__container--right__column--left">
                         <div className="footer__container--right__column--left__group">
                             <h3 className="footer__title">About</h3>
-                            <Link to="/about-us" className="footer__link">About Us</Link>
+                            <Link to="/about" className="footer__link">About Us</Link>
                         </div>
                         <div className="footer__container--right__column--left__group">
                             <h3 className="footer__title">Contact</h3>
