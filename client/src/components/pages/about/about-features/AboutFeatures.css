@@ -39,3 +39,13 @@
     width: 100%;
     height: auto;
 }
+
+/* Line up with right side of wrapper */
+.about__features__fig--right {
+    justify-self: end;
+}
+
+.about__features__fig--span-all {
+    grid-column: 1 / -1;
+    width: 100%;
+}
