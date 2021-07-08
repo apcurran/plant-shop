@@ -32,7 +32,7 @@
 .home__plant-types__item {
     margin-left: 1rem;
     margin-bottom: 1.25rem;
-    padding-left: .75rem;
+    padding-left: 1rem;
 }
 
 .home__plant-types__item::marker {
