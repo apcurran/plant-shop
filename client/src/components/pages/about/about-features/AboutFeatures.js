@@ -17,7 +17,7 @@ function AboutFeatures() {
                 </p>
             </article>
             <div className="about__features__video-container">
-                <Video className="about__features__video" publicId="evergreen-app/potted-plant-blowing-in-wind_gb7lya" loop="true" autoplay="true" muted="muted">
+                <Video className="about__features__video" width="1920" height="1080" publicId="evergreen-app/potted-plant-blowing-in-wind_gb7lya" loop="true" autoplay="true" muted="muted">
                     <Transformation width="1300" height="600" crop="fill" quality="auto" fetchFormat="auto" />
                 </Video>
             </div>

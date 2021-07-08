@@ -1,19 +1,19 @@
-import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { CloudinaryContext } from "cloudinary-react";
+import { render, screen } from "@testing-library/react";
 
 import CollectionCards from "./CollectionCards";
 
 describe("CollectionCards component", () => {
     test("renders three CollectionCard components", () => {
-        const cloudinaryWrappedCollectionCards = (
-            <CloudinaryContext cloudName="dev-project" secure="true">
-                <CollectionCards />
-            </CloudinaryContext>
+        const { container } = render(
+            <MemoryRouter>
+                <CloudinaryContext cloudName="dev-project" secure="true">
+                    <CollectionCards />
+                </CloudinaryContext>
+            </MemoryRouter>
         );
-        render(cloudinaryWrappedCollectionCards);
 
-        const collectionCardComp = screen.getByRole("section");
-
-        console.log(collectionCardComp);
+        expect(container.getElementsByTagName("section").length).toBe(3);
     });
 });

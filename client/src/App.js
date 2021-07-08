@@ -4,6 +4,7 @@ import { CloudinaryContext } from "cloudinary-react";
 import './App.css';
 import Home from "./components/pages/home/Home";
 import About from "./components/pages/about/About";
+import Shop from "./components/pages/shop/Shop";
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
             </Route>
             <Route exact path="/about">
               <About />
+            </Route>
+            <Route exact path="/shop">
+              <Shop />
             </Route>
           </Switch>
         </div>
