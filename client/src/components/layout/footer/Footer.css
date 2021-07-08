@@ -48,6 +48,10 @@
     text-decoration: none;
 }
 
+.footer__link:hover {
+    color: var(--base-font-dark-clr);
+}
+
 .footer__creation-attribution,
 .footer__link {
     color: var(--med-warm-grey);

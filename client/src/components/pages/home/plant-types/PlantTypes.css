@@ -30,7 +30,14 @@
 }
 
 .home__plant-types__item {
+    margin-left: 1rem;
     margin-bottom: 1.25rem;
+    padding-left: .75rem;
+}
+
+.home__plant-types__item::marker {
+    content: "\2714";
+    font-size: 1.25rem;
 }
 
 .home__plant-types__desc {
