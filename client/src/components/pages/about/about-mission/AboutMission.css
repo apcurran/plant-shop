@@ -1,0 +1,12 @@
+.about__mission-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 9rem 0;
+    background-color: var(--light-warm-grey);
+}
+
+.about__mission-section__desc {
+    max-width: 75ch;
+    font-size: var(--fz-lg);
+}

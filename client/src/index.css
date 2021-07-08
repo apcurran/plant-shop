@@ -19,7 +19,9 @@
 
   /* Font Sizes */
   --fz-sm: .9375rem;
+  --fz-md: 1.125rem;
   --fz-lg: 1.75rem;
+  --fz-xl: 2.75rem;
 
   /* Widths */
   --base-container-width: 80rem;

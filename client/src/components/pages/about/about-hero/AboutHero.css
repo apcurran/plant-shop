@@ -14,6 +14,15 @@
     grid-row: 2 / 3;
 
     display: inline-block;
-    padding: 3rem 3.5rem;
+    padding: 2.5rem 3rem;
     background-color: hsla(0, 0%, 100%, .32);
+}
+
+.about__hero__card__title {
+    margin-bottom: .25rem;
+    font-size: var(--fz-xl);
+}
+
+.about__hero__card__desc {
+    font-size: var(--fz-md);
 }

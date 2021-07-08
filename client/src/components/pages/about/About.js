@@ -1,6 +1,7 @@
 import "./About.css";
 import Header from "../../layout/header/Header";
 import AboutHero from "./about-hero/AboutHero";
+import AboutMission from "./about-mission/AboutMission";
 
 function About() {
     return (
@@ -9,6 +10,7 @@ function About() {
                 <Header />
                 <AboutHero />
             </div>
+            <AboutMission />
         </div>
     );
 }
