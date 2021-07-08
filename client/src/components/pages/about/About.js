@@ -2,6 +2,7 @@ import "./About.css";
 import Header from "../../layout/header/Header";
 import AboutHero from "./about-hero/AboutHero";
 import AboutMission from "./about-mission/AboutMission";
+import AboutFeatures from "./about-features/AboutFeatures";
 import Footer from "../../layout/footer/Footer";
 
 function About() {
@@ -12,6 +13,7 @@ function About() {
                 <AboutHero />
             </div>
             <AboutMission />
+            <AboutFeatures />
             <Footer />
         </div>
     );

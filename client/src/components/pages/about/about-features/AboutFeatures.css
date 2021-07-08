@@ -1,0 +1,30 @@
+.about__features {
+    width: var(--base-container-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    padding: 4rem 0;
+}
+
+.about__features__fig {
+    width: 35rem;
+}
+
+.about__features__fig__img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.about__features__article {
+    padding: 3rem 4rem;
+}
+
+.about__features__article__title {
+    margin-bottom: .75rem;
+}
+
+.about__features__article__desc {
+    max-width: 68ch;
+}
