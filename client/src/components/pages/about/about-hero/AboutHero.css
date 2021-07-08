@@ -1,0 +1,19 @@
+.about__hero {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+
+    /* Image */
+    background-image: url("https://res.cloudinary.com/dev-project/image/upload/v1625683324/evergreen-app/room-with-plants_efygzq.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.about__hero__card {
+    grid-column: 3 / 5;
+    grid-row: 2 / 3;
+
+    display: inline-block;
+    padding: 3rem 3.5rem;
+    background-color: hsla(0, 0%, 100%, .32);
+}
