@@ -19,7 +19,16 @@ function App() {
               <About />
             </Route>
             <Route exact path="/collections">
-              <Shop />
+              <Shop categoryQueryText="all" titleBarText="Shop All Collections" />
+            </Route>
+            <Route exact path="/collections/house-plants">
+              <Shop categoryQueryText="house plants" titleBarText="House Plants" />
+            </Route>
+            <Route exact path="/collections/fruit-trees">
+              <Shop categoryQueryText="fruit trees" titleBarText="Fruit Trees" />
+            </Route>
+            <Route exact path="/collections/shade-trees">
+              <Shop categoryQueryText="shade trees" titleBarText="Shade Trees" />
             </Route>
           </Switch>
         </div>
