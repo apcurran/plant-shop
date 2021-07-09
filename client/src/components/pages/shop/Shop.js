@@ -15,7 +15,7 @@ function Shop({ titleBarText, categoryQueryText }) {
             .then((response) => response.json())
             .then((data) => setProductData(data))
             .catch((err) => console.error(err));
-    }, []);
+    }, [categoryQueryText]);
 
     return (
         <div className="shop">
