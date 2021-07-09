@@ -5,6 +5,9 @@ function Shop() {
     return (
         <div className="shop">
             <Header />
+            <div className="shop-inner-wrapper">
+
+            </div>
         </div>
     );
 }

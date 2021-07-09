@@ -7,7 +7,7 @@ function StandardLinks() {
                 <NavLink to="/about" className="nav__link">About</NavLink>
             </li>
             <li className="nav__item">
-                <NavLink to="/shop" className="nav__link">Shop</NavLink>
+                <NavLink to="/collections" className="nav__link">Shop</NavLink>
             </li>
         </ul>
     );
