@@ -5,10 +5,11 @@ import Header from "../../layout/header/Header";
 import TitleBar from "../../ui/title-bar/TitleBar";
 import CollectionNav from "./collection-nav/CollectionNav";
 import ShopHero from "./shop-hero/ShopHero";
+import ProductsSection from "./products-section/ProductsSection";
 import Footer from "../../layout/footer/Footer";
 
 function Shop({ titleBarText, categoryQueryText }) {
-    const [productData, setProductData] = useState([]);
+    const [productsData, setProductData] = useState([]);
 
     useEffect(() => {
         const apiUrl = categoryQueryText === "all" ? "/api/products" : `/api/products/category?q=${categoryQueryText}`;
@@ -26,7 +27,10 @@ function Shop({ titleBarText, categoryQueryText }) {
                 <TitleBar>{titleBarText}</TitleBar>
                 <div className="shop-inner-wrapper">
                     <CollectionNav />
-                    <ShopHero categoryQueryText={categoryQueryText} />
+                    <div className="shop-inner-wrapper--right">
+                        <ShopHero categoryQueryText={categoryQueryText} />
+                        <ProductsSection productsData={productsData} />
+                    </div>
                 </div>
             </main>
             <Footer />
