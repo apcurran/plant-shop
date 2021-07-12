@@ -1,5 +1,6 @@
 import "./ShopHero.css";
-import ShopHeroFig from "./ShopHeroFig/ShopHeroFig";
+import ShopHeroFig from "./shop-hero-fig/ShopHeroFig";
+import ShopHeroTaglineBox from "./shop-hero-tagline-box/ShopHeroTaglineBox";
 
 function ShopHero({ categoryQueryText }) {
     // Output different images and headline boxes for each collection type
@@ -66,37 +67,48 @@ function ShopHero({ categoryQueryText }) {
         shadeTreeImgs.slice(0, 2)
     ].flat();
 
+    let outputTagline;
     let outputImgs;
 
     if (categoryQueryText === "house plants") {
+        // Unique category hero imgs
         outputImgs = housePlantImgs.map((img) => {
             return (
                 <ShopHeroFig key={img.publicId} img={img} />
             );
         });
+        // Unique category tagline box
+        outputTagline = <ShopHeroTaglineBox titleText="Bring Nature Indoors" />
     } else if (categoryQueryText === "fruit trees") {
         outputImgs = fruitTreeImgs.map((img) => {
             return (
                 <ShopHeroFig key={img.publicId} img={img} />
             );
         });
+
+        outputTagline = <ShopHeroTaglineBox titleText="Food From Your Backyard" />
     } else if (categoryQueryText === "shade trees") {
         outputImgs = shadeTreeImgs.map((img) => {
             return (
                 <ShopHeroFig key={img.publicId} img={img} />
             );
         });
+
+        outputTagline = <ShopHeroTaglineBox titleText="Create Your own Oasis" />
     } else {
         outputImgs = allCollectionsImgs.map((img) => {
             return (
                 <ShopHeroFig key={img.publicId} img={img} />
             );
         });
+
+        outputTagline = <ShopHeroTaglineBox titleText="Evergreen Collections for Your Home" />
     }
 
     return (
-        <div>
+        <div className="shop__hero">
             {outputImgs}
+            {outputTagline}
         </div>
     );
 }
