@@ -24,7 +24,7 @@ function Shop({ titleBarText, categoryQueryText }) {
             <Header />
             <main className="shop-main-wrapper">
                 <TitleBar>{titleBarText}</TitleBar>
-                <div className="shop-inner-grid-wrapper">
+                <div className="shop-inner-wrapper">
                     <CollectionNav />
                     <ShopHero categoryQueryText={categoryQueryText} />
                 </div>

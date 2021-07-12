@@ -1,5 +1,5 @@
 .shop__collection-nav {
-    margin-right: 2rem;
+    margin-right: 2.25rem;
 }
 
 .shop__collection-nav__list {
@@ -13,8 +13,7 @@
 
 .shop__collection-nav__list__link {
     display: block;
-    padding-right: .75rem;
-    /* font-weight: 700; */
+    padding-right: 1rem;
     text-decoration: none;
     color: var(--med-warm-grey);
 }
