@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./Shop.css";
 import Header from "../../layout/header/Header";
 import TitleBar from "../../ui/title-bar/TitleBar";
+import ShopHero from "./shop-hero/ShopHero";
 import Footer from "../../layout/footer/Footer";
 
 function Shop({ titleBarText, categoryQueryText }) {
@@ -22,6 +23,7 @@ function Shop({ titleBarText, categoryQueryText }) {
             <Header />
             <main className="shop-main-wrapper">
                 <TitleBar>{titleBarText}</TitleBar>
+                <ShopHero categoryQueryText={categoryQueryText} />
             </main>
             <Footer />
         </div>
