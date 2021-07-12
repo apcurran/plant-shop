@@ -60,26 +60,38 @@ function ShopHero({ categoryQueryText }) {
         }
     ];
 
+    const allCollectionsImgs = [
+        housePlantImgs.slice(0, 1),
+        fruitTreeImgs.slice(0, 1),
+        shadeTreeImgs.slice(0, 2)
+    ].flat();
+
     let outputImgs;
 
     if (categoryQueryText === "house plants") {
         outputImgs = housePlantImgs.map((img) => {
             return (
-                <ShopHeroFig img={img} />
+                <ShopHeroFig key={img.publicId} img={img} />
             );
         });
     } else if (categoryQueryText === "fruit trees") {
         outputImgs = fruitTreeImgs.map((img) => {
             return (
-                <ShopHeroFig img={img} />
+                <ShopHeroFig key={img.publicId} img={img} />
             );
         });
     } else if (categoryQueryText === "shade trees") {
         outputImgs = shadeTreeImgs.map((img) => {
             return (
-                <ShopHeroFig img={img} />
+                <ShopHeroFig key={img.publicId} img={img} />
             );
-        })
+        });
+    } else {
+        outputImgs = allCollectionsImgs.map((img) => {
+            return (
+                <ShopHeroFig key={img.publicId} img={img} />
+            );
+        });
     }
 
     return (
