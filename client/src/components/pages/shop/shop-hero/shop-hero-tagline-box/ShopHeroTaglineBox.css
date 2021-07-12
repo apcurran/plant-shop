@@ -1,7 +1,12 @@
 .shop__hero__tagline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: var(--base-font-dark-clr);
 }
 
 .shop__hero__tagline__title {
+    padding: 0 1rem;
+    text-align: center;
     color: #fff;
 }

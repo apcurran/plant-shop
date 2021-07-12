@@ -102,7 +102,7 @@ function ShopHero({ categoryQueryText }) {
             );
         });
 
-        outputTagline = <ShopHeroTaglineBox titleText="Evergreen Collections for Your Home" />
+        outputTagline = <ShopHeroTaglineBox titleText="Evergreen Plants for Your Home" />
     }
 
     return (
