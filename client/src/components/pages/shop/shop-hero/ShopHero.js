@@ -1,6 +1,5 @@
-import { Image, Transformation } from "cloudinary-react";
-
 import "./ShopHero.css";
+import ShopHeroFig from "./ShopHeroFig/ShopHeroFig";
 
 function ShopHero({ categoryQueryText }) {
     // Output different images and headline boxes for each collection type
@@ -23,18 +22,39 @@ function ShopHero({ categoryQueryText }) {
         }
     ];
 
+    const fruitTreeImgs = [
+        {
+            publicId: "evergreen-app/collections/hero/lemons_yul2l1.jpg",
+            alt: "Lemons against a white background."
+        },
+        {
+            publicId: "evergreen-app/collections/hero/olive-trees_uwcrgn.jpg",
+            alt: "Olives hanging on an olive tree."
+        },
+        {
+            publicId: "evergreen-app/collections/hero/orange-trees_ry3dpn.jpg",
+            alt: "Orange trees in front of a building."
+        },
+        {
+            publicId: "evergreen-app/collections/hero/apple-tree_iwhshg.jpg",
+            alt: "Red apples on an apple tree."
+        },
+    ];
+
     let outputImgs;
 
     if (categoryQueryText === "house plants") {
         outputImgs = housePlantImgs.map((img) => {
             return (
-                <figure key={img.publicId} className="shop__hero__fig">
-                    <Image publicId={img.publicId} alt={img.alt} className="shop__hero__fig__img" width="300" height="450">
-                        <Transformation width="300" height="450" crop="fit" quality="auto" fetchFormat="auto" />
-                    </Image>
-                </figure>
+                <ShopHeroFig img={img} />
             );
-        })
+        });
+    } else if (categoryQueryText === "fruit trees") {
+        outputImgs = fruitTreeImgs.map((img) => {
+            return (
+                <ShopHeroFig img={img} />
+            );
+        });
     }
 
     return (
