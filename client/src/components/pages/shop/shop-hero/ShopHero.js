@@ -38,7 +38,26 @@ function ShopHero({ categoryQueryText }) {
         {
             publicId: "evergreen-app/collections/hero/apple-tree_iwhshg.jpg",
             alt: "Red apples on an apple tree."
+        }
+    ];
+
+    const shadeTreeImgs = [
+        {
+            publicId: "evergreen-app/collections/hero/redwood-trees_gxtzl3.jpg",
+            alt: "Upward angle view of tall redwood trees."
         },
+        {
+            publicId: "evergreen-app/collections/hero/fall-trees_mrofdl.jpg",
+            alt: "Orange and yellow fall leaves on trees near a path."
+        },
+        {
+            publicId: "evergreen-app/collections/hero/winter-trees_t98fgj.jpg",
+            alt: "Person walking down a forest trail with snow."
+        },
+        {
+            publicId: "evergreen-app/collections/hero/spring-trees_ukk4e0.jpg",
+            alt: "Pink blossoms on a tree during spring."
+        }
     ];
 
     let outputImgs;
@@ -55,6 +74,12 @@ function ShopHero({ categoryQueryText }) {
                 <ShopHeroFig img={img} />
             );
         });
+    } else if (categoryQueryText === "shade trees") {
+        outputImgs = shadeTreeImgs.map((img) => {
+            return (
+                <ShopHeroFig img={img} />
+            );
+        })
     }
 
     return (
