@@ -1,0 +1,24 @@
+.shop__collection-nav {
+    margin-right: 2rem;
+}
+
+.shop__collection-nav__list {
+    list-style: none;
+}
+
+.shop__collection-nav__list__item {
+    white-space: nowrap;
+    margin-bottom: .75rem;
+}
+
+.shop__collection-nav__list__link {
+    display: block;
+    padding-right: .75rem;
+    /* font-weight: 700; */
+    text-decoration: none;
+    color: var(--med-warm-grey);
+}
+
+.shop__collection-nav__list__link.active {
+    color: var(--base-font-dark-clr);
+}

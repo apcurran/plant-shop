@@ -4,6 +4,7 @@
 }
 
 .shop-inner-grid-wrapper {
+    padding: 3rem 0;
     width: 90%;
     display: flex;
 }
