@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./Shop.css";
 import Header from "../../layout/header/Header";
 import TitleBar from "../../ui/title-bar/TitleBar";
+import CollectionNav from "./collection-nav/CollectionNav";
 import ShopHero from "./shop-hero/ShopHero";
 import Footer from "../../layout/footer/Footer";
 
@@ -23,7 +24,10 @@ function Shop({ titleBarText, categoryQueryText }) {
             <Header />
             <main className="shop-main-wrapper">
                 <TitleBar>{titleBarText}</TitleBar>
-                <ShopHero categoryQueryText={categoryQueryText} />
+                <div className="shop-inner-grid-wrapper">
+                    <CollectionNav />
+                    <ShopHero categoryQueryText={categoryQueryText} />
+                </div>
             </main>
             <Footer />
         </div>

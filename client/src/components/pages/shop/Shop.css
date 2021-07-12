@@ -2,3 +2,8 @@
     width: var(--base-container-width);
     margin: 0 auto;
 }
+
+.shop-inner-grid-wrapper {
+    width: 90%;
+    display: flex;
+}
