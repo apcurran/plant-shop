@@ -11,7 +11,7 @@ async function getProducts(req, res, next) {
                 product.title,
                 product.category,
 
-                product_img.url,
+                product_img.public_id AS "publicId",
                 product_img.alt_text AS "altText",
                 product_img.width,
                 product_img.height,
@@ -44,7 +44,7 @@ async function getProduct(req, res, next) {
                 product.description,
                 product.category,
 
-                product_img.url,
+                product_img.public_id AS "publicId",
                 product_img.alt_text AS "altText",
                 product_img.width,
                 product_img.height,
@@ -80,7 +80,7 @@ async function getProductsByCategory(req, res, next) {
                 product.title,
                 product.category,
 
-                product_img.url,
+                product_img.public_id AS "publicId",
                 product_img.alt_text AS "altText",
                 product_img.width,
                 product_img.height,
@@ -110,7 +110,7 @@ async function postProduct(req, res, next) {
         description,
         category,
         productExtraInfo, // Array
-        imgUrl,
+        imgPublicId,
         imgAltText,
         imgWidth,
         imgHeight
@@ -148,11 +148,11 @@ async function postProduct(req, res, next) {
         await client.query(
             `
             INSERT INTO product_img
-                (product_id, alt_text, width, height, url)
+                (product_id, alt_text, width, height, public_id)
             VALUES
                 ($1, $2, $3, $4, $5)
             `,
-            [insertedProductId, imgAltText, imgWidth, imgHeight, imgUrl]
+            [insertedProductId, imgAltText, imgWidth, imgHeight, imgPublicId]
         );
         // Commit transaction to client
         await client.query("COMMIT");
@@ -175,7 +175,7 @@ async function patchProduct(req, res, next) {
         description,
         category,
         productExtraInfo, // Array
-        imgUrl,
+        imgPublicId,
         imgAltText,
         imgWidth,
         imgHeight
@@ -220,10 +220,10 @@ async function patchProduct(req, res, next) {
                 alt_text = COALESCE($1, alt_text),
                 width = COALESCE($2, width),
                 height = COALESCE($3, height),
-                url = COALESCE($4, url)
+                public_id = COALESCE($4, public_id)
             WHERE product_img.product_id = $5
             `,
-            [imgAltText, imgWidth, imgHeight, imgUrl, productId]
+            [imgAltText, imgWidth, imgHeight, imgPublicId, productId]
         );
         await client.query("COMMIT");
 

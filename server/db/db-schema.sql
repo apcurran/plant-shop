@@ -12,7 +12,7 @@ CREATE TABLE product_img(
     alt_text VARCHAR,
     width INT,
     height INT,
-    url VARCHAR
+    public_id VARCHAR
 );
 
 CREATE TABLE product_extra_info(
