@@ -14,6 +14,11 @@
     align-items: center;
 }
 
+.shop__products-section__card__title,
+.shop__products-section__card__price {
+    font-size: var(--fz-sm);
+}
+
 .shop__products-section__card__title {
-    font-size: 1rem;
+    font-weight: 400;
 }
