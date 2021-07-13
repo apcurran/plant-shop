@@ -1,3 +1,9 @@
 .shop__products-section__title {
     margin-bottom: 1rem;
 }
+
+.shop__products-section__product-card-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
