@@ -12,7 +12,7 @@ function ProductCard({ productData }) {
             </figure>
             <div className="shop__products-section__card__content-group">
                 <h3 className="shop__products-section__card__title">{productData.title}</h3>
-                <span className="shop__products-section__card__price">{productData.price}</span>
+                <span className="shop__products-section__card__price">${productData.price}</span>
             </div>
         </article>
     );

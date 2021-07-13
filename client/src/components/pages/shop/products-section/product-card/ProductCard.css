@@ -1,9 +1,19 @@
 .shop__products-section__card__fig {
-    
+    margin-bottom: .75rem;
 }
 
 .shop__products-section__card__img {
     display: block;
     width: 100%;
     height: auto;
+}
+
+.shop__products-section__card__content-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.shop__products-section__card__title {
+    font-size: 1rem;
 }
