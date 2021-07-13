@@ -18,7 +18,7 @@ describe("CollectionCard component", () => {
             }
         };
 
-        const { container } = render(
+        render(
             <MemoryRouter>
                 <CloudinaryContext cloudName="dev-project" secure="true">
                     <CollectionCard
@@ -35,10 +35,10 @@ describe("CollectionCard component", () => {
             </MemoryRouter>
         );
 
-        expect(container.getElementsByTagName("img"));
-        expect(screen.getByText("Collection"));
-        expect(screen.getByText("Organic Fruit for your Home Garden"));
-        expect(screen.getByText("Nulla euismod justo sapien, cursus malesuada lorem efficitur ut. Sed nec dapibus ligula, ut luctus diam. Nunc est libero, sagittis fermentum felis vitae, fermentum volutpat neque. Vestibulum venenatis vel lorem a consequat. Praesent nec tellus metus. Aliquam consequat quis libero vitae euismod. Aliquam ac sem nec arcu facilisis imperdiet vitae et purus. Proin ut ornare nibh, in tincidunt enim."));
-        expect(screen.getByText(/Shop Now/i));
+        expect(screen.getByRole("img")).toBeInTheDocument();
+        expect(screen.getByText("Collection")).toBeInTheDocument();
+        expect(screen.getByText("Organic Fruit for your Home Garden")).toBeInTheDocument();
+        expect(screen.getByText("Nulla euismod justo sapien, cursus malesuada lorem efficitur ut. Sed nec dapibus ligula, ut luctus diam. Nunc est libero, sagittis fermentum felis vitae, fermentum volutpat neque. Vestibulum venenatis vel lorem a consequat. Praesent nec tellus metus. Aliquam consequat quis libero vitae euismod. Aliquam ac sem nec arcu facilisis imperdiet vitae et purus. Proin ut ornare nibh, in tincidunt enim.")).toBeInTheDocument();
+        expect(screen.getByText(/Shop Now/i)).toBeInTheDocument();
     });
 });
