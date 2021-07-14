@@ -4,6 +4,7 @@
 }
 
 .product__grid-wrapper {
+    padding: 2rem 0;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 1.5rem;
@@ -13,4 +14,29 @@
     display: block;
     width: 100%;
     height: auto;
+}
+
+.product__content__heading-container {
+    display: flex;
+    align-items: baseline;
+    gap: 4rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    line-height: 1;
+
+    border-bottom: 1px solid var(--light-warm-grey);
+}
+
+.product__content__size-title {
+    margin-bottom: 1rem;
+}
+
+.product__content__starting-price-para {
+    font-size: var(--fz-sm);
+}
+
+.product__content__starting-price-para__price {
+    display: inline-block;
+    margin-left: .5rem;
+    font-size: var(--fz-md);
 }

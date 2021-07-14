@@ -1,0 +1,20 @@
+.product__content__size-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.product__content__size-btn:not(:last-of-type) {
+    margin-right: 2rem;
+}
+
+.product__content__size-btn__gallon-size {
+    padding: 1rem;
+    margin-bottom: .75rem;
+    background-color: var(--light-warm-grey);
+    font-size: 1rem;
+}
+
+.product__content__size-btn__price {
+    font-size: var(--fz-sm);
+}
