@@ -6,9 +6,10 @@
 
 :root {
   /* Colors */
-  --base-font-dark-clr: #292524;
-  --med-warm-grey: #57534e;
   --light-warm-grey: #f5f5f4;
+  --light-med-warm-grey: #a8a29e;
+  --med-warm-grey: #57534e;
+  --base-font-dark-clr: #292524;
   --dark-emerald-green: #065f46;
   --med-emerald-green: #10b981;
   --very-dark-emerald-green: #064e3b;

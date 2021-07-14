@@ -7,7 +7,7 @@
     padding: 2rem 0;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
-    gap: 1.5rem;
+    gap: 3rem;
 }
 
 .product__fig__img {
@@ -39,4 +39,34 @@
     display: inline-block;
     margin-left: .5rem;
     font-size: var(--fz-md);
+}
+
+.product__content__add-info-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.product__content__add-btn {
+    padding: 1.25rem 3rem;
+    border: none;
+    background-color: var(--cta-accent-clr);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.product__content__info-article-container {
+    display: flex;
+}
+
+.product__content__info-article {
+    padding: 2rem 4rem;
+    background-color: var(--light-warm-grey);
+}
+
+.product__content__info-article:first-of-type {
+    border-right: 1px solid var(--light-med-warm-grey);
 }
