@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Image, Transformation } from "cloudinary-react";
 
 import "./Product.css";
 import Header from "../../layout/header/Header";
@@ -21,6 +22,13 @@ function Product() {
             <Header />
             <main className="product-main-wrapper">
                 <TitleBar>{productData.category}</TitleBar>
+                <div className="product__grid-wrapper">
+                    <figure className="product__fig">
+                        <Image publicId={productData.publicId} alt={productData.altText} className="product__fig__img">
+                            <Transformation />
+                        </Image>
+                    </figure>
+                </div>
             </main>
         </div>
     );
