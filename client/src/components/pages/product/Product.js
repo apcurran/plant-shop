@@ -24,8 +24,8 @@ function Product() {
                 <TitleBar>{productData.category}</TitleBar>
                 <div className="product__grid-wrapper">
                     <figure className="product__fig">
-                        <Image publicId={productData.publicId} alt={productData.altText} className="product__fig__img">
-                            <Transformation />
+                        <Image publicId={productData.publicId} alt={productData.altText} width={productData.width} height={productData.height} className="product__fig__img">
+                            <Transformation quality="auto" fetchFormat="auto" />
                         </Image>
                     </figure>
                 </div>
