@@ -1,0 +1,4 @@
+.product-main-wrapper {
+    width: var(--base-container-width);
+    margin: 0 auto;
+}

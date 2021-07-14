@@ -3,4 +3,5 @@
     border-top: 1px solid var(--light-warm-grey);
     border-bottom: 1px solid var(--light-warm-grey);
     line-height: 1;
+    text-transform: capitalize;
 }
