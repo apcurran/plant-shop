@@ -8,6 +8,7 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 // Import routers
 const productsRouter = require("./api/routes/products-router");
+const authRouter = require("./api/routes/auth-router");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
 // API routers
 app.use("/api/products", productsRouter);
+app.use("/api/auth", authRouter);
 
 // General server error handling
 app.use((err, req, res, next) => {
