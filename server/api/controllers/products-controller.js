@@ -2,7 +2,7 @@
 
 const db = require("../../db/index");
 const { transformProductResults } = require("../../util/transform-product-results");
-const { postProductValidation } = require("../validation/products-validation")
+const { postProductValidation, patchProductValidation } = require("../validation/products-validation")
 
 async function getProducts(req, res, next) {
     try {
@@ -27,7 +27,7 @@ async function getProducts(req, res, next) {
                 -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
             ORDER BY product.category
         `)).rows;
-        
+
         res.status(200).json(products);
 
     } catch (err) {
@@ -62,7 +62,7 @@ async function getProduct(req, res, next) {
             `,
             [productId]
         )).rows;
-        
+
         const formattedProduct = transformProductResults(product);
 
         res.status(200).json(formattedProduct);
@@ -96,8 +96,8 @@ async function getProductsByCategory(req, res, next) {
                 -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
             WHERE product.category = $1
         `,
-        [q])).rows;
-        
+            [q])).rows;
+
         res.status(200).json(products);
 
     } catch (err) {
@@ -165,7 +165,7 @@ async function postProduct(req, res, next) {
         );
         // Commit transaction to client
         await client.query("COMMIT");
-        
+
     } catch (err) {
         await client.query("ROLLBACK");
 
@@ -178,6 +178,14 @@ async function postProduct(req, res, next) {
 }
 
 async function patchProduct(req, res, next) {
+    // Validate incoming data first
+    try {
+        await patchProductValidation(req.body);
+
+    } catch (err) {
+        return res.status(400).json({ error: err.details[0].message });
+    }
+
     const { productId } = req.params;
     const {
         title,

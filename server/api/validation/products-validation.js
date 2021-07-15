@@ -13,7 +13,7 @@ function postProductValidation(data) {
         category:         Joi
                             .string()
                             .required(),
-        productExtraInfo: Joi
+        productExtraInfo: Joi // Bug TODO: will add without an array present in req.body field
                             .array()
                             .items(
                                 Joi.object({
@@ -39,6 +39,36 @@ function postProductValidation(data) {
     return schema.validateAsync(data);
 }
 
+function patchProductValidation(data) {
+    const schema = Joi.object({
+        title:            Joi
+                            .string(),
+        description:      Joi
+                            .string(),
+        category:         Joi
+                            .string(),
+        productExtraInfo: Joi // Bug TODO: will add without an array present in req.body field
+                            .array()
+                            .items(
+                                Joi.object({
+                                    size: Joi.number().required(),
+                                    price: Joi.number().required()
+                                })
+                            ),
+        imgPublicId:      Joi
+                            .string(),
+        imgAltText:       Joi
+                            .string(),
+        imgWidth:         Joi
+                            .number(),
+        imgHeight:        Joi
+                            .number()
+    });
+
+    return schema.validateAsync(data);
+}
+
 module.exports = {
     postProductValidation,
+    patchProductValidation
 };
