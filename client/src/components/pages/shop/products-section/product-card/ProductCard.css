@@ -1,3 +1,7 @@
+.shop__products-section__link {
+    text-decoration: none;
+}
+
 .shop__products-section__card__fig {
     margin-bottom: .75rem;
 }

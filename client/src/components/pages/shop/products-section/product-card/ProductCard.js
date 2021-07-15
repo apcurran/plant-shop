@@ -5,7 +5,7 @@ import "./ProductCard.css";
 
 function ProductCard({ productData }) {
     return (
-        <Link to={{pathname: `/collections/${productData.productId}`}}>
+        <Link to={{pathname: `/collections/${productData.productId}`}} className="shop__products-section__link">
             <article className="shop__products-section__card">
                 <figure className="shop__products-section__card__fig">
                     <Image publicId={productData.publicId} alt={productData.altText} className="shop__products-section__card__img" loading="lazy" width={productData.width} height={productData.height}>
