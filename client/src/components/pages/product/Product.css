@@ -59,7 +59,8 @@
 }
 
 .product__content__info-article-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .product__content__info-article {
@@ -67,6 +68,18 @@
     background-color: var(--light-warm-grey);
 }
 
-.product__content__info-article:first-of-type {
-    border-right: 1px solid var(--light-med-warm-grey);
+.product__content__shipping-info {
+    position: relative;
+}
+
+.product__content__shipping-info::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    background-color: var(--light-med-warm-grey);
+    width: 1px;
+    height: 65%;
 }
