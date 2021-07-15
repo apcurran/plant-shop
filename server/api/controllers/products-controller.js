@@ -2,6 +2,7 @@
 
 const db = require("../../db/index");
 const { transformProductResults } = require("../../util/transform-product-results");
+const { postProductValidation } = require("../validation/products-validation")
 
 async function getProducts(req, res, next) {
     try {
@@ -105,6 +106,14 @@ async function getProductsByCategory(req, res, next) {
 }
 
 async function postProduct(req, res, next) {
+    // Validate incoming data first
+    try {
+        await postProductValidation(req.body);
+
+    } catch (err) {
+        return res.status(400).json({ error: err.details[0].message });
+    }
+
     const {
         title,
         description,
