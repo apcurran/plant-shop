@@ -77,6 +77,11 @@
     position: relative;
 }
 
+.product__content__shipping-info__desc,
+.product__content__warranty-info__desc {
+    margin-bottom: 1rem;
+}
+
 .product__content__shipping-info::after {
     content: "";
     display: block;
@@ -87,4 +92,11 @@
     background-color: var(--light-med-warm-grey);
     width: 1px;
     height: 65%;
+}
+
+/* SVG Icons */
+.product__box-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    fill: var(--med-warm-grey);
 }
