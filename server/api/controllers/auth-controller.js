@@ -17,7 +17,27 @@ async function postSignup(req, res, next) {
     }
 
     try {
+        const {
+            firstName,
+            lastName,
+            email,
+            password,
+            adminPassword
+        } = req.body;
+        // Reject if there is already an existing user with the same email
+        const emailExists = (await db.query(`
+            SELECT app_user.user_id
+            FROM app_user
+            WHERE app_user.email = $1
+        `,  [email])).rows;
+
+        if (emailExists.length > 0) {
+            return res.status(400).json({ error: "Email already exists." });
+        }
+
+        // Hash password
         
+
     } catch (err) {
         next(err);
     }
@@ -34,6 +54,7 @@ async function postLogin(req, res, next) {
 
     try {
         
+
     } catch (err) {
         next(err);
     }
