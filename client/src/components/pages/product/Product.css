@@ -58,6 +58,10 @@
     letter-spacing: .08em;
 }
 
+.product__content__desc {
+    margin-bottom: 2rem;
+}
+
 .product__content__info-article-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -66,6 +70,7 @@
 .product__content__info-article {
     padding: 2rem 4rem;
     background-color: var(--light-warm-grey);
+    text-align: center;
 }
 
 .product__content__shipping-info {
