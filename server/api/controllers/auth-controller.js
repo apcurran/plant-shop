@@ -67,7 +67,44 @@ async function postLogin(req, res, next) {
     }
 
     try {
-        
+        const { email, password } = req.body;
+        const user = (await db.query(`
+            SELECT
+                user_id AS "userId",
+                first_name AS "firstName",
+                last_name AS "lastName",
+                email,
+                password,
+                is_admin AS "isAdmin"
+            FROM app_user
+            WHERE app_user.email = $1
+        `,  [email])).rows[0];
+
+        if (!user) {
+            return res.status(400).json({ error: "Email is not found." });
+        }
+
+        // Validate password
+        const validPassword = await bcrypt.compare(password, user.password);
+
+        if (!validPassword) {
+            return res.status(400).json({ error: "Invalid credentials provided. Check your email or password again." });
+        }
+
+        // Create and send token
+        const token = jwt.sign(
+            {
+                _id: user.userId,
+                firstName: user.firstName,
+                isAdmin: user.isAdmin
+            },
+            process.env.TOKEN_SECRET,
+            {
+                expiresIn: "2h"
+            }
+        );
+
+        res.status(200).json({ accessToken: token, userInfo: user });
 
     } catch (err) {
         next(err);
