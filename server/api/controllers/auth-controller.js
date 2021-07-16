@@ -38,6 +38,7 @@ async function postSignup(req, res, next) {
         // Hash password
         const saltRounds = 12;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
+        console.log(hashedPassword);
 
         // Is this new user an admin?
         const isAdmin = adminPassword === process.env.ADMIN_PW ? true : false;

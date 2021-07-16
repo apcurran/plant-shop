@@ -28,6 +28,6 @@ CREATE TABLE app_user(
     first_name VARCHAR(50),
     last_name VARCHAR(50),
     email VARCHAR(100),
-    password VARCHAR(50),
+    password VARCHAR,
     is_admin BOOLEAN
 );
