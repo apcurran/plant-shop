@@ -100,7 +100,15 @@ async function postLogin(req, res, next) {
             }
         );
 
-        res.status(200).json({ accessToken: token, userInfo: user });
+        const baseUserInfo = {
+            userId: user.userId,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            isAdmin: user.isAdmin
+        };
+
+        res.status(200).json({ accessToken: token, userInfo: baseUserInfo });
 
     } catch (err) {
         next(err);

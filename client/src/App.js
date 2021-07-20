@@ -6,6 +6,8 @@ import Home from "./components/pages/home/Home";
 import About from "./components/pages/about/About";
 import Shop from "./components/pages/shop/Shop";
 import Product from "./components/pages/product/Product";
+import SignUp from "./components/pages/auth/sign-up/SignUp";
+import LogIn from "./components/pages/log-in/LogIn";
 
 function App() {
   return (
@@ -33,6 +35,12 @@ function App() {
             </Route>
             <Route exact path="/collections/:productId">
               <Product />
+            </Route>
+            <Route exact path="/auth/sign-up">
+              <SignUp />
+            </Route>
+            <Route exact path="/auth/log-in">
+              <LogIn />
             </Route>
           </Switch>
         </div>
