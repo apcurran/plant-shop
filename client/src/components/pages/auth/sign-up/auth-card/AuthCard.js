@@ -2,15 +2,17 @@ import "./AuthCard.css";
 import SignUpForm from "./sign-up-form/SignUpForm";
 import AuthImg from "../../auth-img/AuthImg";
 
-function AuthCard() {
+function AuthCard({ title, imgPublicId, imgWidth, imgHeight }) {
+    const form = title === "Sign Up" ? <SignUpForm /> : null;
+
     return (
         <div className="auth-card">
             <section className="auth-card__content">
-                <h1 className="auth-card__content__title">Sign Up</h1>
-                <SignUpForm />
+                <h1 className="auth-card__content__title">{title}</h1>
+                {form}
             </section>
             <figure className="auth-card__fig">
-                <AuthImg imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />
+                <AuthImg imgPublicId={imgPublicId} imgWidth={imgWidth} imgHeight={imgHeight} />
             </figure>
         </div>
     );
