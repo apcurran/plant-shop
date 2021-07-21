@@ -5,7 +5,7 @@ const streamifier = require("streamifier");
 
 const { cloudinary } = require("../util/cloudinary");
 
-function streamUploadToCloudinary(req, folderPath) {
+function streamUploadToCloudinary(imgFile, folderPath) {
     return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
             {
@@ -20,7 +20,7 @@ function streamUploadToCloudinary(req, folderPath) {
             }
         );
 
-        streamifier.createReadStream(req.file.buffer).pipe(stream);
+        streamifier.createReadStream(imgFile.buffer).pipe(stream);
     });
 }
 
