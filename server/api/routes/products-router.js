@@ -13,7 +13,7 @@ router.get("/category", productsController.getProductsByCategory);
 // GET specific product
 router.get("/:productId", productsController.getProduct);
 // PATCH specific product
-router.patch("/:productId", productsController.patchProduct);
+router.patch("/:productId", verifyAdmin, productsController.patchProduct);
 // DELETE specific product
 router.delete("/:productId", verifyAdmin, productsController.deleteProduct);
 // GET all products

@@ -17,8 +17,6 @@ function verifyAuth(req, res, next) {
             return res.status(403).json({ error: "Invalid token." });
         }
 
-        console.log(user);
-
         // Validation passed
         req.user = user;
         next();
