@@ -4,12 +4,18 @@ import { useHistory } from "react-router-dom";
 import "../AuthForm.css";
 import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
 
+import useAuthStore from "../../../../../stores/AuthStore";
+
 function LogInForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
     let history = useHistory();
+
+    // AuthStore funcs
+    const setToken = useAuthStore((state) => state.setToken);
+    const setUser = useAuthStore((state) => state.setUser);
     
     async function handleSubmit(event) {
         event.preventDefault();
@@ -34,7 +40,10 @@ function LogInForm() {
             }
 
             // TODO: Store user log in info
+            const { accessToken, userInfo } = await response.json();
 
+            setToken(accessToken);
+            setUser(userInfo);
             // Re-direct user
             history.push("/collections");
 

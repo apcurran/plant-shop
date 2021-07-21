@@ -1,10 +1,10 @@
 import create from "zustand";
 
 const store = (set) => ({
+    token: null,
     user: null,
-    setUser: (userInfo) => set((state) => ({
-        user: userInfo
-    }))
+    setToken: (accessToken) => set((state) => ({ token: accessToken })),
+    setUser: (userInfo) => set((state) => ({ user: userInfo}))
 });
 
 const useAuthStore = create(store);
