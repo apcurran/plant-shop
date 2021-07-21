@@ -6,7 +6,6 @@ import Home from "./components/pages/home/Home";
 import About from "./components/pages/about/About";
 import Shop from "./components/pages/shop/Shop";
 import Product from "./components/pages/product/Product";
-import LogIn from "./components/pages/auth/log-in/LogIn";
 import Auth from "./components/pages/auth/Auth";
 
 function App() {
@@ -40,7 +39,7 @@ function App() {
               <Auth title="Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />
             </Route>
             <Route exact path="/auth/log-in">
-              <LogIn />
+              <Auth title="Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />
             </Route>
           </Switch>
         </div>

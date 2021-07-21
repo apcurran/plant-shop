@@ -1,9 +1,10 @@
 import "./AuthCard.css";
 import SignUpForm from "./sign-up-form/SignUpForm";
+import LogInForm from "./log-in-form/LogInForm";
 import AuthImg from "../auth-img/AuthImg";
 
 function AuthCard({ title, imgPublicId, imgWidth, imgHeight }) {
-    const form = title === "Sign Up" ? <SignUpForm /> : null;
+    const form = title === "Sign Up" ? <SignUpForm /> : <LogInForm />;
 
     return (
         <div className="auth-card">
