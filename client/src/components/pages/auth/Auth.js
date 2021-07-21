@@ -1,6 +1,6 @@
 import "./Auth.css";
 import Header from "../../layout/header/Header";
-import AuthCard from "./sign-up/auth-card/AuthCard";
+import AuthCard from "./auth-card/AuthCard";
 
 function Auth({ title, imgPublicId, imgWidth, imgHeight }) {
     return (

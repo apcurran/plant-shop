@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import "../../../AuthForm.css";
-import ErrorMsg from "../../../../../ui/error-msg/ErrorMsg";
+import "../AuthForm.css";
+import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
 
 function SignUpForm() {
     const [firstName, setFirstName] = useState("");
