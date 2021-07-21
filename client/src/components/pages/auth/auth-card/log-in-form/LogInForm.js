@@ -15,7 +15,7 @@ function LogInForm() {
         event.preventDefault();
 
         try {
-            const response = await fetch("/api/auth/sign-up", {
+            const response = await fetch("/api/auth/log-in", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
