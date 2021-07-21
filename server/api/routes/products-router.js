@@ -1,11 +1,14 @@
 "use strict";
 
 const express = require("express");
+const multer = require("multer");
 
 const productsController = require("../controllers/products-controller");
 const { verifyAdmin } = require("../middleware/verify-admin");
 
+
 const router = express.Router();
+const fileUpload = multer();
 
 // GET products by category
 router.get("/category", productsController.getProductsByCategory);
@@ -18,7 +21,7 @@ router.delete("/:productId", verifyAdmin, productsController.deleteProduct);
 // GET all products
 router.get("/", productsController.getProducts);
 // POST new product
-router.post("/", verifyAdmin, productsController.postProduct);
+router.post("/", verifyAdmin, fileUpload.single("productImg"), productsController.postProduct);
 
 
 module.exports = router;
