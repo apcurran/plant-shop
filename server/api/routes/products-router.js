@@ -3,6 +3,8 @@
 const express = require("express");
 
 const productsController = require("../controllers/products-controller");
+const { verifyAuth } = require("../middleware/verify-auth");
+const { verifyAdmin } = require("../middleware/verify-admin");
 
 const router = express.Router();
 
@@ -13,11 +15,11 @@ router.get("/:productId", productsController.getProduct);
 // PATCH specific product
 router.patch("/:productId", productsController.patchProduct);
 // DELETE specific product
-router.delete("/:productId", productsController.deleteProduct);
+router.delete("/:productId", verifyAdmin, productsController.deleteProduct);
 // GET all products
 router.get("/", productsController.getProducts);
 // POST new product
-router.post("/", productsController.postProduct);
+router.post("/", verifyAdmin, productsController.postProduct);
 
 
 module.exports = router;

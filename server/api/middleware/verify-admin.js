@@ -2,7 +2,7 @@
 
 const jwt = require("jsonwebtoken");
 
-function verifyAuth(req, res, next) {
+function verifyAdmin(req, res, next) {
     const authHeader = req.header("Authorization");
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -17,7 +17,9 @@ function verifyAuth(req, res, next) {
             return res.status(403).json({ error: "Invalid token." });
         }
 
-        console.log(user);
+        if (!user.isAdmin) {
+            return res.status(403).json({ error: "Unauthorized access." });
+        }
 
         // Validation passed
         req.user = user;
@@ -25,4 +27,4 @@ function verifyAuth(req, res, next) {
     });
 }
 
-module.exports = { verifyAuth };
+module.exports = { verifyAdmin };
