@@ -1,6 +1,5 @@
 import "./AuthCard.css";
 import SignUpForm from "./sign-up-form/SignUpForm";
-// import AuthImg from "../../auth-img/AuthImg";
 import AuthImg from "../auth-img/AuthImg";
 
 function AuthCard({ title, imgPublicId, imgWidth, imgHeight }) {
