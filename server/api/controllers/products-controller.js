@@ -3,6 +3,7 @@
 const db = require("../../db/index");
 const { transformProductResults } = require("../../util/transform-product-results");
 const { postProductValidation, patchProductValidation } = require("../validation/products-validation")
+const { streamUploadToCloudinary } = require("../../util/stream-upload-to-cloudinary");
 
 async function getProducts(req, res, next) {
     try {
@@ -114,12 +115,13 @@ async function postProduct(req, res, next) {
         return res.status(400).json({ error: err.details[0].message });
     }
 
+    const imgFile = req.file;
+    const productImgPublicId = (await streamUploadToCloudinary(imgFile, "evergreen-app")).public_id;
     const {
         title,
         description,
         category,
         productExtraInfo, // Array
-        imgPublicId,
         imgAltText,
         imgWidth,
         imgHeight
@@ -161,7 +163,7 @@ async function postProduct(req, res, next) {
             VALUES
                 ($1, $2, $3, $4, $5)
             `,
-            [insertedProductId, imgAltText, imgWidth, imgHeight, imgPublicId]
+            [insertedProductId, imgAltText, imgWidth, imgHeight, productImgPublicId]
         );
         // Commit transaction to client
         await client.query("COMMIT");

@@ -22,9 +22,6 @@ function postProductValidation(data) {
                                 })
                             )
                             .required(),
-        imgPublicId:      Joi
-                            .string()
-                            .required(),
         imgAltText:       Joi
                             .string()
                             .required(),
@@ -55,8 +52,6 @@ function patchProductValidation(data) {
                                     price: Joi.number().required()
                                 })
                             ),
-        imgPublicId:      Joi
-                            .string(),
         imgAltText:       Joi
                             .string(),
         imgWidth:         Joi
