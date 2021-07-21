@@ -3,7 +3,6 @@
 const express = require("express");
 
 const productsController = require("../controllers/products-controller");
-const { verifyAuth } = require("../middleware/verify-auth");
 const { verifyAdmin } = require("../middleware/verify-admin");
 
 const router = express.Router();
