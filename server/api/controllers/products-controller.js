@@ -116,15 +116,17 @@ async function postProduct(req, res, next) {
     }
 
     const imgFile = req.file;
-    const productImgPublicId = (await streamUploadToCloudinary(imgFile, "evergreen-app")).public_id;
+    // const productImgPublicId = (await streamUploadToCloudinary(imgFile, "evergreen-app")).public_id;
+    const uploadedProductImgData = await streamUploadToCloudinary(imgFile, "evergreen-app");
+    const productImgPublicId = uploadedProductImgData.public_id;
+    const productImgWidth = uploadedProductImgData.width;
+    const productImgHeight = uploadedProductImgData.height;
     const {
         title,
         description,
         category,
         productExtraInfo, // Array
-        imgAltText,
-        imgWidth,
-        imgHeight
+        imgAltText
     } = req.body;
     // node-postgres requires the use of client instead of pool.query here
     const client = await db.pool.connect();
@@ -163,7 +165,7 @@ async function postProduct(req, res, next) {
             VALUES
                 ($1, $2, $3, $4, $5)
             `,
-            [insertedProductId, imgAltText, imgWidth, imgHeight, productImgPublicId]
+            [insertedProductId, imgAltText, productImgWidth, productImgHeight, productImgPublicId]
         );
         // Commit transaction to client
         await client.query("COMMIT");
