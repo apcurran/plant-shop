@@ -1,10 +1,26 @@
 import "./AuthCard.css";
 import SignUpForm from "./sign-up-form/SignUpForm";
 import LogInForm from "./log-in-form/LogInForm";
+import AdminSignUpForm from "./admin-sign-up-form/AdminSignUpForm";
 import AuthImg from "../auth-img/AuthImg";
 
 function AuthCard({ title, imgPublicId, imgWidth, imgHeight }) {
-    const form = title === "Sign Up" ? <SignUpForm /> : <LogInForm />;
+    const form = getFormType(title);
+
+    function getFormType(title) {
+        switch (title) {
+            case "Sign Up":
+                return <SignUpForm />;
+            case "Log In":
+                return <LogInForm />;
+            case "Admin Sign Up":
+                return <AdminSignUpForm />;
+            case "Admin Log In":
+                return <LogInForm />;
+            default:
+                return "Something went wrong. Check props on component.";
+        }
+    }
 
     return (
         <div className="auth-card">

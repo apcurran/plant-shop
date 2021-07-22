@@ -10,7 +10,7 @@ import useAuthStore from "../../../stores/AuthStore";
 function Header({ homePageRendering }) {
     const loggedInUserInfo = useAuthStore((state) => state.user);
     console.log(loggedInUserInfo);
-    const displayedLinks = loggedInUserInfo ? <span>Hello, {loggedInUserInfo.firstName}!</span> : <SignedOutLinks /> ;
+    const displayedLinks = loggedInUserInfo ? <span>Hello, {loggedInUserInfo.firstName}!</span> : <SignedOutLinks />;
     // If the About page is rendering from the current route, apply CSS class
     const homePageHeaderClass = Boolean(homePageRendering) ? "header--home" : "";
 

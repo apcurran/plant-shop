@@ -41,6 +41,12 @@ function App() {
             <Route exact path="/auth/log-in">
               <Auth title="Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />
             </Route>
+            <Route exact path="/admin/auth/sign-up">
+              <Auth title="Admin Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />
+            </Route>
+            <Route exact path="/admin/auth/log-in">
+              <Auth title="Admin Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />
+            </Route>
           </Switch>
         </div>
       </Router>
