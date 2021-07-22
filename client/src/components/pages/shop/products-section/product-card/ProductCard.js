@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { Image, Transformation } from "cloudinary-react";
 
+import useAuthStore from "../../../../../stores/AuthStore";
+
 import "./ProductCard.css";
+import AdminDeleteBtn from "./admin-delete-btn/AdminDeleteBtn";
 
 function ProductCard({ productData }) {
+    const isAdmin = useAuthStore((state) => state.user.isAdmin);
+    const adminDeleteBtn = isAdmin ? <AdminDeleteBtn /> : null;
+
     return (
         <Link to={{pathname: `/collections/${productData.productId}`}} className="shop__products-section__link">
             <article className="shop__products-section__card">
@@ -16,6 +22,7 @@ function ProductCard({ productData }) {
                     <h3 className="shop__products-section__card__title">{productData.title}</h3>
                     <span className="shop__products-section__card__price">${productData.price}</span>
                 </div>
+                {adminDeleteBtn}
             </article>
         </Link>
     );
