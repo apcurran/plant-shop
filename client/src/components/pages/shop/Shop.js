@@ -8,17 +8,42 @@ import ShopHero from "./shop-hero/ShopHero";
 import ProductsSection from "./products-section/ProductsSection";
 import Footer from "../../layout/footer/Footer";
 
+import useAuthStore from "../../../stores/AuthStore";
+
 function Shop({ titleBarText, categoryQueryText }) {
-    const [productsData, setProductData] = useState([]);
+    // Store data
+    const userInfo = useAuthStore((state) => state.user);
+    const adminToken = useAuthStore((state) => state.token);
+    // Local state
+    const [productsData, setProductsData] = useState([]);
 
     useEffect(() => {
         const apiUrl = categoryQueryText === "all" ? "/api/products" : `/api/products/category?q=${categoryQueryText}`;
 
         fetch(apiUrl)
             .then((response) => response.json())
-            .then((data) => setProductData(data))
+            .then((data) => setProductsData(data))
             .catch((err) => console.error(err));
     }, [categoryQueryText]);
+
+    async function deleteProductHandler(productId, adminToken) {
+        try {
+            await fetch(`/api/products/${productId}`, {
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${adminToken}`
+                }
+            });
+
+            // Update local state after successful deletion
+            const updatedProductsData = productsData.filter((product) => product.productId !== Number(productId));
+
+            setProductsData(updatedProductsData);
+
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     return (
         <div className="shop">
@@ -29,7 +54,7 @@ function Shop({ titleBarText, categoryQueryText }) {
                     <CollectionNav />
                     <div className="shop-inner-wrapper--right">
                         <ShopHero categoryQueryText={categoryQueryText} />
-                        <ProductsSection productsData={productsData} />
+                        <ProductsSection productsData={productsData} deleteProductHandler={deleteProductHandler} isAdmin={userInfo.isAdmin} adminToken={adminToken} />
                     </div>
                 </div>
             </main>
