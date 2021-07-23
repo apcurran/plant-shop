@@ -116,11 +116,11 @@ async function postProduct(req, res, next) {
     }
 
     const imgFile = req.file;
-    // const productImgPublicId = (await streamUploadToCloudinary(imgFile, "evergreen-app")).public_id;
     const uploadedProductImgData = await streamUploadToCloudinary(imgFile, "evergreen-app");
     const productImgPublicId = uploadedProductImgData.public_id;
     const productImgWidth = uploadedProductImgData.width;
     const productImgHeight = uploadedProductImgData.height;
+    
     const {
         title,
         description,
