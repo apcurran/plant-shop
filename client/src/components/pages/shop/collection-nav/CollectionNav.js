@@ -10,7 +10,7 @@ function CollectionNav() {
 
     const adminAddProductLink = isAdmin ? (
         <li className="shop__collection-nav__list__item">
-            <Link to="/collections/add-product" className="shop__collections-nav__list__link admin-add-product-link">Add Product</Link>
+            <Link to="/admin/collections/add-product" className="shop__collections-nav__list__link admin-add-product-link">Add Product</Link>
         </li>
     ) : null;
 
