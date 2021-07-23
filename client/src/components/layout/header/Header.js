@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { NavLink } from "react-router-dom";
 
 import "./Header.css";
@@ -8,7 +9,7 @@ import CartBtn from "../../ui/cart-btn/CartBtn";
 import useAuthStore from "../../../stores/AuthStore";
 
 function Header({ homePageRendering }) {
-    const loggedInUserInfo = useAuthStore((state) => state.user);
+    const loggedInUserInfo = useAuthStore(useCallback((state) => state.user, []));
     console.log(loggedInUserInfo);
     const displayedLinks = Object.keys(loggedInUserInfo).length > 0 ? <span>Hello, {loggedInUserInfo.firstName}!</span> : <SignedOutLinks />;
     // If the About page is rendering from the current route, apply CSS class

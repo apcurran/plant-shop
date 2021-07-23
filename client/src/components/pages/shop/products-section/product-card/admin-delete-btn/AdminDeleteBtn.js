@@ -1,5 +1,7 @@
 import useProductsStore from "../../../../../../stores/ProductsStore";
 
+import "./AdminDeleteBtn.css";
+
 function AdminDeleteBtn({ productId, adminToken }) {
     const products = useProductsStore((state) => state.products);
     const setProducts = useProductsStore((state) => state.setProducts);
