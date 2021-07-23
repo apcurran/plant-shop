@@ -1,6 +1,7 @@
 import "./Shop.css";
 import Header from "../../layout/header/Header";
 import TitleBar from "../../ui/title-bar/TitleBar";
+import MainWrapper from "../../layout/main-wrapper/MainWrapper";
 import CollectionNav from "./collection-nav/CollectionNav";
 import ShopHero from "./shop-hero/ShopHero";
 import ProductsSection from "./products-section/ProductsSection";
@@ -10,7 +11,7 @@ function Shop({ titleBarText, categoryQueryText }) {
     return (
         <div className="shop">
             <Header />
-            <main className="shop-main-wrapper">
+            <MainWrapper>
                 <TitleBar>{titleBarText}</TitleBar>
                 <div className="shop-inner-wrapper">
                     <CollectionNav />
@@ -19,7 +20,7 @@ function Shop({ titleBarText, categoryQueryText }) {
                         <ProductsSection categoryQueryText={categoryQueryText} />
                     </div>
                 </div>
-            </main>
+            </MainWrapper>
             <Footer />
         </div>
     );

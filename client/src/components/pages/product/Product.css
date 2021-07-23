@@ -1,8 +1,3 @@
-.product-main-wrapper {
-    width: var(--base-container-width);
-    margin: 0 auto;
-}
-
 .product__grid-wrapper {
     padding: 2rem 0;
     display: grid;

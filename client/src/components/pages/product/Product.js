@@ -5,6 +5,7 @@ import { Image, Transformation } from "cloudinary-react";
 import "./Product.css";
 import Header from "../../layout/header/Header";
 import TitleBar from "../../ui/title-bar/TitleBar";
+import MainWrapper from "../../layout/main-wrapper/MainWrapper";
 import ProductSizeBtn from "./product-size-btn/ProductSizeBtn";
 
 function Product() {
@@ -31,7 +32,7 @@ function Product() {
     return (
         <div className="product">
             <Header />
-            <main className="product-main-wrapper">
+            <MainWrapper>
                 <TitleBar>{productData.category}</TitleBar>
                 <div className="product__grid-wrapper">
                     <figure className="product__fig">
@@ -67,7 +68,7 @@ function Product() {
                         </div>
                     </section>
                 </div>
-            </main>
+            </MainWrapper>
         </div>
     );
 }
