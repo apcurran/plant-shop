@@ -1,11 +1,23 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+
+import useAuthStore from "../../../../stores/AuthStore";
 
 import "./CollectionNav.css";
 
 function CollectionNav() {
+    // Store state
+    const isAdmin = useAuthStore((state) => state.user.isAdmin);
+
+    const adminAddProductLink = isAdmin ? (
+        <li className="shop__collection-nav__list__item">
+            <Link to="/collections/add-product" className="shop__collections-nav__list__link admin-add-product-link">Add Product</Link>
+        </li>
+    ) : null;
+
     return (
         <nav className="shop__collection-nav">
             <ul className="shop__collection-nav__list">
+                {adminAddProductLink}
                 <li className="shop__collection-nav__list__item">
                     <NavLink exact to="/collections" className="shop__collection-nav__list__link">All Plants</NavLink>
                 </li>

@@ -21,3 +21,13 @@
 .shop__collection-nav__list__link.active {
     color: var(--base-font-dark-clr);
 }
+
+/* Admin Link Styling */
+.admin-add-product-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    padding: .5rem .75rem;
+    background-color: var(--light-green);
+    color: var(--very-dark-emerald-green);
+    text-decoration: none;
+}
