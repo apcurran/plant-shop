@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CloudinaryContext } from "cloudinary-react";
 
@@ -9,7 +10,22 @@ import Product from "./components/pages/product/Product";
 import Auth from "./components/pages/auth/Auth";
 import AddProduct from "./components/pages/add-product/AddProduct";
 
+import useAuthStore from "./stores/AuthStore";
+
 function App() {
+  const setToken = useAuthStore((state) => state.setToken);
+  const setUser = useAuthStore((state) => state.setUser);
+
+  useEffect(() => {
+    if (localStorage.accessToken) {
+      const accessToken = localStorage.getItem("accessToken");
+      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+      setToken(accessToken);
+      setUser(userInfo);
+    }
+  }, [setToken, setUser]);
+
   return (
     <CloudinaryContext cloudName="dev-project" secure="true">
       <Router>

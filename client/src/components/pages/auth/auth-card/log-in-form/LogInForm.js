@@ -42,6 +42,10 @@ function LogInForm() {
             // TODO: Store user log in info
             const { accessToken, userInfo } = await response.json();
 
+            // Save token and user
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("userInfo", JSON.stringify(userInfo));
+            // Update auth store state
             setToken(accessToken);
             setUser(userInfo);
             // Re-direct user
