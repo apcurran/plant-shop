@@ -3,16 +3,20 @@ import { NavLink } from "react-router-dom";
 
 import "./Header.css";
 import StandardLinks from "./StandardLinks";
+import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import CartBtn from "../../ui/cart-btn/CartBtn";
 
 import useAuthStore from "../../../stores/AuthStore";
 
 function Header({ homePageRendering }) {
-    const loggedInUserInfo = useAuthStore(useCallback((state) => state.user, []));
-    console.log(loggedInUserInfo);
-    const displayedLinks = Object.keys(loggedInUserInfo).length > 0 ? <span>Hello, {loggedInUserInfo.firstName}!</span> : <SignedOutLinks />;
-    // If the About page is rendering from the current route, apply CSS class
+    // Auth store state
+    const setToken = useAuthStore((state) => state.setToken);
+    const setUser = useAuthStore((state) => state.setUser);
+    const userInfo = useAuthStore(useCallback((state) => state.user, []));
+
+    const displayedLinks = Object.keys(userInfo).length > 0 ? <SignedInLinks setToken={setToken} setUser={setUser} userInfo={userInfo} /> : <SignedOutLinks />;
+    // If the Home page is rendering from the current route, apply CSS class
     const homePageHeaderClass = Boolean(homePageRendering) ? "header--home" : "";
 
     return (
