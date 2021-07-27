@@ -1,17 +1,16 @@
 import { Redirect } from "react-router-dom";
 
-import useAuthStore from "../../../stores/AuthStore";
-
 function AddProduct() {
-    const isAdmin = useAuthStore((state) => state.user.isAdmin);
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-    if (!isAdmin) {
+    // Route guard
+    if (!userInfo.isAdmin) {
         return <Redirect to="/admin/auth/log-in" />;
     }
 
     return (
         <div>
-            Add Product
+            <h1>Add Product</h1>
         </div>
     );
 }
