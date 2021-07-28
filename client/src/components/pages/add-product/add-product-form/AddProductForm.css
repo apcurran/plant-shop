@@ -12,11 +12,19 @@
 
 .form-group__label {
     margin-bottom: .5rem;
+    font-size: var(--fz-md);
 }
 
 .form-group__input,
 .form-group__select {
-    max-width: 10rem;
+    max-width: 14rem;
     padding: .5rem;
+    border: none;
+    font-size: 1rem;
+}
+
+.form-group__textarea {
+    padding: 0.5rem;
+    font-size: 1rem;
     border: none;
 }
