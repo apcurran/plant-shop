@@ -1,0 +1,5 @@
+.add-product__form__column--left {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}

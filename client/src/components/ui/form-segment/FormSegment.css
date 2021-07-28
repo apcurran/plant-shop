@@ -1,5 +1,10 @@
 .form-segment {
     padding: 2rem;
     margin-bottom: 2rem;
+    /* Grid Properties */
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+
     background-color: var(--light-warm-grey);
 }
