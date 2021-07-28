@@ -3,3 +3,20 @@
     align-items: center;
     gap: 1.25rem;
 }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.form-group__label {
+    margin-bottom: .5rem;
+}
+
+.form-group__input,
+.form-group__select {
+    max-width: 10rem;
+    padding: .5rem;
+    border: none;
+}

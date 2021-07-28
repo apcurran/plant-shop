@@ -8,16 +8,31 @@ function AddProductForm() {
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>1</NumberBadge>
-                    <h2>Hi</h2>
+                    <h2>Product Info</h2>
                 </div>
                 <div className="add-product__form__column--right">
-                    <h3>Title</h3>
+                    <div className="form-group">
+                        <label htmlFor="title" className="form-group__label">Title</label>
+                        <input id="title" type="text" className="form-group__input" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="description" className="form-group__label">Description</label>
+                        <input id="description" type="text" className="form-group__input" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="category" className="form-group__label">Category</label>
+                        <select id="category" className="form-group__select">
+                            <option value="house plants">House Plant</option>
+                            <option value="fruit trees">Fruit Tree</option>
+                            <option value="shade trees">Shade Tree</option>
+                        </select>
+                    </div>
                 </div>
             </FormSegment>
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>2</NumberBadge>
-                    <h2>Hi</h2>
+                    <h2>Product Sizes</h2>
                 </div>
                 <div className="add-product__form__column--right">
                     <h3>Title</h3>
@@ -26,7 +41,7 @@ function AddProductForm() {
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>3</NumberBadge>
-                    <h2>Hi</h2>
+                    <h2>Image Info</h2>
                 </div>
                 <div className="add-product__form__column--right">
                     <h3>Title</h3>
