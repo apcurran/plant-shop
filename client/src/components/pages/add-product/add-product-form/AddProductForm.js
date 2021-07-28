@@ -1,8 +1,16 @@
+import { useState } from "react";
+
 import "./AddProductForm.css";
 import FormSegment from "../../../ui/form-segment/FormSegment";
 import NumberBadge from "../../../ui/number-badge/NumberBadge";
 
 function AddProductForm() {
+    const [category, setCategory] = useState("house plants");
+
+    function handleSelect(event) {
+        setCategory(event.target.value);
+    }
+
     return (
         <form className="add-product__form">
             <FormSegment>
@@ -21,7 +29,7 @@ function AddProductForm() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="category" className="form-group__label">Category</label>
-                        <select id="category" className="form-group__select">
+                        <select value={category} onChange={handleSelect} id="category" className="form-group__select">
                             <option value="house plants">House Plant</option>
                             <option value="fruit trees">Fruit Tree</option>
                             <option value="shade trees">Shade Tree</option>
