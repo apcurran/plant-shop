@@ -1,5 +1,9 @@
 import { Redirect } from "react-router-dom";
 
+import Header from "../../layout/header/Header";
+import MainWrapper from "../../layout/main-wrapper/MainWrapper";
+import TitleBar from "../../ui/title-bar/TitleBar";
+
 function AddProduct() {
     const isAdmin = localStorage.getItem("isAdmin");
 
@@ -10,8 +14,11 @@ function AddProduct() {
     }
 
     return (
-        <div>
-            <h1>Add Product</h1>
+        <div className="add-product">
+            <Header />
+            <MainWrapper>
+                <TitleBar>Add Product (Admin)</TitleBar>
+            </MainWrapper>
         </div>
     );
 }
