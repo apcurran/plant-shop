@@ -1,10 +1,11 @@
 import { Redirect } from "react-router-dom";
 
 function AddProduct() {
-    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    const isAdmin = localStorage.getItem("isAdmin");
 
     // Route guard
-    if (!userInfo.isAdmin) {
+    // String val pulled from localStorage
+    if (isAdmin === "false" || isAdmin === null) {
         return <Redirect to="/admin/auth/log-in" />;
     }
 

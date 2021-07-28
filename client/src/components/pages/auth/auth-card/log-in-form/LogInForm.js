@@ -16,6 +16,7 @@ function LogInForm() {
     // AuthStore funcs
     const setToken = useAuthStore((state) => state.setToken);
     const setUser = useAuthStore((state) => state.setUser);
+    const setIsAdmin = useAuthStore((state) => state.setIsAdmin);
     
     async function handleSubmit(event) {
         event.preventDefault();
@@ -41,13 +42,16 @@ function LogInForm() {
 
             // TODO: Store user log in info
             const { accessToken, userInfo } = await response.json();
+            const isAdminVal = userInfo.isAdmin;
 
             // Save token and user
             localStorage.setItem("accessToken", accessToken);
             localStorage.setItem("userInfo", JSON.stringify(userInfo));
+            localStorage.setItem("isAdmin", isAdminVal);
             // Update auth store state
             setToken(accessToken);
             setUser(userInfo);
+            setIsAdmin(isAdminVal);
             // Re-direct user
             history.push("/collections");
 

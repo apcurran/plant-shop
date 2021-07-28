@@ -13,8 +13,10 @@ import AddProduct from "./components/pages/add-product/AddProduct";
 import useAuthStore from "./stores/AuthStore";
 
 function App() {
+  // State store funcs
   const setToken = useAuthStore((state) => state.setToken);
   const setUser = useAuthStore((state) => state.setUser);
+  const setIsAdmin = useAuthStore((state) => state.setIsAdmin);
 
   useEffect(() => {
     if (localStorage.accessToken) {
@@ -23,8 +25,9 @@ function App() {
 
       setToken(accessToken);
       setUser(userInfo);
+      setIsAdmin(userInfo.isAdmin);
     }
-  }, [setToken, setUser]);
+  }, [setToken, setUser, setIsAdmin]);
 
   return (
     <CloudinaryContext cloudName="dev-project" secure="true">
