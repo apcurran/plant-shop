@@ -1,0 +1,18 @@
+.number-badge {
+    display: inline-flex;
+    line-height: 0;
+    justify-content: center;
+    align-items: center;
+
+    padding: .5em;
+    border-radius: 50%;
+    font-size: var(--fz-lg);
+    background-color: #fff;
+}
+
+.number-badge::after {
+    content: "";
+    display: block;
+    /* Padding Hack */
+    padding-bottom: 100%;
+}

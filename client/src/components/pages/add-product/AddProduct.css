@@ -1,0 +1,9 @@
+.add-product-inner-wrapper {
+    padding: 3rem 0;
+    width: 90%;
+    display: flex;
+}
+
+.add-product-inner-wrapper__right {
+    flex-grow: 1;
+}
