@@ -13,6 +13,7 @@ function AddProductForm() {
     const [medPrice, setMedPrice] = useState(0);
     const [lgAmt, setLgAmt] = useState(0);
     const [lgPrice, setLgPrice] = useState(0);
+    const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [category, setCategory] = useState("house plants");
 
     function handleTitleChange(event) {
@@ -57,6 +58,8 @@ function AddProductForm() {
     function handleSubmit(event) {
         event.preventDefault();
     }
+
+    // Img File
 
     return (
         <form onSubmit={handleSubmit} className="add-product__form" enctype="multipart/form-data">
@@ -131,7 +134,14 @@ function AddProductForm() {
                     <h2>Image Info</h2>
                 </div>
                 <div className="add-product__form__column--right">
-                    <h3>Title</h3>
+                    <div className="form-group">
+                        <label htmlFor="img-file" className="form-group__label">Select Image File</label>
+                        <input type="file" id="img-file" className="add-product__form__file-input" />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
+                        <textarea id="img-alt-txt" rows="10" className="form-group__textarea" ></textarea>
+                    </div>
                 </div>
             </FormSegment>
         </form>
