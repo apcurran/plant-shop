@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./AddProductForm.css";
 import FormSegment from "../../../ui/form-segment/FormSegment";
@@ -16,6 +16,18 @@ function AddProductForm() {
     const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [selectedImgPreview, setSelectedImgPreview] = useState(null);
     const [category, setCategory] = useState("house plants");
+
+    // Img Preview useEffect logic
+    useEffect(() => {
+        if (!selectedImgFile) return;
+
+        const objectUrl = URL.createObjectURL(selectedImgFile);
+        console.log(objectUrl);
+        setSelectedImgPreview(objectUrl);
+
+        // Cleanup after
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [selectedImgFile]);
 
     function handleTitleChange(event) {
         setTitle(event.target.value);
@@ -145,7 +157,7 @@ function AddProductForm() {
                 <div className="add-product__form__column--right">
                     <div className="form-group">
                         <label htmlFor="img-file" className="form-group__label">Select Image File</label>
-                        <input type="file" id="img-file" className="add-product__form__file-input" />
+                        <input onChange={handleSelectedFile} type="file" id="img-file" className="add-product__form__file-input" />
                         {selectedImgFile ? <img src={selectedImgPreview} /> : null}
                     </div>
                     <div className="form-group">
