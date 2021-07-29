@@ -22,7 +22,6 @@ function AddProductForm() {
         if (!selectedImgFile) return;
 
         const objectUrl = URL.createObjectURL(selectedImgFile);
-        console.log(objectUrl);
         setSelectedImgPreview(objectUrl);
 
         // Cleanup after
@@ -81,6 +80,9 @@ function AddProductForm() {
         const selectedImg = event.target.files[0];
         setSelectedImgFile(selectedImg);
     }
+
+    // JSX elems
+    const uploadPreview = selectedImgFile ? <img src={selectedImgPreview} className="add-product__form__file-img" width="320" height="320" /> : <div className="add-product__form__file-img add-product__form__file-img--placeholder"></div>;
 
     return (
         <form onSubmit={handleSubmit} className="add-product__form" encType="multipart/form-data">
@@ -158,11 +160,11 @@ function AddProductForm() {
                     <div className="form-group">
                         <label htmlFor="img-file" className="form-group__label">Select Image File</label>
                         <input onChange={handleSelectedFile} type="file" id="img-file" className="add-product__form__file-input" />
-                        {selectedImgFile ? <img src={selectedImgPreview} /> : null}
+                        {uploadPreview}
                     </div>
                     <div className="form-group">
                         <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
-                        <textarea id="img-alt-txt" rows="10" className="form-group__textarea" ></textarea>
+                        <textarea id="img-alt-txt" rows="3" className="form-group__textarea" ></textarea>
                     </div>
                 </div>
             </FormSegment>
