@@ -2,4 +2,18 @@
     width: 20rem;
     height: 20rem;
     object-fit: contain;
+    background-color: #fff;
+    border: 1px solid var(--light-med-warm-grey);
+}
+
+.add-product__form__file-img--placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.placeholder-cloud-icon {
+    width: 4rem;
+    margin-bottom: 1rem;
 }
