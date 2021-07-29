@@ -1,6 +1,6 @@
 .form-segment {
     padding: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     /* Grid Properties */
     display: grid;
     grid-template-columns: 1fr 2fr;
