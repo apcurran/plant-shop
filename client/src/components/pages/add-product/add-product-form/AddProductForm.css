@@ -32,9 +32,3 @@
 .add-product__form__file-input {
     margin-bottom: 1.5rem;
 }
-
-.add-product__form__file-img {
-    width: 20rem;
-    height: 20rem;
-    object-fit: contain;
-}

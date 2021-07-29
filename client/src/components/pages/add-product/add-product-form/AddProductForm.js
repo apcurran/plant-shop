@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import "./AddProductForm.css";
 import FormSegment from "../../../ui/form-segment/FormSegment";
 import NumberBadge from "../../../ui/number-badge/NumberBadge";
+import FilePreviewPlaceholder from "./file-preview/FilePreviewPlaceholder";
+import FilePreview from "./file-preview/FilePreview";
 
 function AddProductForm() {
     const [title, setTitle] = useState("");
@@ -15,6 +17,7 @@ function AddProductForm() {
     const [lgPrice, setLgPrice] = useState(0);
     const [selectedImgFile, setSelectedImgFile] = useState(null);
     const [selectedImgPreview, setSelectedImgPreview] = useState(null);
+    const [selectedImgAltTxt, setSelectedImgAltTxt] = useState("");
     const [category, setCategory] = useState("house plants");
 
     // Img Preview useEffect logic
@@ -81,8 +84,12 @@ function AddProductForm() {
         setSelectedImgFile(selectedImg);
     }
 
+    function handleFileAltTxtChange(event) {
+        setSelectedImgAltTxt(event.target.value);
+    }
+
     // JSX elems
-    const uploadPreview = selectedImgFile ? <img src={selectedImgPreview} className="add-product__form__file-img" width="320" height="320" /> : <div className="add-product__form__file-img add-product__form__file-img--placeholder"></div>;
+    const uploadPreview = selectedImgFile ? <FilePreview selectedImgPreview={selectedImgPreview} selectedImgAltTxt={selectedImgAltTxt} /> : <FilePreviewPlaceholder />;
 
     return (
         <form onSubmit={handleSubmit} className="add-product__form" encType="multipart/form-data">
@@ -164,7 +171,7 @@ function AddProductForm() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
-                        <textarea id="img-alt-txt" rows="3" className="form-group__textarea" ></textarea>
+                        <textarea onChange={handleFileAltTxtChange} id="img-alt-txt" rows="3" className="form-group__textarea" ></textarea>
                     </div>
                 </div>
             </FormSegment>
