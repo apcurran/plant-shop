@@ -6,7 +6,13 @@ import NumberBadge from "../../../ui/number-badge/NumberBadge";
 import FilePreviewPlaceholder from "./file-preview/FilePreviewPlaceholder";
 import FilePreview from "./file-preview/FilePreview";
 
+// Store state
+import useAuthStore from "../../../../stores/AuthStore";
+
 function AddProductForm() {
+    // Store state val
+    const token = useAuthStore((state) => state.token);
+
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [smallAmt, setSmallAmt] = useState(0);
@@ -19,6 +25,8 @@ function AddProductForm() {
     const [selectedImgPreview, setSelectedImgPreview] = useState(null);
     const [selectedImgAltTxt, setSelectedImgAltTxt] = useState("");
     const [category, setCategory] = useState("house plants");
+
+    const [error, setError] = useState("");
 
     // Img Preview useEffect logic
     useEffect(() => {
@@ -85,11 +93,11 @@ function AddProductForm() {
     }
 
     // Form Submit
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
         // TODO: Handle loading spinner
-        
+
         let formData = new FormData();
         // formData vals converted to strings or blob (file)
         // Base img data
@@ -106,6 +114,30 @@ function AddProductForm() {
         // Img file data
         formData.append("productImg", selectedImgFile);
         formData.append("imgAltText", selectedImgAltTxt);
+
+        try {
+            const response = await fetch("/api/products", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            // Check for errors
+            if (!response.ok) {
+                const serverErrMsg = await response.json();
+
+                throw Error(serverErrMsg.error);
+            }
+
+            const { msg } = await response.json();
+
+            console.log(msg);
+
+        } catch (err) {
+            setError(err);
+        }
     }
 
     // JSX elems
