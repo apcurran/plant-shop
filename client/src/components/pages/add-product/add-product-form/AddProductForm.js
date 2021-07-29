@@ -88,7 +88,24 @@ function AddProductForm() {
     function handleSubmit(event) {
         event.preventDefault();
 
+        // TODO: Handle loading spinner
         
+        let formData = new FormData();
+        // formData vals converted to strings or blob (file)
+        // Base img data
+        formData.append("title", title);
+        formData.append("description", description);
+        formData.append("category", category);
+        // Img sizing data
+        formData.append("smAmt", smallAmt);
+        formData.append("smPrice", smallPrice);
+        formData.append("medAmt", medAmt);
+        formData.append("medPrice", medPrice);
+        formData.append("lgAmt", lgAmt);
+        formData.append("lgPrice", lgPrice);
+        // Img file data
+        formData.append("productImg", selectedImgFile);
+        formData.append("imgAltText", selectedImgAltTxt);
     }
 
     // JSX elems
