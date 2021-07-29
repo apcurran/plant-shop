@@ -32,3 +32,13 @@
 .add-product__form__file-input {
     margin-bottom: 1.5rem;
 }
+
+.add-product__form__submit-btn {
+    padding: 1rem 3rem;
+    background-color: var(--cta-accent-clr);
+    border: none;
+    font-size: var(--fz-md);
+    font-weight: 700;
+    color: var(--cta-accent-clr-dark);
+    cursor: pointer;
+}

@@ -70,10 +70,6 @@ function AddProductForm() {
         setLgPrice(event.target.value);
     }
 
-    function handleSubmit(event) {
-        event.preventDefault();
-    }
-
     // Img File
     function handleSelectedFile(event) {
         if (!event.target.files || event.target.files.length === 0) {
@@ -86,6 +82,13 @@ function AddProductForm() {
 
     function handleFileAltTxtChange(event) {
         setSelectedImgAltTxt(event.target.value);
+    }
+
+    // Form Submit
+    function handleSubmit(event) {
+        event.preventDefault();
+
+        
     }
 
     // JSX elems
@@ -101,15 +104,15 @@ function AddProductForm() {
                 <div className="add-product__form__column--right">
                     <div className="form-group">
                         <label htmlFor="title" className="form-group__label">Title</label>
-                        <input onChange={handleTitleChange} id="title" type="text" className="form-group__input" />
+                        <input onChange={handleTitleChange} id="title" type="text" className="form-group__input" required/>
                     </div>
                     <div className="form-group">
                         <label htmlFor="description" className="form-group__label">Description</label>
-                        <textarea onChange={handleDescriptionChange} id="description" rows="10" className="form-group__textarea"></textarea>
+                        <textarea onChange={handleDescriptionChange} id="description" rows="10" className="form-group__textarea" required></textarea>
                     </div>
                     <div className="form-group">
                         <label htmlFor="category" className="form-group__label">Category</label>
-                        <select value={category} onChange={handleSelectChange} id="category" className="form-group__select">
+                        <select value={category} onChange={handleSelectChange} id="category" className="form-group__select" required>
                             <option value="house plants">House Plant</option>
                             <option value="fruit trees">Fruit Tree</option>
                             <option value="shade trees">Shade Tree</option>
@@ -127,33 +130,33 @@ function AddProductForm() {
                         <h3 className="add-product__form__sub-heading">Size Small</h3>
                         <div className="form-group">
                             <label htmlFor="size-small-amt" className="form-group__label">Gallon Amount</label>
-                            <input onChange={handleSmallAmtChange} id="size-small-amt" type="number" className="form-group__input" />
+                            <input onChange={handleSmallAmtChange} id="size-small-amt" type="number" className="form-group__input" required/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="size-small-price" className="form-group__label">Price</label>
-                            <input onChange={handleSmallPriceChange} id="size-small-price" type="number" className="form-group__input" />
+                            <input onChange={handleSmallPriceChange} id="size-small-price" type="number" className="form-group__input" required/>
                         </div>
                     </div>
                     <div className="add-product__form__sizes-group">
                         <h3 className="add-product__form__sub-heading">Size Medium</h3>
                         <div className="form-group">
                             <label htmlFor="size-medium-amt" className="form-group__label">Gallon Amount</label>
-                            <input onChange={handleMediumAmtChange} id="size-medium-amt" type="number" className="form-group__input" />
+                            <input onChange={handleMediumAmtChange} id="size-medium-amt" type="number" className="form-group__input" required/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="size-medium-price" className="form-group__label">Price</label>
-                            <input onChange={handleMediumPriceChange} id="size-medium-price" type="number" className="form-group__input" />
+                            <input onChange={handleMediumPriceChange} id="size-medium-price" type="number" className="form-group__input" required/>
                         </div>
                     </div>
                     <div className="add-product__form__sizes-group">
                         <h3 className="add-product__form__sub-heading">Size Large</h3>
                         <div className="form-group">
                             <label htmlFor="size-large-amt" className="form-group__label">Gallon Amount</label>
-                            <input onChange={handleLargeAmtChange} id="size-large-amt" type="number" className="form-group__input" />
+                            <input onChange={handleLargeAmtChange} id="size-large-amt" type="number" className="form-group__input" required/>
                         </div>
                         <div className="form-group">
                             <label htmlFor="size-large-price" className="form-group__label">Price</label>
-                            <input onChange={handleLargePriceChange} id="size-large-price" type="number" className="form-group__input" />
+                            <input onChange={handleLargePriceChange} id="size-large-price" type="number" className="form-group__input" required/>
                         </div>
                     </div>
                 </div>
@@ -166,15 +169,16 @@ function AddProductForm() {
                 <div className="add-product__form__column--right">
                     <div className="form-group">
                         <label htmlFor="img-file" className="form-group__label">Select Image File</label>
-                        <input onChange={handleSelectedFile} type="file" id="img-file" className="add-product__form__file-input" />
+                        <input onChange={handleSelectedFile} type="file" id="img-file" className="add-product__form__file-input" required/>
                         {uploadPreview}
                     </div>
                     <div className="form-group">
                         <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
-                        <textarea onChange={handleFileAltTxtChange} id="img-alt-txt" rows="3" className="form-group__textarea" ></textarea>
+                        <textarea onChange={handleFileAltTxtChange} id="img-alt-txt" rows="3" className="form-group__textarea" required></textarea>
                     </div>
                 </div>
             </FormSegment>
+            <button type="submit" className="add-product__form__submit-btn">Submit</button>
         </form>
     );
 }
