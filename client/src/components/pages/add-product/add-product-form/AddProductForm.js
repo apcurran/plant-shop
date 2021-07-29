@@ -14,6 +14,7 @@ function AddProductForm() {
     const [lgAmt, setLgAmt] = useState(0);
     const [lgPrice, setLgPrice] = useState(0);
     const [selectedImgFile, setSelectedImgFile] = useState(null);
+    const [selectedImgPreview, setSelectedImgPreview] = useState(null);
     const [category, setCategory] = useState("house plants");
 
     function handleTitleChange(event) {
@@ -60,9 +61,17 @@ function AddProductForm() {
     }
 
     // Img File
+    function handleSelectedFile(event) {
+        if (!event.target.files || event.target.files.length === 0) {
+            return;
+        }
+
+        const selectedImg = event.target.files[0];
+        setSelectedImgFile(selectedImg);
+    }
 
     return (
-        <form onSubmit={handleSubmit} className="add-product__form" enctype="multipart/form-data">
+        <form onSubmit={handleSubmit} className="add-product__form" encType="multipart/form-data">
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>1</NumberBadge>
@@ -137,6 +146,7 @@ function AddProductForm() {
                     <div className="form-group">
                         <label htmlFor="img-file" className="form-group__label">Select Image File</label>
                         <input type="file" id="img-file" className="add-product__form__file-input" />
+                        {selectedImgFile ? <img src={selectedImgPreview} /> : null}
                     </div>
                     <div className="form-group">
                         <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
