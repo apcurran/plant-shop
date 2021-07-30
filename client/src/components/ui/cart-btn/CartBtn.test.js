@@ -5,7 +5,7 @@ describe("CartBtn component", () => {
     test("renders cart btn properly", () => {
         render(<CartBtn />);
 
-        const cartBtn = screen.getByText("Cart", { exact: false });
+        const cartBtn = screen.getByRole("button", { name: "Cart" });
         expect(cartBtn).toBeInTheDocument();
     });
 });
