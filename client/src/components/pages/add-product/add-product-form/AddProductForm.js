@@ -96,6 +96,13 @@ function AddProductForm() {
     async function handleSubmit(event) {
         event.preventDefault();
 
+        // Stringify arr to send in formData to server
+        const productExtraInfo = JSON.stringify([
+            { size: Number(smallAmt), price: Number(smallPrice) },
+            { size: Number(medAmt), price: Number(medPrice) },
+            { size: Number(lgAmt), price: Number(lgPrice) }
+        ]);
+        console.log(productExtraInfo);
         // TODO: Handle loading spinner
 
         let formData = new FormData();
@@ -105,12 +112,7 @@ function AddProductForm() {
         formData.append("description", description);
         formData.append("category", category);
         // Img sizing data
-        formData.append("smAmt", smallAmt);
-        formData.append("smPrice", smallPrice);
-        formData.append("medAmt", medAmt);
-        formData.append("medPrice", medPrice);
-        formData.append("lgAmt", lgAmt);
-        formData.append("lgPrice", lgPrice);
+        formData.append("productExtraInfo", productExtraInfo);
         // Img file data
         formData.append("productImg", selectedImgFile);
         formData.append("imgAltText", selectedImgAltTxt);
