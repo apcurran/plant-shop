@@ -116,7 +116,7 @@ async function postProduct(req, res, next) {
         return res.status(400).json({ error: err.details[0].message });
     }
 
-    const imgFile = req.file;
+    // const imgFile = req.file;
     // const uploadedProductImgData = await streamUploadToCloudinary(imgFile, "evergreen-app");
     // const productImgPublicId = uploadedProductImgData.public_id;
     // const productImgWidth = uploadedProductImgData.width;
@@ -125,11 +125,10 @@ async function postProduct(req, res, next) {
         title,
         description,
         category,
-        productExtraInfo, // Array
         imgAltText
     } = req.body;
+    const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
-    console.log("Request successful");
     // node-postgres requires the use of client instead of pool.query here
     // const client = await db.pool.connect();
 
