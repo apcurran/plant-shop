@@ -1,0 +1,17 @@
+.loading-spinner {
+    margin-bottom: 1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: .3125rem solid transparent;
+    border-color: #eee;
+    border-top-color: green;
+    border-radius: 50%;
+
+    animation: spinner 1000ms linear infinite;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}

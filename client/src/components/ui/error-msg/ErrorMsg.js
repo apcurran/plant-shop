@@ -1,8 +1,8 @@
 import "./ErrorMsg.css";
 
-function ErrorMsg({ msg }) {
+function ErrorMsg({ error }) {
     return (
-        <p className="error-msg">{msg}</p>
+        <p className="error-msg">{error}</p>
     );
 }
 

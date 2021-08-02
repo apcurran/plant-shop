@@ -5,6 +5,9 @@ import FormSegment from "../../../ui/form-segment/FormSegment";
 import NumberBadge from "../../../ui/number-badge/NumberBadge";
 import FilePreviewPlaceholder from "./file-preview/FilePreviewPlaceholder";
 import FilePreview from "./file-preview/FilePreview";
+import ErrorMsg from "../../../ui/error-msg/ErrorMsg";
+import LoadingSpinner from "../../../ui/loading-spinner/LoadingSpinner";
+import Message from "../../../ui/message/Message";
 
 // Store state
 import useAuthStore from "../../../../stores/AuthStore";
@@ -27,6 +30,8 @@ function AddProductForm() {
     const [category, setCategory] = useState("house plants");
 
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [msg, setMsg] = useState("");
 
     // Img Preview useEffect logic
     useEffect(() => {
@@ -96,6 +101,7 @@ function AddProductForm() {
     async function handleSubmit(event) {
         event.preventDefault();
 
+        setIsLoading(true);
         // Stringify arr to send in formData to server
         const productExtraInfo = JSON.stringify([
             { size: Number(smallAmt), price: Number(smallPrice) },
@@ -132,9 +138,10 @@ function AddProductForm() {
                 throw Error(serverErrMsg.error);
             }
 
-            const { msg } = await response.json();
+            setIsLoading(false);
 
-            console.log(msg);
+            const { msg } = await response.json();
+            setMsg(msg);
 
         } catch (err) {
             setError(err);
@@ -143,6 +150,9 @@ function AddProductForm() {
 
     // JSX elems
     const uploadPreview = selectedImgFile ? <FilePreview selectedImgPreview={selectedImgPreview} selectedImgAltTxt={selectedImgAltTxt} /> : <FilePreviewPlaceholder />;
+    const errorMsg = error ? <ErrorMsg error={error} /> : null;
+    const loadingSpinner = isLoading ? <LoadingSpinner /> : null;
+    const resMessage = msg ? <Message msg={msg} /> : null;
 
     return (
         <form onSubmit={handleSubmit} className="add-product__form" encType="multipart/form-data">
@@ -228,6 +238,9 @@ function AddProductForm() {
                     </div>
                 </div>
             </FormSegment>
+            {errorMsg}
+            {loadingSpinner}
+            {resMessage}
             <button type="submit" className="add-product__form__submit-btn">Submit</button>
         </form>
     );
