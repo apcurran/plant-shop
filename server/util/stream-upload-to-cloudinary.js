@@ -1,6 +1,6 @@
 "use strict";
 
-const streamifier = require("streamifier");
+const { Readable } = require("stream");
 
 const { cloudinary } = require("../util/cloudinary");
 
@@ -19,7 +19,9 @@ function streamUploadToCloudinary(imgFile, folderPath) {
             }
         );
 
-        streamifier.createReadStream(imgFile.buffer).pipe(stream);
+        Readable
+            .from(imgFile.buffer)
+            .pipe(stream);
     });
 }
 
