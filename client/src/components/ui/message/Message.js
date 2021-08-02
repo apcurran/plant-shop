@@ -1,3 +1,5 @@
+import "./Message.css";
+
 function Message({ msg }) {
     return (
         <p className="message">{msg}</p>

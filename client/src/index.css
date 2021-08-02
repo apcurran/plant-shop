@@ -17,6 +17,8 @@
 
   --cta-accent-clr: #fef3c7;
   --cta-accent-clr-dark: #b45309;
+  --err-clr-light: #fee2e2;
+  --err-clr-dark: #7f1d1d;
 
   /* Font Sizes */
   --fz-sm: .875rem;

@@ -108,7 +108,6 @@ function AddProductForm() {
             { size: Number(medAmt), price: Number(medPrice) },
             { size: Number(lgAmt), price: Number(lgPrice) }
         ]);
-        // TODO: Handle loading spinner
 
         let formData = new FormData();
         // formData vals converted to strings or blob (file)
@@ -116,7 +115,7 @@ function AddProductForm() {
         formData.append("title", title);
         formData.append("description", description);
         formData.append("category", category);
-        // Img sizing data
+        // Product size/pricing data
         formData.append("productExtraInfo", productExtraInfo);
         // Img file data
         formData.append("productImg", selectedImgFile);
@@ -144,6 +143,7 @@ function AddProductForm() {
             setMsg(msg);
 
         } catch (err) {
+            setIsLoading(false);
             setError(err);
         }
     }
