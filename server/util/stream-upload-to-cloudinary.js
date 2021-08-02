@@ -1,6 +1,5 @@
 "use strict";
 
-// TODO: check fs module's createReadStream for compatibility
 const streamifier = require("streamifier");
 
 const { cloudinary } = require("../util/cloudinary");

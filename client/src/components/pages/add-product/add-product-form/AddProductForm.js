@@ -12,7 +12,6 @@ import useAuthStore from "../../../../stores/AuthStore";
 function AddProductForm() {
     // Store state val
     const token = useAuthStore((state) => state.token);
-    console.log(token);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
