@@ -96,7 +96,7 @@ async function postLogin(req, res, next) {
             },
             process.env.TOKEN_SECRET,
             {
-                expiresIn: "2h"
+                expiresIn: "1h"
             }
         );
 

@@ -13,23 +13,11 @@ function postProductValidation(data) {
         category:         Joi
                             .string()
                             .required(),
-        productExtraInfo: Joi // Bug TODO: will add without an array present in req.body field
-                            .array()
-                            .items(
-                                Joi.object({
-                                    size: Joi.number().required(),
-                                    price: Joi.number().required()
-                                })
-                            )
+        productExtraInfo: Joi
+                            .string() // Stringified array of data
                             .required(),
         imgAltText:       Joi
                             .string()
-                            .required(),
-        imgWidth:         Joi
-                            .number()
-                            .required(),
-        imgHeight:        Joi
-                            .number()
                             .required()
     });
 
@@ -44,20 +32,10 @@ function patchProductValidation(data) {
                             .string(),
         category:         Joi
                             .string(),
-        productExtraInfo: Joi // Bug TODO: will add without an array present in req.body field
-                            .array()
-                            .items(
-                                Joi.object({
-                                    size: Joi.number().required(),
-                                    price: Joi.number().required()
-                                })
-                            ),
-        imgAltText:       Joi
+        productExtraInfo: Joi
                             .string(),
-        imgWidth:         Joi
-                            .number(),
-        imgHeight:        Joi
-                            .number()
+        imgAltText:       Joi
+                            .string()
     });
 
     return schema.validateAsync(data);

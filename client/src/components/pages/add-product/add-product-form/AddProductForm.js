@@ -12,6 +12,7 @@ import useAuthStore from "../../../../stores/AuthStore";
 function AddProductForm() {
     // Store state val
     const token = useAuthStore((state) => state.token);
+    console.log(token);
 
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -102,7 +103,6 @@ function AddProductForm() {
             { size: Number(medAmt), price: Number(medPrice) },
             { size: Number(lgAmt), price: Number(lgPrice) }
         ]);
-        console.log(productExtraInfo);
         // TODO: Handle loading spinner
 
         let formData = new FormData();
