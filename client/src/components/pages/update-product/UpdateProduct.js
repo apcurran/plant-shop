@@ -5,6 +5,7 @@ import Header from "../../layout/header/Header";
 import MainWrapper from "../../layout/main-wrapper/MainWrapper";
 import TitleBar from "../../ui/title-bar/TitleBar";
 import CollectionNav from "../shop/collection-nav/CollectionNav";
+import UpdateProductForm from "./update-product-form/UpdateProductForm";
 
 function UpdateProduct() {
     const { productId } = useParams();
@@ -23,7 +24,7 @@ function UpdateProduct() {
                 <div className="add-product-inner-wrapper">
                     <CollectionNav />
                     <div className="add-product-inner-wrapper__right">
-                        {/* Form here */}
+                        <UpdateProductForm productId={productId} />
                     </div>
                 </div>
             </MainWrapper>
