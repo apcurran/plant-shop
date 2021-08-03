@@ -33,7 +33,7 @@ function patchProductValidation(data) {
         category:         Joi
                             .string(),
         productExtraInfo: Joi
-                            .string(),
+                            .string(), // Stringified array of data
         imgAltText:       Joi
                             .string()
     });
