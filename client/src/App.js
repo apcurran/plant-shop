@@ -9,6 +9,7 @@ import Shop from "./components/pages/shop/Shop";
 import Product from "./components/pages/product/Product";
 import Auth from "./components/pages/auth/Auth";
 import AddProduct from "./components/pages/add-product/AddProduct";
+import UpdateProduct from "./components/pages/update-product/UpdateProduct";
 
 import useAuthStore from "./stores/AuthStore";
 
@@ -57,6 +58,9 @@ function App() {
             </Route>
             <Route exact path="/admin/collections/add-product">
               <AddProduct />
+            </Route>
+            <Route exact path="/admin/collections/update-product/:productId">
+              <UpdateProduct />
             </Route>
             <Route exact path="/auth/sign-up">
               <Auth title="Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />
