@@ -5,6 +5,7 @@ import useAuthStore from "../../../../../stores/AuthStore";
 
 import "./ProductCard.css";
 import AdminDeleteBtn from "./admin-delete-btn/AdminDeleteBtn";
+import AdminUpdateProductLink from "../../../../ui/admin-update-product-link/AdminUpdateProductLink";
 
 function ProductCard({ productData }) {
     const isAdmin = useAuthStore((state) => state.user.isAdmin);
@@ -27,6 +28,7 @@ function ProductCard({ productData }) {
                     </div>
                 </article>
             </Link>
+            {<AdminUpdateProductLink productId={productData.productId} />}
             {adminDeleteBtn}
         </div>
     );
