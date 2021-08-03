@@ -188,20 +188,24 @@ async function patchProduct(req, res, next) {
         await patchProductValidation(req.body);
 
     } catch (err) {
+        console.error(err);
         return res.status(400).json({ error: err.details[0].message });
     }
 
     const { productId } = req.params;
+    const imgFile = req.file ? req.file : null;
+    const uploadedProductImgData = imgFile ? await streamUploadToCloudinary(imgFile, "evergreen-app") : null;
+    const productImgPublicId = uploadedProductImgData ? uploadedProductImgData.public_id : null;
+    const productImgWidth = uploadedProductImgData ? uploadedProductImgData.width : null;
+    const productImgHeight = uploadedProductImgData ? uploadedProductImgData.height : null;
     const {
         title,
         description,
         category,
-        productExtraInfo, // Array
-        imgPublicId,
-        imgAltText,
-        imgWidth,
-        imgHeight
+        imgAltText
     } = req.body;
+    const productExtraInfo = JSON.parse(req.body.productExtraInfo); // array
+
     const client = await db.pool.connect();
 
     try {
@@ -245,7 +249,7 @@ async function patchProduct(req, res, next) {
                 public_id = COALESCE($4, public_id)
             WHERE product_img.product_id = $5
             `,
-            [imgAltText, imgWidth, imgHeight, imgPublicId, productId]
+            [imgAltText, productImgWidth, productImgHeight, productImgPublicId, productId]
         );
         await client.query("COMMIT");
 
