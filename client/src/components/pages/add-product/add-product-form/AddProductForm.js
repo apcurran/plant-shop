@@ -168,7 +168,7 @@ function AddProductForm() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="description" className="form-group__label">Description</label>
-                        <textarea onChange={handleDescriptionChange} id="description" rows="10" className="form-group__textarea" required></textarea>
+                        <textarea onChange={handleDescriptionChange} id="description" rows={10} className="form-group__textarea" required></textarea>
                     </div>
                     <div className="form-group">
                         <label htmlFor="category" className="form-group__label">Category</label>
@@ -234,7 +234,7 @@ function AddProductForm() {
                     </div>
                     <div className="form-group">
                         <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
-                        <textarea onChange={handleFileAltTxtChange} id="img-alt-txt" rows="3" className="form-group__textarea" required></textarea>
+                        <textarea onChange={handleFileAltTxtChange} id="img-alt-txt" rows={3} className="form-group__textarea" required></textarea>
                     </div>
                 </div>
             </FormSegment>
