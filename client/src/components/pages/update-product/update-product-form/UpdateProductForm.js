@@ -39,7 +39,6 @@ function UpdateProductForm({ productId }) {
         fetch(`/api/products/${productId}`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 setUpdatedTitle(data.title);
                 setUpdatedDesc(data.description);
                 setUpdatedCategory(data.category);
