@@ -45,7 +45,6 @@ function UpdateProductForm({ productId }) {
                 setUpdatedMedPrice(data.productExtraInfo[1].price);
                 setUpdatedLgSize(data.productExtraInfo[2].size);
                 setUpdatedLgPrice(data.productExtraInfo[2].price);
-                // setUpdatedImgFile(data.publicId);
                 setUpdatedAltText(data.altText);
             });
     }, [productId]);
@@ -119,6 +118,7 @@ function UpdateProductForm({ productId }) {
         event.preventDefault();
 
         setIsLoading(true);
+        debugger;
         // Stringify arr to send in formData to server
         const productExtraInfo = JSON.stringify([
             { size: Number(updatedSmSize), price: Number(updatedSmPrice) },
@@ -139,7 +139,7 @@ function UpdateProductForm({ productId }) {
         formData.append("imgAltText", updatedAltText);
 
         try {
-            const response = await fetch("/api/products", {
+            const response = await fetch(`/api/products/${productId}`, {
                 method: "PATCH",
                 headers: {
                     "Authorization": `Bearer ${token}`

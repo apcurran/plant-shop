@@ -117,7 +117,8 @@ async function postProduct(req, res, next) {
     }
 
     const imgFile = req.file;
-    const uploadedProductImgData = await streamUploadToCloudinary(imgFile, "evergreen-app");
+    const uploadedProductImgData = await streamUploadToCloudinary(imgFile, "evergreen-app")
+                                            .catch((err) => next(err));
     const productImgPublicId = uploadedProductImgData.public_id;
     const productImgWidth = uploadedProductImgData.width;
     const productImgHeight = uploadedProductImgData.height;
@@ -130,7 +131,9 @@ async function postProduct(req, res, next) {
     const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
     // node-postgres requires the use of client instead of pool.query here
-    const client = await db.pool.connect();
+    const client = await db.pool
+                            .connect()
+                            .catch((err) => next(err));
 
     try {
         // SQL Transaction
@@ -194,7 +197,7 @@ async function patchProduct(req, res, next) {
 
     const { productId } = req.params;
     const imgFile = req.file ? req.file : null;
-    const uploadedProductImgData = imgFile ? await streamUploadToCloudinary(imgFile, "evergreen-app") : null;
+    const uploadedProductImgData = imgFile ? await streamUploadToCloudinary(imgFile, "evergreen-app").catch((err) => next(err)) : null;
     const productImgPublicId = uploadedProductImgData ? uploadedProductImgData.public_id : null;
     const productImgWidth = uploadedProductImgData ? uploadedProductImgData.width : null;
     const productImgHeight = uploadedProductImgData ? uploadedProductImgData.height : null;
@@ -204,9 +207,12 @@ async function patchProduct(req, res, next) {
         category,
         imgAltText
     } = req.body;
+    console.log(req.body);
     const productExtraInfo = JSON.parse(req.body.productExtraInfo); // array
 
-    const client = await db.pool.connect();
+    const client = await db.pool
+                            .connect()
+                            .catch((err) => next(err));
 
     try {
         // SQL Transaction
