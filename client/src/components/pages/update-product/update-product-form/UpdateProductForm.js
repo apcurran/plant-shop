@@ -181,15 +181,15 @@ function UpdateProductForm({ productId }) {
                 <div className="add-product__form__column--right">
                     <div className="form-group">
                         <label htmlFor="title" className="form-group__label">Title</label>
-                        <input value={updatedTitle} onChange={handleTitleChange} id="title" type="text" className="form-group__input" required />
+                        <input value={updatedTitle} onChange={handleTitleChange} id="title" type="text" className="form-group__input" />
                     </div>
                     <div className="form-group">
                         <label htmlFor="description" className="form-group__label">Description</label>
-                        <textarea value={updatedDesc} onChange={handleDescriptionChange} id="description" rows="10" className="form-group__textarea" required></textarea>
+                        <textarea value={updatedDesc} onChange={handleDescriptionChange} id="description" rows={10} className="form-group__textarea"></textarea>
                     </div>
                     <div className="form-group">
                         <label htmlFor="category" className="form-group__label">Category</label>
-                        <select value={updatedCategory} onChange={handleSelectChange} id="category" className="form-group__select" required>
+                        <select value={updatedCategory} onChange={handleSelectChange} id="category" className="form-group__select">
                             <option value="house plants">House Plant</option>
                             <option value="fruit trees">Fruit Tree</option>
                             <option value="shade trees">Shade Tree</option>
@@ -207,33 +207,33 @@ function UpdateProductForm({ productId }) {
                         <h3 className="add-product__form__sub-heading">Size Small</h3>
                         <div className="form-group">
                             <label htmlFor="size-small-amt" className="form-group__label">Gallon Amount</label>
-                            <input value={updatedSmSize} onChange={handleSmallAmtChange} id="size-small-amt" type="number" className="form-group__input" required />
+                            <input value={updatedSmSize} onChange={handleSmallAmtChange} id="size-small-amt" type="number" className="form-group__input" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="size-small-price" className="form-group__label">Price</label>
-                            <input value={updatedSmPrice} onChange={handleSmallPriceChange} id="size-small-price" type="number" className="form-group__input" required />
+                            <input value={updatedSmPrice} onChange={handleSmallPriceChange} id="size-small-price" type="number" className="form-group__input" />
                         </div>
                     </div>
                     <div className="add-product__form__sizes-group">
                         <h3 className="add-product__form__sub-heading">Size Medium</h3>
                         <div className="form-group">
                             <label htmlFor="size-medium-amt" className="form-group__label">Gallon Amount</label>
-                            <input value={updatedMedSize} onChange={handleMediumAmtChange} id="size-medium-amt" type="number" className="form-group__input" required />
+                            <input value={updatedMedSize} onChange={handleMediumAmtChange} id="size-medium-amt" type="number" className="form-group__input" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="size-medium-price" className="form-group__label">Price</label>
-                            <input value={updatedMedPrice} onChange={handleMediumPriceChange} id="size-medium-price" type="number" className="form-group__input" required />
+                            <input value={updatedMedPrice} onChange={handleMediumPriceChange} id="size-medium-price" type="number" className="form-group__input" />
                         </div>
                     </div>
                     <div className="add-product__form__sizes-group">
                         <h3 className="add-product__form__sub-heading">Size Large</h3>
                         <div className="form-group">
                             <label htmlFor="size-large-amt" className="form-group__label">Gallon Amount</label>
-                            <input value={updatedLgSize} onChange={handleLargeAmtChange} id="size-large-amt" type="number" className="form-group__input" required />
+                            <input value={updatedLgSize} onChange={handleLargeAmtChange} id="size-large-amt" type="number" className="form-group__input" />
                         </div>
                         <div className="form-group">
                             <label htmlFor="size-large-price" className="form-group__label">Price</label>
-                            <input value={updatedLgPrice} onChange={handleLargePriceChange} id="size-large-price" type="number" className="form-group__input" required />
+                            <input value={updatedLgPrice} onChange={handleLargePriceChange} id="size-large-price" type="number" className="form-group__input" />
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@ function UpdateProductForm({ productId }) {
                     </div>
                     <div className="form-group">
                         <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
-                        <textarea value={updatedAltText} onChange={handleFileAltTxtChange} id="img-alt-txt" rows="3" className="form-group__textarea" required></textarea>
+                        <textarea value={updatedAltText} onChange={handleFileAltTxtChange} id="img-alt-txt" rows={3} className="form-group__textarea"></textarea>
                     </div>
                 </div>
             </FormSegment>
