@@ -1,0 +1,8 @@
+.log-out-btn {
+    text-decoration: underline;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
