@@ -207,7 +207,6 @@ async function patchProduct(req, res, next) {
         category,
         imgAltText
     } = req.body;
-    console.log(req.body);
     const productExtraInfo = JSON.parse(req.body.productExtraInfo); // array
 
     const client = await db.pool

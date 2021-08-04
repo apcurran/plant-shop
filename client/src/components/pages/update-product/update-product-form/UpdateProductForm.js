@@ -18,10 +18,13 @@ function UpdateProductForm({ productId }) {
     const [updatedTitle, setUpdatedTitle] = useState("");
     const [updatedDesc, setUpdatedDesc] = useState("");
     const [updatedCategory, setUpdatedCategory] = useState("");
+    const [smSizeInfoId, setSmSizeInfoId] = useState(0);
     const [updatedSmSize, setUpdatedSmSize] = useState("");
     const [updatedSmPrice, setUpdatedSmPrice] = useState("");
+    const [medSizeInfoId, setMedSizeInfoId] = useState(0);
     const [updatedMedSize, setUpdatedMedSize] = useState("");
     const [updatedMedPrice, setUpdatedMedPrice] = useState("");
+    const [lgSizeInfoId, setLgSizeInfoId] = useState(0);
     const [updatedLgSize, setUpdatedLgSize] = useState("");
     const [updatedLgPrice, setUpdatedLgPrice] = useState("");
     const [updatedImgFile, setUpdatedImgFile] = useState(null);
@@ -36,13 +39,17 @@ function UpdateProductForm({ productId }) {
         fetch(`/api/products/${productId}`)
             .then((response) => response.json())
             .then((data) => {
+                console.log(data);
                 setUpdatedTitle(data.title);
                 setUpdatedDesc(data.description);
                 setUpdatedCategory(data.category);
+                setSmSizeInfoId(data.productExtraInfo[0].productExtraInfoId);
                 setUpdatedSmSize(data.productExtraInfo[0].size);
                 setUpdatedSmPrice(data.productExtraInfo[0].price);
+                setMedSizeInfoId(data.productExtraInfo[1].productExtraInfoId);
                 setUpdatedMedSize(data.productExtraInfo[1].size);
                 setUpdatedMedPrice(data.productExtraInfo[1].price);
+                setLgSizeInfoId(data.productExtraInfo[2].productExtraInfoId);
                 setUpdatedLgSize(data.productExtraInfo[2].size);
                 setUpdatedLgPrice(data.productExtraInfo[2].price);
                 setUpdatedAltText(data.altText);
@@ -121,9 +128,9 @@ function UpdateProductForm({ productId }) {
         // debugger;
         // Stringify arr to send in formData to server
         const productExtraInfo = JSON.stringify([
-            { size: Number(updatedSmSize), price: Number(updatedSmPrice) },
-            { size: Number(updatedMedSize), price: Number(updatedMedPrice) },
-            { size: Number(updatedLgSize), price: Number(updatedLgPrice) }
+            { productExtraInfoId: Number(smSizeInfoId), size: Number(updatedSmSize), price: Number(updatedSmPrice) },
+            { productExtraInfoId: Number(medSizeInfoId), size: Number(updatedMedSize), price: Number(updatedMedPrice) },
+            { productExtraInfoId: Number(lgSizeInfoId), size: Number(updatedLgSize), price: Number(updatedLgPrice) }
         ]);
 
         let formData = new FormData();

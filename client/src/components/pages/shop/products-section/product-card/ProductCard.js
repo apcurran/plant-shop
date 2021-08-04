@@ -11,6 +11,7 @@ function ProductCard({ productData }) {
     const isAdmin = useAuthStore((state) => state.user.isAdmin);
     const adminToken = useAuthStore((state) => state.token);
 
+    const adminUpdateLink = isAdmin ? <AdminUpdateProductLink productId={productData.productId} /> : null;
     const adminDeleteBtn = isAdmin ? <AdminDeleteBtn productId={productData.productId} adminToken={adminToken} /> : null;
 
     return (
@@ -28,7 +29,7 @@ function ProductCard({ productData }) {
                     </div>
                 </article>
             </Link>
-            {<AdminUpdateProductLink productId={productData.productId} />}
+            {adminUpdateLink}
             {adminDeleteBtn}
         </div>
     );
