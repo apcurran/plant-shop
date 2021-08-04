@@ -1,5 +1,7 @@
 import { useHistory } from "react-router-dom";
 
+import LogOutBtn from "../../ui/log-out-btn/LogOutBtn";
+
 function SignedInLinks({ setToken, setUser, setIsAdmin, userInfo }) {
     const history = useHistory();
 
@@ -20,7 +22,7 @@ function SignedInLinks({ setToken, setUser, setIsAdmin, userInfo }) {
         <ul className="nav__links-list nav__links-list--auth">
             <span>Hello, {userInfo.firstName}!</span>
             <li className="nav__item">
-                <button onClick={handleLogOut} className="nav__link">Log Out</button>
+                {<LogOutBtn handleLogOut={handleLogOut} />}
             </li>
         </ul>
     );
