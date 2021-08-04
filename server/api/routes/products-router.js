@@ -6,7 +6,6 @@ const multer = require("multer");
 const productsController = require("../controllers/products-controller");
 const { verifyAdmin } = require("../middleware/verify-admin");
 
-
 const router = express.Router();
 const fileUpload = multer();
 
@@ -15,7 +14,7 @@ router.get("/category", productsController.getProductsByCategory);
 // GET specific product
 router.get("/:productId", productsController.getProduct);
 // PATCH specific product
-router.patch("/:productId", verifyAdmin, productsController.patchProduct);
+router.patch("/:productId", verifyAdmin, fileUpload.single("productImg"), productsController.patchProduct);
 // DELETE specific product
 router.delete("/:productId", verifyAdmin, productsController.deleteProduct);
 // GET all products

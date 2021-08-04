@@ -34,6 +34,8 @@ function patchProductValidation(data) {
                             .string(),
         productExtraInfo: Joi
                             .string(), // Stringified array of data
+        productImg:       Joi
+                            .string(), // Possible 'null' str val
         imgAltText:       Joi
                             .string()
     });
