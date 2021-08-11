@@ -9,7 +9,7 @@ import UpdateProductForm from "./update-product-form/UpdateProductForm";
 
 function UpdateProduct() {
     const { productId } = useParams();
-    const isAdmin = localStorage.getItem("isAdmin");
+    const isAdmin = sessionStorage.getItem("isAdmin");
 
     // Route guard
     if (isAdmin === "false" || isAdmin === null) {

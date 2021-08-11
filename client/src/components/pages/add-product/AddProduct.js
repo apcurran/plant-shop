@@ -8,10 +8,10 @@ import CollectionNav from "../shop/collection-nav/CollectionNav";
 import AddProductForm from "./add-product-form/AddProductForm";
 
 function AddProduct() {
-    const isAdmin = localStorage.getItem("isAdmin");
+    const isAdmin = sessionStorage.getItem("isAdmin");
 
     // Route guard
-    // String val pulled from localStorage
+    // String val pulled from sessionStorage
     if (isAdmin === "false" || isAdmin === null) {
         return <Redirect to="/admin/auth/log-in" />;
     }

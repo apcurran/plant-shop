@@ -6,9 +6,9 @@ function SignedInLinks({ setToken, setUser, setIsAdmin, userInfo }) {
     const history = useHistory();
 
     function handleLogOut() {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userInfo");
-        localStorage.removeItem("isAdmin");
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("userInfo");
+        sessionStorage.removeItem("isAdmin");
 
         // Reset store state
         setToken("");

@@ -20,9 +20,9 @@ function App() {
   const setIsAdmin = useAuthStore((state) => state.setIsAdmin);
 
   useEffect(() => {
-    if (localStorage.accessToken) {
-      const accessToken = localStorage.getItem("accessToken");
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (sessionStorage.accessToken) {
+      const accessToken = sessionStorage.getItem("accessToken");
+      const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
 
       setToken(accessToken);
       setUser(userInfo);
