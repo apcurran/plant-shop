@@ -14,7 +14,7 @@ const store = (set, get) => ({
         
         if (!existingItem) {
             const currNewItem = {
-                // Fields needed for item
+                // Fields needed for new item
                 productId: newItem.productId,
                 productExtraInfoId: newItem.productExtraInfoId,
                 title: newItem.title,
@@ -32,11 +32,11 @@ const store = (set, get) => ({
         } else {
             // newItem already exists in items arr
             currItemsArr.map((item) => {
-                // Update single currently pre-existing item
                 if (item.productId === newItem.productId) {
                     return {
+                        // Copy old obj properties
                         ...item,
-                        // Inc item qty by 1
+                        // Update item qty by 1
                         itemQuantity: item.itemQuantity + 1,
                         // Update item total price
                         itemTotalPrice: item.itemTotalPrice + newItem.price

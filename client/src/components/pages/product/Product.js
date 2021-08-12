@@ -48,7 +48,7 @@ function Product() {
             imgHeight: productData.height
         };
 
-        // Add item to global cart store
+        // Add item obj to global cart store
         addItemToCart(currItemObj);
     }
 
