@@ -8,7 +8,10 @@ const store = (set, get) => ({
         debugger;
 
         const currItemsArr = get().items;
-        const existingItem = currItemsArr.find((item) => item.productId === newItem.productId);
+        const existingItem = currItemsArr.find((item) => {
+            // Same item, and same sizing price
+            return item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId
+        });
         // Incr total qty by 1
         set((state) => ({ totalQuantity: state.totalQuantity + 1 }));
         
@@ -28,7 +31,7 @@ const store = (set, get) => ({
                 imgHeight: newItem.imgHeight
             };
             // Add item to items arr
-            set((state) => ({ items: [...state.items, currNewItem] }));
+            set({ items: [...currItemsArr, currNewItem] });
         } else {
             // newItem already exists in items arr
             currItemsArr.map((item) => {
@@ -45,6 +48,8 @@ const store = (set, get) => ({
 
                 return { ...item };
             });
+
+            // TODO: set new change to store items arr
         }
     }
 });
