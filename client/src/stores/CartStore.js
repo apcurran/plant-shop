@@ -5,7 +5,8 @@ const store = (set, get) => ({
     totalQuantity: 0,
     // Funcs
     addItemToCart: (newItem) => {
-        // debugger;
+        debugger;
+
         const currItemsArr = get().items;
         const existingItem = currItemsArr.find((item) => item.productId === newItem.productId);
         // Incr total qty by 1
@@ -41,6 +42,8 @@ const store = (set, get) => ({
                         itemTotalPrice: item.itemTotalPrice + newItem.price
                     };
                 }
+
+                return { ...item };
             });
         }
     }
