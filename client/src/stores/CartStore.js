@@ -34,7 +34,7 @@ const store = (set, get) => ({
             set({ items: [...currItemsArr, currNewItem] });
         } else {
             // newItem already exists in items arr
-            currItemsArr.map((item) => {
+            const updatedItemsArr = currItemsArr.map((item) => {
                 if (item.productId === newItem.productId) {
                     return {
                         // Copy old obj properties
@@ -49,7 +49,7 @@ const store = (set, get) => ({
                 return { ...item };
             });
 
-            // TODO: set new change to store items arr
+            set({ items: updatedItemsArr });
         }
     }
 });
