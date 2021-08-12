@@ -1,8 +1,8 @@
 import "./ProductSizeBtn.css";
 
-function ProductSizeBtn({ prodSizeGallons, prodSizePrice }) {
+function ProductSizeBtn({ setSelectedProductExtraInfo, prodExtraInfoId, prodSizeGallons, prodSizePrice }) {
     return (
-        <button className="product__content__size-btn">
+        <button onClick={() => setSelectedProductExtraInfo({ prodExtraInfoId, prodExtraInfoSize: prodSizeGallons, prodExtraInfoPrice: Number(prodSizePrice) })} className="product__content__size-btn">
             <div className="product__content__size-btn__gallon-size">{prodSizeGallons} gallon</div>
             <span className="product__content__size-btn__price">${prodSizePrice}</span>
         </button>

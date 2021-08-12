@@ -8,11 +8,18 @@ import TitleBar from "../../ui/title-bar/TitleBar";
 import MainWrapper from "../../layout/main-wrapper/MainWrapper";
 import ProductSizeBtn from "./product-size-btn/ProductSizeBtn";
 
+import useCartStore from "../../../stores/CartStore";
+
 function Product() {
     const { productId } = useParams();
     const [productData, setProductData] = useState({});
     const [startingPrice, setStartingPrice] = useState("");
     const [prodSizingInfo, setProdSizingInfo] = useState([]);
+    const [selectedProductExtraInfo, setSelectedProductExtraInfo] = useState({ prodExtraInfoId: "", prodExtraInfoSize: null, prodExtraInfoPrice: null });
+    console.log(selectedProductExtraInfo);
+
+    // Store func
+    const addItemToCart = useCartStore((state) => state.addItemToCart);
 
     useEffect(() => {
         fetch(`/api/products/${productId}`)
@@ -25,13 +32,35 @@ function Product() {
             .catch((err) => console.error(err));
     }, [productId]);
 
-    function addItemToCartHandler() {
-        
+    function addItemToCartHandler(prodExtraInfoId, prodExtraInfoSize, prodExtraInfoPrice) {
+        // Check if user has clicked an item size/price, otherwise prompt user to do so
+        if (prodExtraInfoId === "") {
+
+        }
+
+        const currItemObj = {
+            productId: productId,
+            productExtraInfoId: prodExtraInfoId,
+            title: productData.title,
+            size: prodExtraInfoSize,
+            price: prodExtraInfoPrice,
+            imgPublicId: productData.publicId,
+            imgAltTxt: productData.altText,
+            imgWidth: productData.width,
+            imgHeight: productData.height
+        };
+
+        // Add item to global cart store
+        addItemToCart(currItemObj);
     }
 
     const prodBtns = prodSizingInfo.map((prod) => {
-        return <ProductSizeBtn key={prod.productExtraInfoId} prodSizeGallons={prod.size} prodSizePrice={prod.price} />
+        return <ProductSizeBtn setSelectedProductExtraInfo={setSelectedProductExtraInfo} key={prod.productExtraInfoId} prodExtraInfoId={prod.productExtraInfoId} prodSizeGallons={prod.size} prodSizePrice={prod.price} />
     });
+    const selectedPriceSpan = selectedProductExtraInfo.prodExtraInfoPrice ?
+                                <span className="product__content__selected-price">${selectedProductExtraInfo.prodExtraInfoPrice}</span>
+                                :
+                                <span className="product__content__selected-price">Please select an item before adding to cart.</span>;
 
     return (
         <div className="product">
@@ -54,8 +83,13 @@ function Product() {
                         <h3 className="product__content__size-title">Size</h3>
                         {prodBtns}
                         <div className="product__content__add-info-container">
-                            <button className="product__content__add-btn">Add to Cart</button>
-                            <span className="product__content__selected-price">Selected Price Here</span>
+                            <button
+                                onClick={() => addItemToCartHandler(selectedProductExtraInfo.prodExtraInfoId, selectedProductExtraInfo.prodExtraInfoSize, selectedProductExtraInfo.prodExtraInfoPrice)}
+                                className="product__content__add-btn"
+                            >
+                                Add to Cart
+                            </button>
+                            {selectedPriceSpan}
                         </div>
                         <p className="product__content__desc">{productData.description}</p>
                         <div className="product__content__info-article-container">
