@@ -16,7 +16,6 @@ function Product() {
     const [startingPrice, setStartingPrice] = useState("");
     const [prodSizingInfo, setProdSizingInfo] = useState([]);
     const [selectedProductExtraInfo, setSelectedProductExtraInfo] = useState({ prodExtraInfoId: "", prodExtraInfoSize: null, prodExtraInfoPrice: null });
-    console.log(selectedProductExtraInfo);
 
     // Store func
     const addItemToCart = useCartStore((state) => state.addItemToCart);

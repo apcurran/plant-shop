@@ -10,7 +10,7 @@ const store = (set, get) => ({
         const currItemsArr = get().items;
         const existingItem = currItemsArr.find((item) => {
             // Same item, and same sizing price
-            return item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId
+            return item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId;
         });
         // Incr total qty by 1
         set((state) => ({ totalQuantity: state.totalQuantity + 1 }));
@@ -35,7 +35,7 @@ const store = (set, get) => ({
         } else {
             // newItem already exists in items arr
             const updatedItemsArr = currItemsArr.map((item) => {
-                if (item.productId === newItem.productId) {
+                if (item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId) {
                     return {
                         // Copy old obj properties
                         ...item,
