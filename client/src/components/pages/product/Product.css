@@ -96,3 +96,8 @@
     height: 3.5rem;
     fill: var(--med-warm-grey);
 }
+
+.product__content__selected-price {
+    font-weight: 700;
+    font-size: var(--fz-md);
+}

@@ -33,10 +33,8 @@ function Product() {
     }, [productId]);
 
     function addItemToCartHandler(prodExtraInfoId, prodExtraInfoSize, prodExtraInfoPrice) {
-        // Check if user has clicked an item size/price, otherwise prompt user to do so
-        if (prodExtraInfoId === "") {
-
-        }
+        // Check if user has clicked an item size/price
+        if (prodExtraInfoId === "") return;
 
         const currItemObj = {
             productId: productId,
