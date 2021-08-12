@@ -55,7 +55,13 @@ function Product() {
     }
 
     const prodBtns = prodSizingInfo.map((prod) => {
-        return <ProductSizeBtn setSelectedProductExtraInfo={setSelectedProductExtraInfo} key={prod.productExtraInfoId} prodExtraInfoId={prod.productExtraInfoId} prodSizeGallons={prod.size} prodSizePrice={prod.price} />
+        return <ProductSizeBtn
+                    setSelectedProductExtraInfo={setSelectedProductExtraInfo}
+                    key={prod.productExtraInfoId}
+                    prodExtraInfoId={prod.productExtraInfoId}
+                    prodSizeGallons={prod.size}
+                    prodSizePrice={prod.price}
+                />;
     });
     const selectedPriceSpan = selectedProductExtraInfo.prodExtraInfoPrice ?
                                 <span className="product__content__selected-price">${selectedProductExtraInfo.prodExtraInfoPrice}</span>
