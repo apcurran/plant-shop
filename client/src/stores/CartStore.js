@@ -51,7 +51,10 @@ const store = (set, get) => ({
 
             set({ items: updatedItemsArr });
         }
-    }
+    },
+    clearCart: () => {
+        set({ items: [], totalQuantity: 0 });
+    },
 });
 
 const useCartStore = create(store);
