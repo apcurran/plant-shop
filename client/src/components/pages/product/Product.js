@@ -25,6 +25,10 @@ function Product() {
             .catch((err) => console.error(err));
     }, [productId]);
 
+    function addItemToCartHandler() {
+        
+    }
+
     const prodBtns = prodSizingInfo.map((prod) => {
         return <ProductSizeBtn key={prod.productExtraInfoId} prodSizeGallons={prod.size} prodSizePrice={prod.price} />
     });
