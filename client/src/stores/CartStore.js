@@ -3,7 +3,6 @@ import create from "zustand";
 const store = (set, get) => ({
     items: [],
     totalQuantity: 0,
-    // Funcs
     addItemToCart: (newItem) => {
         debugger;
 
@@ -52,9 +51,33 @@ const store = (set, get) => ({
             set({ items: updatedItemsArr });
         }
     },
-    clearCart: () => {
-        set({ items: [], totalQuantity: 0 });
+    incrementOneItem: () => {
+        
     },
+    decrementOneItem: () => {
+
+    },
+    removeItemFromCart: (productId, productExtraInfoId) => {
+        // Removes item regardless of item quantity in cart
+        // NOTE: NOT TESTED YET
+        const currItemsArr = get().items;
+        let qtyToDecrement = 0;
+        const updatedItemsArr = currItemsArr.filter((item) => {
+            if (item.productId !== productId && item.productExtraInfoId !== productExtraInfoId) {
+                qtyToDecrement = item.itemQuantity;
+
+                return true;
+            }
+
+            return false;
+        });
+
+        set((state) => ({ items: updatedItemsArr, totalQuantity: state.totalQuantity - qtyToDecrement }));
+    },
+    clearCart: () => {
+        // NOTE: NOT TESTED YET
+        set({ items: [], totalQuantity: 0 });
+    }
 });
 
 const useCartStore = create(store);
