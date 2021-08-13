@@ -51,11 +51,26 @@ const store = (set, get) => ({
             set({ items: updatedItemsArr });
         }
     },
-    incrementOneItem: () => {
-        
-    },
-    decrementOneItem: () => {
+    incrementOneItem: (existingItem) => {
+        const currItemsArr = get().items;
+        const updatedExistingItemsArr = currItemsArr.map((item) => {
+            if (item.productId === existingItem.productId && item.productExtraInfoId === existingItem.productExtraInfoId) {
+                // Update existing item qty and price
+                return {
+                    ...existingItem,
+                    itemQuantity: existingItem.itemQuantity + 1,
+                    itemTotalPrice: existingItem.itemTotalPrice + existingItem.price
+                }
+            }
 
+            return { ...item };
+        });
+
+        // Update totalQuantity by one and items arr with updated item info
+        set((state) => ({ items: updatedExistingItemsArr, totalQuantity: state.totalQuantity + 1 }));
+    },
+    decrementOneItem: (existingItem) => {
+        
     },
     removeItemFromCart: (productId, productExtraInfoId) => {
         // Removes item regardless of item quantity in cart
