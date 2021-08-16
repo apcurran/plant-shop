@@ -1,11 +1,16 @@
 .nav__cart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
     padding: .5rem 1rem;
+
+    line-height: 1;
     border-radius: 500px;
     border: none;
     cursor: pointer;
     background-color: var(--cta-accent-clr);
     font-size: 1rem;
-    line-height: 1;
 }
 
 .cart-icon {

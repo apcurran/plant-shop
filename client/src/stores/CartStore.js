@@ -4,8 +4,6 @@ const store = (set, get) => ({
     items: [],
     totalQuantity: 0,
     addItemToCart: (newItem) => {
-        debugger;
-
         const currItemsArr = get().items;
         const existingItem = currItemsArr.find((item) => {
             // Same item, and same sizing price
