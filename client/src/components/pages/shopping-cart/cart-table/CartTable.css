@@ -1,0 +1,25 @@
+.cart-table {
+    border-collapse: collapse;
+}
+
+.cart-table__thead__tr {
+    text-align: left;
+    font-weight: 700;
+    color: var(--med-warm-grey);
+}
+
+.cart-table__thead__tr__th {
+    padding: 2rem 3rem;
+}
+
+/* Data cells */
+.cart-table__tbody__tr__td {
+    padding: 2rem 3rem;
+}
+
+.cart-table__prod-info {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    padding-right: 8rem;
+}
