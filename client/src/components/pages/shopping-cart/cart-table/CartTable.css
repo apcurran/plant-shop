@@ -6,6 +6,7 @@
     text-align: left;
     font-weight: 700;
     color: var(--med-warm-grey);
+    border-bottom: 1px solid var(--light-warm-grey);
 }
 
 .cart-table__thead__tr__th {
@@ -22,4 +23,21 @@
     align-items: center;
     gap: 3rem;
     padding-right: 8rem;
+    padding-left: 0;
+}
+
+.cart-table__thead__product {
+    padding-left: 0;
+}
+
+.cart-table__prod-info__title {
+    margin-bottom: .5rem;
+    font-size: var(--fz-md);
+}
+
+.cart-table__qty-container__btn {
+    padding: .75rem;
+    border: none;
+    background: none;
+    cursor: pointer;
 }

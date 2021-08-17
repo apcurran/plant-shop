@@ -5,7 +5,7 @@ function CartTable() {
         <table className="cart-table">
             <thead className="cart-table__thead">
                 <tr className="cart-table__thead__tr">
-                    <th className="cart-table__thead__tr__th">Product</th>
+                    <th className="cart-table__thead__tr__th cart-table__thead__product">Product</th>
                     <th className="cart-table__thead__tr__th">Price</th>
                     <th className="cart-table__thead__tr__th">Quantity</th>
                     <th className="cart-table__thead__tr__th">Total</th>
@@ -24,9 +24,9 @@ function CartTable() {
                     </td>
                     <td className="cart-table__tbody__tr__td cart-table__price">$25</td>
                     <td className="cart-table__tbody__tr__td cart-table__qty-container">
-                        <button>-</button>
+                        <button className="cart-table__qty-container__btn">-</button>
                         <span>2</span>
-                        <button>+</button>
+                        <button className="cart-table__qty-container__btn">+</button>
                     </td>
                     <td className="cart-table__tbody__tr__td cart-table__total">$50</td>
                 </tr>
@@ -42,9 +42,9 @@ function CartTable() {
                     </td>
                     <td className="cart-table__tbody__tr__td cart-table__price">$20</td>
                     <td className="cart-table__tbody__tr__td cart-table__qty-container">
-                        <button>-</button>
+                        <button className="cart-table__qty-container__btn">-</button>
                         <span>1</span>
-                        <button>+</button>
+                        <button className="cart-table__qty-container__btn">+</button>
                     </td>
                     <td className="cart-table__tbody__tr__td cart-table__total">$20</td>
                 </tr>
