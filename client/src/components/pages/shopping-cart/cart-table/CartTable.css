@@ -41,3 +41,19 @@
     background: none;
     cursor: pointer;
 }
+
+.cart-table__tbody__tr__td__close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem;
+
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.x-icon {
+    width: 1.5rem;
+    stroke: var(--light-med-warm-grey);
+}

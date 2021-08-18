@@ -23,6 +23,11 @@ function CartTable({ items }) {
                 <button className="cart-table__qty-container__btn">+</button>
             </td>
             <td className="cart-table__tbody__tr__td cart-table__total">${item.itemTotalPrice}</td>
+            <td className="cart-table__tbody__tr__td">
+                <button className="cart-table__tbody__tr__td__close-btn">
+                    <svg className="x-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </td>
         </tr>
     ));
 
