@@ -1,3 +1,5 @@
+import { Image, Transformation } from "cloudinary-react";
+
 import "./CartTable.css";
 
 function CartTable() {
@@ -15,7 +17,9 @@ function CartTable() {
                 <tr className="cart-table__tbody__tr">
                     <td className="cart-table__tbody__tr__td cart-table__prod-info">
                         <figure className="cart-table__prod-info__fig">
-                            img here
+                            <Image publicId="evergreen-app/yfbvbevvnqhy7932vzdr.jpg" width="125" height="150" alt="Plant" className="cart-table__prod-info__fig__img">
+                                <Transformation width="125" height="150" crop="fill" quality="auto" fetchFormat="auto" />
+                            </Image>
                         </figure>
                         <div className="cart-table__prod-info__desc-container">
                             <h2 className="cart-table__prod-info__title">Test Product</h2>
@@ -33,7 +37,9 @@ function CartTable() {
                 <tr className="cart-table__tbody__tr">
                     <td className="cart-table__tbody__tr__td cart-table__prod-info">
                         <figure className="cart-table__prod-info__fig">
-                            img here
+                            <Image publicId="evergreen-app/yfbvbevvnqhy7932vzdr.jpg" width="125" height="150" alt="Plant" className="cart-table__prod-info__fig__img">
+                                <Transformation width="125" height="150" crop="fill" quality="auto" fetchFormat="auto" />
+                            </Image>
                         </figure>
                         <div className="cart-table__prod-info__desc-container">
                             <h2 className="cart-table__prod-info__title">Test Product 2</h2>
