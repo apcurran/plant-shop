@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Image, Transformation } from "cloudinary-react";
 
 import useCartStore from "../../../../stores/CartStore";
@@ -5,9 +6,9 @@ import useCartStore from "../../../../stores/CartStore";
 import "./CartTable.css";
 
 function CartTable({ items }) {
-    const incrementOneItem = useCartStore((state) => state.incrementOneItem);
-    const decrementOneItem = useCartStore((state) => state.decrementOneItem);
-    const removeItemFromCart = useCartStore((state) => state.removeItemFromCart);
+    const incrementOneItem = useCartStore(useCallback((state) => state.incrementOneItem, []));
+    const decrementOneItem = useCartStore(useCallback((state) => state.decrementOneItem, []));
+    const removeItemFromCart = useCartStore(useCallback((state) => state.removeItemFromCart, []));
 
     const itemsArr = items.map(item => (
         <tr key={item.productExtraInfoId} className="cart-table__tbody__tr">
