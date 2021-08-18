@@ -72,12 +72,10 @@ const store = (set, get) => ({
     },
     removeItemFromCart: (productId, productExtraInfoId) => {
         // Removes item regardless of item quantity in cart
-        debugger;
-
         const currItemsArr = get().items;
         let qtyToDecrement = 0;
         const updatedItemsArr = currItemsArr.filter((item) => {
-            if (item.productId !== productId && item.productExtraInfoId !== productExtraInfoId) {
+            if (item.productId !== productId || item.productExtraInfoId !== productExtraInfoId) {
                 // Keep in arr
                 return true;
             }
