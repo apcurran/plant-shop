@@ -119,10 +119,6 @@ const store = (set, get) => ({
         });
 
         set((state) => ({ items: updatedItemsArr, totalQuantity: state.totalQuantity - qtyToDecrement }));
-    },
-    clearCart: () => {
-        // NOTE: NOT TESTED YET
-        set({ items: [], totalQuantity: 0 });
     }
 });
 
