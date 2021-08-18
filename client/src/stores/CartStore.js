@@ -72,15 +72,18 @@ const store = (set, get) => ({
     },
     removeItemFromCart: (productId, productExtraInfoId) => {
         // Removes item regardless of item quantity in cart
-        // NOTE: NOT TESTED YET
+        debugger;
+
         const currItemsArr = get().items;
         let qtyToDecrement = 0;
         const updatedItemsArr = currItemsArr.filter((item) => {
             if (item.productId !== productId && item.productExtraInfoId !== productExtraInfoId) {
-                qtyToDecrement = item.itemQuantity;
-
+                // Keep in arr
                 return true;
             }
+
+            // Remove from arr
+            qtyToDecrement = item.itemQuantity;
 
             return false;
         });

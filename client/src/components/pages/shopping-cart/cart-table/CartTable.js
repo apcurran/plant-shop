@@ -1,10 +1,14 @@
 import { Image, Transformation } from "cloudinary-react";
 
+import useCartStore from "../../../../stores/CartStore";
+
 import "./CartTable.css";
 
 function CartTable({ items }) {
+    const removeItemFromCart = useCartStore((state) => state.removeItemFromCart);
+
     const itemsArr = items.map(item => (
-        <tr key={item.productId} className="cart-table__tbody__tr">
+        <tr key={item.productExtraInfoId} className="cart-table__tbody__tr">
             <td className="cart-table__tbody__tr__td cart-table__prod-info">
                 <figure className="cart-table__prod-info__fig">
                     <Image publicId={item.imgPublicId} width="125" height="150" alt={item.imgAltTxt} className="cart-table__prod-info__fig__img">
@@ -24,7 +28,7 @@ function CartTable({ items }) {
             </td>
             <td className="cart-table__tbody__tr__td cart-table__total">${item.itemTotalPrice}</td>
             <td className="cart-table__tbody__tr__td">
-                <button className="cart-table__tbody__tr__td__close-btn">
+                <button onClick={() => removeItemFromCart(item.productId, item.productExtraInfoId)} aria-label="Close" className="cart-table__tbody__tr__td__close-btn">
                     <svg className="x-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
             </td>
