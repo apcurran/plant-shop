@@ -68,7 +68,39 @@ const store = (set, get) => ({
         set((state) => ({ items: updatedExistingItemsArr, totalQuantity: state.totalQuantity + 1 }));
     },
     decrementOneItem: (existingItem) => {
-        
+        const currItemsArr = get().items;
+        const qtyToDecrement = 1;
+        let updatedExistingItemsArr;
+
+        if (existingItem.itemQuantity === 1) {
+            // When qty of one left, remove item from cart completely
+            updatedExistingItemsArr = currItemsArr.filter((item) => {
+                if (item.productId !== existingItem.productId || item.productExtraInfoId !== existingItem.productExtraInfoId) {
+                    // Keep in arr
+                    return true;
+                }
+    
+                // Remove from arr
+                return false;
+            });
+
+        } else {
+            // Map over and decrement item's qty
+            updatedExistingItemsArr = currItemsArr.map((item) => {
+                if (item.productId === existingItem.productId && item.productExtraInfoId === existingItem.productExtraInfoId) {
+                    // Update existing item qty and price
+                    return {
+                        ...existingItem,
+                        itemQuantity: existingItem.itemQuantity - 1,
+                        itemTotalPrice: existingItem.itemTotalPrice - existingItem.price
+                    }
+                }
+    
+                return item;
+            });
+        }
+
+        set((state) => ({ items: updatedExistingItemsArr, totalQuantity: state.totalQuantity - qtyToDecrement }));
     },
     removeItemFromCart: (productId, productExtraInfoId) => {
         // Removes item regardless of item quantity in cart

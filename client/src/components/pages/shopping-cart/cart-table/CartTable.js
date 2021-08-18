@@ -6,6 +6,7 @@ import "./CartTable.css";
 
 function CartTable({ items }) {
     const incrementOneItem = useCartStore((state) => state.incrementOneItem);
+    const decrementOneItem = useCartStore((state) => state.decrementOneItem);
     const removeItemFromCart = useCartStore((state) => state.removeItemFromCart);
 
     const itemsArr = items.map(item => (
@@ -23,7 +24,7 @@ function CartTable({ items }) {
             </td>
             <td className="cart-table__tbody__tr__td cart-table__price">${item.price}</td>
             <td className="cart-table__tbody__tr__td cart-table__qty-container">
-                <button className="cart-table__qty-container__btn">-</button>
+                <button onClick={() => decrementOneItem(item)} className="cart-table__qty-container__btn">-</button>
                 <span>{item.itemQuantity}</span>
                 <button onClick={() => incrementOneItem(item)} className="cart-table__qty-container__btn">+</button>
             </td>
