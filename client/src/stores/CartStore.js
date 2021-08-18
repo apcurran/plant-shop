@@ -61,7 +61,7 @@ const store = (set, get) => ({
                 }
             }
 
-            return { ...item };
+            return item;
         });
 
         // Update totalQuantity by one and items arr with updated item info
