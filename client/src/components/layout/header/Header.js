@@ -11,9 +11,9 @@ import useAuthStore from "../../../stores/AuthStore";
 
 function Header({ homePageRendering }) {
     // Auth store state
-    const setToken = useAuthStore((state) => state.setToken);
-    const setUser = useAuthStore((state) => state.setUser);
-    const setIsAdmin = useAuthStore((state) => state.setIsAdmin);
+    const setToken = useAuthStore(useCallback((state) => state.setToken, []));
+    const setUser = useAuthStore(useCallback((state) => state.setUser, []));
+    const setIsAdmin = useAuthStore(useCallback((state) => state.setIsAdmin, []));
     const userInfo = useAuthStore(useCallback((state) => state.user, []));
 
     const displayedLinks = Object.keys(userInfo).length > 0 ? <SignedInLinks setToken={setToken} setUser={setUser} setIsAdmin={setIsAdmin} userInfo={userInfo} /> : <SignedOutLinks />;
