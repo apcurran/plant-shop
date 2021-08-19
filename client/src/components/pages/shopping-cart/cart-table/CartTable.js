@@ -10,6 +10,10 @@ function CartTable({ items }) {
     const decrementOneItem = useCartStore(useCallback((state) => state.decrementOneItem, []));
     const removeItemFromCart = useCartStore(useCallback((state) => state.removeItemFromCart, []));
 
+    const itemsSubTotal = items.reduce((total, currVal) => total + currVal.itemTotalPrice, 0);
+    const shippingCost = itemsSubTotal >= 40 ? "Free" : "$5";
+    const grandTotal = itemsSubTotal >= 40 ? itemsSubTotal : itemsSubTotal + 5;
+
     const itemsArr = items.map(item => (
         <tr key={item.productExtraInfoId} className="cart-table__tbody__tr">
             <td className="cart-table__tbody__tr__td cart-table__prod-info">
@@ -38,20 +42,37 @@ function CartTable({ items }) {
         </tr>
     ));
 
+    const totalInfo = (
+        <section className="total-info">
+            <div className="total-info__group">
+                <span className="total-info__group__span">Subtotal:</span>
+                <span className="total-info__group__span-val">${itemsSubTotal}</span>
+                <span className="total-info__group__span">Shipping:</span>
+                <span className="total-info__group__span-val">{shippingCost}</span>
+                <span className="total-info__group__span total-info__group__span--total">Total:</span>
+                <span className="total-info__group__span-val total-info__group__span-val--total">${grandTotal}</span>
+                <button className="total-info__group__btn">Checkout</button>
+            </div>
+        </section>
+    )
+
     return (
-        <table className="cart-table">
-            <thead className="cart-table__thead">
-                <tr className="cart-table__thead__tr">
-                    <th className="cart-table__thead__tr__th cart-table__thead__product">Product</th>
-                    <th className="cart-table__thead__tr__th">Price</th>
-                    <th className="cart-table__thead__tr__th">Quantity</th>
-                    <th className="cart-table__thead__tr__th">Total</th>
-                </tr>
-            </thead>
-            <tbody className="cart-table__tbody">
-                {itemsArr}
-            </tbody>
-        </table>
+        <div className="shopping-cart-info-wrapper">
+            <table className="cart-table">
+                <thead className="cart-table__thead">
+                    <tr className="cart-table__thead__tr">
+                        <th className="cart-table__thead__tr__th cart-table__thead__product">Product</th>
+                        <th className="cart-table__thead__tr__th">Price</th>
+                        <th className="cart-table__thead__tr__th">Quantity</th>
+                        <th className="cart-table__thead__tr__th">Total</th>
+                    </tr>
+                </thead>
+                <tbody className="cart-table__tbody">
+                    {itemsArr}
+                </tbody>
+            </table>
+            {totalInfo}
+        </div>
     );
 }
 
