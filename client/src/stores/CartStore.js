@@ -138,6 +138,13 @@ const store = (set, get) => ({
                 body: JSON.stringify(cartData)
             });
 
+            // Check for errors
+            if (!response.ok) {
+                const serverErrMsg = await response.json();
+
+                throw Error(serverErrMsg.error);
+            }
+
             const resData = await response.json();
             console.log(resData);
 
