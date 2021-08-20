@@ -120,11 +120,30 @@ const store = (set, get) => ({
 
         set((state) => ({ items: updatedItemsArr, totalQuantity: state.totalQuantity - qtyToDecrement }));
     },
-    sendCartData: () => {
+    sendCartData: async (token) => {
         const currItemsArr = get().items;
         const totalQty = get().totalQuantity;
-        console.table(currItemsArr);
-        console.log(totalQty);
+        const cartData = {
+            currItemsArr,
+            totalQty
+        };
+
+        try {
+            const response = await fetch("/api/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(cartData)
+            });
+
+            const resData = await response.json();
+            console.log(resData);
+
+        } catch (err) {
+            console.error(err);
+        }
     }
 });
 
