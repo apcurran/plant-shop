@@ -119,6 +119,12 @@ const store = (set, get) => ({
         });
 
         set((state) => ({ items: updatedItemsArr, totalQuantity: state.totalQuantity - qtyToDecrement }));
+    },
+    sendCartData: () => {
+        const currItemsArr = get().items;
+        const totalQty = get().totalQuantity;
+        console.table(currItemsArr);
+        console.log(totalQty);
     }
 });
 
