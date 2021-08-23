@@ -9,7 +9,6 @@ import useCartStore from "../../../stores/CartStore";
 
 function ShoppingCart() {
     const items = useCartStore(useCallback((state) => state.items, []));
-    console.log(items);
 
     return (
         <div className="cart-page">

@@ -20,7 +20,6 @@ function Product() {
     // Store func
     const addItemToCart = useCartStore((state) => state.addItemToCart);
     const cartItems = useCartStore((state) => state.items);
-    console.log(cartItems);
 
     useEffect(() => {
         fetch(`/api/products/${productId}`)
