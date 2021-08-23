@@ -3,12 +3,15 @@
 const jwt = require("jsonwebtoken");
 
 const db = require("../../db/index");
+const { prepareLineItems } = require("../../util/prepare-line-items");
 
 async function postCreatePaymentIntent(req, res, next) {
     const { currItemsArr, totalQty } = req.body;
-    let itemsInfoFromDb = [];
-
+    // console.log(currItemsArr);
+    
     try {
+        let itemsInfoFromDb = [];
+
         for (let itemObj of currItemsArr) {
             const prodId = Number(itemObj.productId);
             const productExtraInfoId = itemObj.productExtraInfoId;
@@ -16,7 +19,7 @@ async function postCreatePaymentIntent(req, res, next) {
                 SELECT
                     product.title,
                     product_extra_info.size,
-                    product_extra_info.price
+                    CAST(product_extra_info.price AS INTEGER)
                 FROM product
                 INNER JOIN
                     product_extra_info ON product.product_id = product_extra_info.product_id
@@ -24,13 +27,15 @@ async function postCreatePaymentIntent(req, res, next) {
                     product.product_id = $1
                     AND
                     product_extra_info.product_extra_info_id = $2
-            `, [prodId, productExtraInfoId])).rows;
+            `, [prodId, productExtraInfoId])).rows[0];
 
             itemsInfoFromDb.push(itemInfo);
         }
 
-        console.log(itemsInfoFromDb);
         // NOTE: Data coming in correctly
+        // Convert to Stripe API format
+        const preparedLineItems = prepareLineItems(itemsInfoFromDb, currItemsArr);
+        console.log("Prepared Line Items:", preparedLineItems);
 
     } catch (err) {
         next(err);
