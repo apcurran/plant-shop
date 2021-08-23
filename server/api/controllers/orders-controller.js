@@ -8,7 +8,6 @@ const { prepareLineItems } = require("../../util/prepare-line-items");
 
 async function postCreatePaymentIntent(req, res, next) {
     const { currItemsArr, totalQty } = req.body;
-    // console.log(currItemsArr);
     
     try {
         let itemsInfoFromDb = [];
@@ -33,10 +32,8 @@ async function postCreatePaymentIntent(req, res, next) {
             itemsInfoFromDb.push(itemInfo);
         }
 
-        // NOTE: Data coming in correctly
         // Convert to Stripe API format
         const preparedLineItems = prepareLineItems(itemsInfoFromDb, currItemsArr);
-        // console.log(preparedLineItems);
         const session = await stripe.checkout.sessions.create({
             mode: "payment",
             payment_method_types: ["card"],
@@ -44,6 +41,9 @@ async function postCreatePaymentIntent(req, res, next) {
             success_url: `${process.env.CLIENT_URL}/success`,
             cancel_url: `${process.env.CLIENT_URL}/cancel`
         });
+        console.log(session);
+
+        res.json({ url: session.url });
 
     } catch (err) {
         next(err);

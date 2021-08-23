@@ -145,8 +145,9 @@ const store = (set, get) => ({
                 throw Error(serverErrMsg.error);
             }
 
-            const resData = await response.json();
-            console.log(resData);
+            const { url } = await response.json();
+            // Push to Stripe API generated URL
+            window.location = url;
 
         } catch (err) {
             console.error(err);
