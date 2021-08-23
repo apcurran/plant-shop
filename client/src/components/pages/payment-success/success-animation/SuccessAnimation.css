@@ -1,0 +1,9 @@
+.payment-success__anim-container {
+    width: 40rem;
+}
+
+.payment-success__anim-vid {
+    width: 100%;
+    height: auto;
+    display: block;
+}

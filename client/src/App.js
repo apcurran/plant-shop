@@ -11,6 +11,7 @@ import Auth from "./components/pages/auth/Auth";
 import AddProduct from "./components/pages/add-product/AddProduct";
 import UpdateProduct from "./components/pages/update-product/UpdateProduct";
 import ShoppingCart from "./components/pages/shopping-cart/ShoppingCart";
+import PaymentSuccess from "./components/pages/payment-success/PaymentSuccess";
 
 import useAuthStore from "./stores/AuthStore";
 
@@ -77,6 +78,9 @@ function App() {
             </Route>
             <Route exact path="/cart">
               <ShoppingCart />
+            </Route>
+            <Route exact path="/success">
+              <PaymentSuccess />
             </Route>
           </Switch>
         </div>
