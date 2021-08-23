@@ -35,7 +35,8 @@ async function postCreatePaymentIntent(req, res, next) {
         // NOTE: Data coming in correctly
         // Convert to Stripe API format
         const preparedLineItems = prepareLineItems(itemsInfoFromDb, currItemsArr);
-        console.log("Prepared Line Items:", preparedLineItems);
+        // console.log(preparedLineItems);
+        
 
     } catch (err) {
         next(err);
