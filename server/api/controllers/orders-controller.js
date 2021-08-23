@@ -1,6 +1,7 @@
 "use strict";
 
 const jwt = require("jsonwebtoken");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const db = require("../../db/index");
 const { prepareLineItems } = require("../../util/prepare-line-items");
@@ -36,7 +37,13 @@ async function postCreatePaymentIntent(req, res, next) {
         // Convert to Stripe API format
         const preparedLineItems = prepareLineItems(itemsInfoFromDb, currItemsArr);
         // console.log(preparedLineItems);
-        
+        const session = await stripe.checkout.sessions.create({
+            mode: "payment",
+            payment_method_types: ["card"],
+            line_items: preparedLineItems,
+            success_url: `${process.env.CLIENT_URL}/success`,
+            cancel_url: `${process.env.CLIENT_URL}/cancel`
+        });
 
     } catch (err) {
         next(err);
