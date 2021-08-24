@@ -10,8 +10,8 @@ function PaymentSuccess() {
             <Header />
             <MainWrapper>
                 <TitleBar>Payment Success</TitleBar>
-                <SuccessDesc />
                 <SuccessAnimation />
+                <SuccessDesc />
             </MainWrapper>
         </div>
     );
