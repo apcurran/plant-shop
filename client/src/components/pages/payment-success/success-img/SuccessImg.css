@@ -1,0 +1,12 @@
+.payment-success__fig {
+    max-width: 100%;
+
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+}
+
+.payment-success__fig__img {
+    width: 100%;
+    height: auto;
+    display: block;
+}

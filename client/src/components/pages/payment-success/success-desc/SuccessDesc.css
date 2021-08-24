@@ -1,4 +1,12 @@
 .payment-success__desc {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+
     margin: 1rem 0;
+    padding: 1.5rem 1.75rem;
+    border-radius: 10px;
+    background-color: hsla(48, 96%, 89%, .95); /* cta accent clr with some transparency */
+    color: var(--cta-accent-clr-dark);
     text-align: center;
+    font-size: var(--fz-md);
 }

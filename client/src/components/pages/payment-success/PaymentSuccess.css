@@ -1,0 +1,7 @@
+.payment-success__img-section {
+    max-width: 43rem;
+    margin: 2.5rem auto;
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: repeat(5, 1fr);
+}
