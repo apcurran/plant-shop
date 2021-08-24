@@ -3,6 +3,7 @@ import TitleBar from "../../ui/title-bar/TitleBar";
 import MainWrapper from "../../layout/main-wrapper/MainWrapper";
 import SuccessDesc from "./success-desc/SuccessDesc";
 import SuccessImg from "./success-img/SuccessImg";
+import Footer from "../../layout/footer/Footer";
 
 import "./PaymentSuccess.css";
 
@@ -17,6 +18,7 @@ function PaymentSuccess() {
                     <SuccessDesc />
                 </section>
             </MainWrapper>
+            <Footer />
         </div>
     );
 }
