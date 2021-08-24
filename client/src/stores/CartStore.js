@@ -152,7 +152,8 @@ const store = (set, get) => ({
         } catch (err) {
             console.error(err);
         }
-    }
+    },
+    setItems: (itemsArr) => set((state) => ({ items: itemsArr }))
 });
 
 const useCartStore = create(store);

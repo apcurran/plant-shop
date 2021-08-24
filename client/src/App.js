@@ -14,13 +14,17 @@ import ShoppingCart from "./components/pages/shopping-cart/ShoppingCart";
 import PaymentSuccess from "./components/pages/payment-success/PaymentSuccess";
 
 import useAuthStore from "./stores/AuthStore";
+import useCartStore from "./stores/CartStore";
 
 function App() {
-  // State store funcs
+  // State auth store funcs
   const setToken = useAuthStore((state) => state.setToken);
   const setUser = useAuthStore((state) => state.setUser);
   const setIsAdmin = useAuthStore((state) => state.setIsAdmin);
+  // State cart store funcs
+  const setItems = useCartStore((state) => state.setItems);
 
+  // Auth
   useEffect(() => {
     if (sessionStorage.accessToken) {
       const accessToken = sessionStorage.getItem("accessToken");
@@ -31,6 +35,15 @@ function App() {
       setIsAdmin(userInfo.isAdmin);
     }
   }, [setToken, setUser, setIsAdmin]);
+
+  // Cart
+  useEffect(() => {
+    if (sessionStorage.items) {
+      const cartItems = JSON.parse(sessionStorage.getItem("items"));
+
+      setItems(cartItems);
+    }
+  }, [setItems]);
 
   return (
     <CloudinaryContext cloudName="dev-project" secure="true">
