@@ -23,6 +23,7 @@ function App() {
   const setIsAdmin = useAuthStore((state) => state.setIsAdmin);
   // State cart store funcs
   const setItems = useCartStore((state) => state.setItems);
+  const setTotalQuantity = useCartStore((state) => state.setTotalQuantity);
 
   // Auth
   useEffect(() => {
@@ -40,10 +41,14 @@ function App() {
   useEffect(() => {
     if (sessionStorage.items) {
       const cartItems = JSON.parse(sessionStorage.getItem("items"));
+      const totalQtyAmt = sessionStorage.getItem("totalQuantity");
+
+      debugger;
 
       setItems(cartItems);
+      setTotalQuantity(totalQtyAmt);
     }
-  }, [setItems]);
+  }, [setItems, setTotalQuantity]);
 
   return (
     <CloudinaryContext cloudName="dev-project" secure="true">
