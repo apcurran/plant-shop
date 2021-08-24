@@ -38,7 +38,7 @@ async function postCreatePaymentIntent(req, res, next) {
             payment_method_types: ["card"],
             line_items: preparedLineItems,
             success_url: `${process.env.CLIENT_URL}/success`,
-            cancel_url: `${process.env.CLIENT_URL}/collections`
+            cancel_url: `${process.env.CLIENT_URL}/cart`
         });
         console.log(session);
 
