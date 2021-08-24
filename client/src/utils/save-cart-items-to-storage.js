@@ -3,3 +3,5 @@ function saveCartItemsToStorage(itemsArr) {
 
     return;
 }
+
+export { saveCartItemsToStorage };

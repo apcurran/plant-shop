@@ -3,3 +3,5 @@ function saveQtyToStorage(qtyAmt) {
 
     return;
 }
+
+export { saveQtyToStorage };

@@ -39,9 +39,10 @@ function App() {
 
   // Cart
   useEffect(() => {
+    // NOT TESTED
     if (sessionStorage.items) {
       const cartItems = JSON.parse(sessionStorage.getItem("items"));
-      const totalQtyAmt = sessionStorage.getItem("totalQuantity");
+      const totalQtyAmt = Number(sessionStorage.getItem("totalQuantity")); // Converted back to num from str val stored in sessionStorage
 
       debugger;
 

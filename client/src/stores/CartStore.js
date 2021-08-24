@@ -1,5 +1,8 @@
 import create from "zustand";
 
+import { saveCartItemsToStorage } from "../utils/save-cart-items-to-storage";
+import { saveQtyToStorage } from "../utils/save-qty-to-storage";
+
 const store = (set, get) => ({
     items: [],
     totalQuantity: 0,
@@ -10,7 +13,9 @@ const store = (set, get) => ({
             return item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId;
         });
         // Incr total qty by 1
+        const currTotalQty = get().totalQuantity;
         set((state) => ({ totalQuantity: state.totalQuantity + 1 }));
+        saveQtyToStorage(currTotalQty + 1);
         
         if (!existingItem) {
             const currNewItem = {
@@ -27,8 +32,10 @@ const store = (set, get) => ({
                 imgWidth: newItem.imgWidth,
                 imgHeight: newItem.imgHeight
             };
-            // Add item to items arr
-            set({ items: [...currItemsArr, currNewItem] });
+
+            const updatedItemsArr = [...currItemsArr, currNewItem];
+            set({ items: updatedItemsArr });
+            saveCartItemsToStorage(updatedItemsArr);
         } else {
             // newItem already exists in items arr
             const updatedItemsArr = currItemsArr.map((item) => {
@@ -47,6 +54,7 @@ const store = (set, get) => ({
             });
 
             set({ items: updatedItemsArr });
+            saveCartItemsToStorage(updatedItemsArr);
         }
     },
     incrementOneItem: (existingItem) => {
