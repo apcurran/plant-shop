@@ -25,7 +25,7 @@ function App() {
   const setItems = useCartStore((state) => state.setItems);
   const setTotalQuantity = useCartStore((state) => state.setTotalQuantity);
 
-  // Auth
+  // Auth init
   useEffect(() => {
     if (sessionStorage.accessToken) {
       const accessToken = sessionStorage.getItem("accessToken");
@@ -37,14 +37,11 @@ function App() {
     }
   }, [setToken, setUser, setIsAdmin]);
 
-  // Cart
+  // Cart init
   useEffect(() => {
-    // NOT TESTED
     if (sessionStorage.items) {
       const cartItems = JSON.parse(sessionStorage.getItem("items"));
       const totalQtyAmt = Number(sessionStorage.getItem("totalQuantity")); // Converted back to num from str val stored in sessionStorage
-
-      // debugger;
 
       setItems(cartItems);
       setTotalQuantity(totalQtyAmt);
