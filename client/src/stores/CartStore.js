@@ -134,7 +134,11 @@ const store = (set, get) => ({
             return false;
         });
 
-        set((state) => ({ items: updatedItemsArr, totalQuantity: state.totalQuantity - qtyToDecrement }));
+        const currTotalQty = get().totalQuantity - qtyToDecrement;
+        set({ items: updatedItemsArr, totalQuantity: currTotalQty });
+
+        saveQtyToStorage(currTotalQty);
+        saveCartItemsToStorage(updatedItemsArr);
     },
     sendCartData: async (token) => {
         const currItemsArr = get().items;
