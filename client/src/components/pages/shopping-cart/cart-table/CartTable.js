@@ -53,7 +53,7 @@ function CartTable({ items }) {
                 <CheckoutBtn />
             </div>
         </section>
-    )
+    );
 
     return (
         <div className="shopping-cart-info-wrapper">
