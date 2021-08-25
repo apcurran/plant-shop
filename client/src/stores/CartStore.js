@@ -114,6 +114,9 @@ const store = (set, get) => ({
         // Calc currTotalQty and re-use for sessionStorage and store states
         const currTotalQty = get().totalQuantity - 1; // Decrement by one
         set({ items: updatedExistingItemsArr, totalQuantity: currTotalQty });
+        
+        saveQtyToStorage(currTotalQty);
+        saveCartItemsToStorage(updatedExistingItemsArr);
     },
     removeItemFromCart: (productId, productExtraInfoId) => {
         // Removes item regardless of item quantity in cart
