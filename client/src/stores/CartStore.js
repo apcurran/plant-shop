@@ -81,7 +81,6 @@ const store = (set, get) => ({
     },
     decrementOneItem: (existingItem) => {
         const currItemsArr = get().items;
-        const qtyToDecrement = 1;
         let updatedExistingItemsArr;
 
         if (existingItem.itemQuantity === 1) {
@@ -112,7 +111,9 @@ const store = (set, get) => ({
             });
         }
 
-        set((state) => ({ items: updatedExistingItemsArr, totalQuantity: state.totalQuantity - qtyToDecrement }));
+        // Calc currTotalQty and re-use for sessionStorage and store states
+        const currTotalQty = get().totalQuantity - 1; // Decrement by one
+        set({ items: updatedExistingItemsArr, totalQuantity: currTotalQty });
     },
     removeItemFromCart: (productId, productExtraInfoId) => {
         // Removes item regardless of item quantity in cart
