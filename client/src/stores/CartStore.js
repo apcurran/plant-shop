@@ -13,9 +13,9 @@ const store = (set, get) => ({
             return item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId;
         });
         // Incr total qty by 1
-        const currTotalQty = get().totalQuantity;
-        set((state) => ({ totalQuantity: state.totalQuantity + 1 }));
-        saveQtyToStorage(currTotalQty + 1);
+        const currTotalQty = get().totalQuantity + 1;
+        set({ totalQuantity: currTotalQty });
+        saveQtyToStorage(currTotalQty);
         
         if (!existingItem) {
             const currNewItem = {
