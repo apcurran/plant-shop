@@ -72,8 +72,12 @@ const store = (set, get) => ({
             return item;
         });
 
-        // Update totalQuantity by one and items arr with updated item info
-        set((state) => ({ items: updatedExistingItemsArr, totalQuantity: state.totalQuantity + 1 }));
+        // Calc curr total qty and use for sessionStorage AND zustand store state
+        const currTotalQty = get().totalQuantity + 1;
+        saveQtyToStorage(currTotalQty);
+
+        set({ items: updatedExistingItemsArr, totalQuantity: currTotalQty });
+        saveCartItemsToStorage(updatedExistingItemsArr);
     },
     decrementOneItem: (existingItem) => {
         const currItemsArr = get().items;

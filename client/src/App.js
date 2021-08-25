@@ -44,7 +44,7 @@ function App() {
       const cartItems = JSON.parse(sessionStorage.getItem("items"));
       const totalQtyAmt = Number(sessionStorage.getItem("totalQuantity")); // Converted back to num from str val stored in sessionStorage
 
-      debugger;
+      // debugger;
 
       setItems(cartItems);
       setTotalQuantity(totalQtyAmt);
