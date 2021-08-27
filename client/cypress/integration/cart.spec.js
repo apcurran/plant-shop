@@ -42,4 +42,18 @@ describe("cart functionality", () => {
         cy.get(".cart-table__qty-container span")
           .should("have.text", "2");
     });
+
+    it("product qty start from 2, then decrement to 1", () => {
+        cy.contains("button", "+")
+          .click();
+
+        cy.get(".cart-table__qty-container span")
+          .should("have.text", "2");
+
+        cy.contains("button", "-")
+          .click();
+
+        cy.get(".cart-table__qty-container span")
+          .should("have.text", "1");
+    });
 });
