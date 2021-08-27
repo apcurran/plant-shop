@@ -55,7 +55,7 @@ describe("user sign up", () => {
       body: {
         message: "New user created"
       }
-    })
+    });
 
     cy.get("#first-name")
       .type("John");
