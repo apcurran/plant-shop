@@ -22,12 +22,12 @@ describe("cart functionality", () => {
     
     it("product should contain a price of $15", () => {
         cy.get(".cart-table__price")
-        .should("have.text", "$15");
+          .should("have.text", "$15");
     });
     
     it("product should contain a total of $15", () => {
         cy.get(".cart-table__total")
-        .should("have.text", "$15");
+          .should("have.text", "$15");
     });
     
     it("product should have a qty of 1", () => {
