@@ -43,7 +43,7 @@ describe("cart functionality", () => {
           .should("have.text", "2");
     });
 
-    it("product qty start from 2, then decrement to 1", () => {
+    it("product qty starts from 2, then decrements to 1", () => {
         cy.contains("button", "+")
           .click();
 
@@ -55,5 +55,13 @@ describe("cart functionality", () => {
 
         cy.get(".cart-table__qty-container span")
           .should("have.text", "1");
+    });
+
+    it("decrementing product qty starting from 1 should delete the product entirely from the cart", () => {
+        cy.contains("button", "-")
+          .click();
+
+        cy.contains("The Pothos Plant")
+          .should("not.exist");
     });
 });
