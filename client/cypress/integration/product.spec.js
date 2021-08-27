@@ -3,6 +3,8 @@
 describe("product page", () => {
     beforeEach(() => {
         cy.visit("/collections/4");
+
+        sessionStorage.clear();
     });
 
     it("should update cart icon total qty when a product is added to the cart", () => {
@@ -13,6 +15,7 @@ describe("product page", () => {
           .click();
 
         cy.get(".nav__cart-btn__item-qty")
-          .should("not.have.text", "0");
+          .should("not.have.text", "0")
+          .should("have.text", "1");
     });
 });
