@@ -64,4 +64,12 @@ describe("cart functionality", () => {
         cy.contains("The Pothos Plant")
           .should("not.exist");
     });
+
+    it("clicking the close btn should remove the product entirely from the cart", () => {
+        cy.get(".cart-table__tbody__tr__td__close-btn")
+          .click();
+
+        cy.contains("The Pothos Plant")
+          .should("not.exist");
+    });
 });
