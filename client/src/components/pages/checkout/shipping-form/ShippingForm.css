@@ -1,0 +1,22 @@
+.shipping-grid__form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.shipping-grid__form-group__label {
+    margin-bottom: .5rem;
+}
+
+.shipping-grid__form-group__input {
+    max-width: 12rem;
+    padding: .5rem .75rem;
+
+    border: none;
+    font-size: 1rem;
+    background-color: var(--light-warm-grey);
+}
+
+.shipping-grid__form-group__input--long {
+    max-width: 20rem;
+}
