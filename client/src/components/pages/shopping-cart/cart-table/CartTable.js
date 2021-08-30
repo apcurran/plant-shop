@@ -4,7 +4,6 @@ import { Image, Transformation } from "cloudinary-react";
 import useCartStore from "../../../../stores/CartStore";
 
 import "./CartTable.css";
-import PaymentBtn from "../../../ui/payment-btn/PaymentBtn";
 import CheckoutLink from "../../../ui/checkout-link/CheckoutLink";
 
 function CartTable({ items }) {
