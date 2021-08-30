@@ -1,0 +1,17 @@
+.shipping-grid__content__title {
+    margin-bottom: .5rem;
+}
+
+.shipping-grid__content__desc {
+    margin-bottom: 3rem;
+    color: var(--med-warm-grey);
+}
+
+.shipping-grid__content__fig {
+    width: 37rem;
+}
+
+.shipping-grid__content__fig__img {
+    width: 100%;
+    height: auto;
+}
