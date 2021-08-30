@@ -5,6 +5,7 @@ import useCartStore from "../../../../stores/CartStore";
 
 import "./CartTable.css";
 import PaymentBtn from "../../../ui/payment-btn/PaymentBtn";
+import CheckoutLink from "../../../ui/checkout-link/CheckoutLink";
 
 function CartTable({ items }) {
     const incrementOneItem = useCartStore(useCallback((state) => state.incrementOneItem, []));
@@ -50,7 +51,7 @@ function CartTable({ items }) {
                 <span className="total-info__group__span-val">Free</span>
                 <span className="total-info__group__span total-info__group__span--total">Total:</span>
                 <span className="total-info__group__span-val total-info__group__span-val--total">${itemsSubTotal}</span>
-                <PaymentBtn />
+                <CheckoutLink />
             </div>
         </section>
     );

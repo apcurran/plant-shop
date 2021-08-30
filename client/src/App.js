@@ -12,6 +12,7 @@ import AddProduct from "./components/pages/add-product/AddProduct";
 import UpdateProduct from "./components/pages/update-product/UpdateProduct";
 import ShoppingCart from "./components/pages/shopping-cart/ShoppingCart";
 import PaymentSuccess from "./components/pages/payment-success/PaymentSuccess";
+import Checkout from "./components/pages/checkout/Checkout";
 
 import useAuthStore from "./stores/AuthStore";
 import useCartStore from "./stores/CartStore";
@@ -97,6 +98,9 @@ function App() {
             </Route>
             <Route exact path="/success">
               <PaymentSuccess />
+            </Route>
+            <Route exact path="/checkout">
+              <Checkout />
             </Route>
           </Switch>
         </div>
