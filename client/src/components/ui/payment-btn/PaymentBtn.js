@@ -1,15 +1,15 @@
 import useCartStore from "../../../stores/CartStore";
 import useAuthStore from "../../../stores/AuthStore";
 
-import "./CheckoutBtn.css";
+import "./PaymentBtn.css";
 
-function CheckoutBtn() {
+function PaymentBtn() {
     const sendCartData = useCartStore((state) => state.sendCartData);
     const token = useAuthStore((state) => state.token);
 
     return (
-        <button onClick={() => sendCartData(token)} className="total-info__group__btn">Checkout</button>
+        <button onClick={() => sendCartData(token)} className="total-info__group__btn">Proceed to Payment</button>
     );
 }
 
-export default CheckoutBtn;
+export default PaymentBtn;

@@ -4,7 +4,7 @@ import { Image, Transformation } from "cloudinary-react";
 import useCartStore from "../../../../stores/CartStore";
 
 import "./CartTable.css";
-import CheckoutBtn from "../../../ui/checkout-btn/CheckoutBtn";
+import PaymentBtn from "../../../ui/payment-btn/PaymentBtn";
 
 function CartTable({ items }) {
     const incrementOneItem = useCartStore(useCallback((state) => state.incrementOneItem, []));
@@ -50,7 +50,7 @@ function CartTable({ items }) {
                 <span className="total-info__group__span-val">Free</span>
                 <span className="total-info__group__span total-info__group__span--total">Total:</span>
                 <span className="total-info__group__span-val total-info__group__span-val--total">${itemsSubTotal}</span>
-                <CheckoutBtn />
+                <PaymentBtn />
             </div>
         </section>
     );
