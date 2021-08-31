@@ -5,8 +5,6 @@ import useAuthStore from "../../../../stores/AuthStore";
 import useCartStore from "../../../../stores/CartStore";
 
 function ShippingForm() {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
@@ -18,14 +16,6 @@ function ShippingForm() {
     const token = useAuthStore((state) => state.token);
     const cartItemsArr = useCartStore((state) => state.items);
     const cartTotalQty = useCartStore((state) => state.totalQuantity);
-
-    function handleFirstNameChange(event) {
-        setFirstName(event.target.value);
-    }
-
-    function handleLastNameChange(event) {
-        setLastName(event.target.value);
-    }
 
     function handleStreetChange(event) {
         setStreet(event.target.value);
@@ -49,8 +39,6 @@ function ShippingForm() {
         setIsLoading(true);
 
         const userData = {
-            firstName,
-            lastName,
             street,
             city,
             state,
@@ -93,14 +81,6 @@ function ShippingForm() {
 
     return (
         <form onSubmit={handleSubmit} className="shipping-grid__form">
-            <div className="shipping-grid__form-group">
-                <label htmlFor="first-name" className="shipping-grid__form-group__label">First Name</label>
-                <input onChange={handleFirstNameChange} type="text" className="shipping-grid__form-group__input" id="first-name" />
-            </div>
-            <div className="shipping-grid__form-group">
-                <label htmlFor="last-name" className="shipping-grid__form-group__label">Last Name</label>
-                <input onChange={handleLastNameChange} type="text" className="shipping-grid__form-group__input" id="last-name" />
-            </div>
             <div className="shipping-grid__form-group">
                 <label htmlFor="street" className="shipping-grid__form-group__label">Street Address</label>
                 <input onChange={handleStreetChange} type="text" className="shipping-grid__form-group__input shipping-grid__form-group__input--long" id="street" />
