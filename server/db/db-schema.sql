@@ -31,3 +31,26 @@ CREATE TABLE app_user(
     password VARCHAR,
     is_admin BOOLEAN
 );
+
+CREATE TABLE order(
+    order_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    FOREIGN KEY(user_id) REFERENCES app_user(user_id),
+    stripe_payment_id VARCHAR NOT NULL,
+    total_cost DECIMAL(16, 2) NOT NULL,
+    street VARCHAR NOT NULL,
+    city VARCHAR NOT NULL,
+    state VARCHAR(2) NOT NULL,
+    zip INT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL
+);
+
+CREATE TABLE order_item(
+    order_item_id SERIAL PRIMARY KEY,
+    order_id INT NOT NULL,
+    FOREIGN KEY(order_id) REFERENCES order(order_id),
+    product_id INT NOT NULL,
+    FOREIGN KEY(product_id) REFERENCES product(product_id),
+    product_extra_info_id INT NOT NULL,
+    FOREIGN KEY(product_extra_info_id) REFERENCES product_extra_info(product_extra_info_id)
+);
