@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import "./ShippingForm.css";
+import useAuthStore from "../../../../stores/AuthStore";
+import useCartStore from "../../../../stores/CartStore";
 
 function ShippingForm() {
     const [firstName, setFirstName] = useState("");
@@ -9,6 +11,13 @@ function ShippingForm() {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [zip, setZip] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    // Global store state
+    const token = useAuthStore((state) => state.token);
+    const cartItemsArr = useCartStore((state) => state.items);
+    const cartTotalQty = useCartStore((state) => state.totalQuantity);
 
     function handleFirstNameChange(event) {
         setFirstName(event.target.value);
@@ -34,10 +43,52 @@ function ShippingForm() {
         setZip(event.target.value);
     }
 
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
         event.preventDefault();
 
-        console.log("Submitting form...");
+        setIsLoading(true);
+
+        const userData = {
+            firstName,
+            lastName,
+            street,
+            city,
+            state,
+            zip
+        };
+        const cartData = {
+            currItemsArr: cartItemsArr,
+            totalQty: cartTotalQty
+        };
+        
+        try {
+            const response = await fetch("/api/orders/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    userData,
+                    cartData
+                })
+            });
+
+            // Check for errors
+            if (!response.ok) {
+                const serverErrMsg = await response.json();
+
+                throw Error(serverErrMsg.error);
+            }
+
+            const { url } = await response.json();
+            // Push to Stripe API generated URL
+            window.location = url;
+
+        } catch (err) {
+            setIsLoading(false);
+            setError(err);
+        }
     }
 
     return (

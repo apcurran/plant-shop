@@ -124,7 +124,6 @@ function UpdateProductForm({ productId }) {
         event.preventDefault();
 
         setIsLoading(true);
-        // debugger;
         // Stringify arr to send in formData to server
         const productExtraInfo = JSON.stringify([
             { productExtraInfoId: Number(smSizeInfoId), size: Number(updatedSmSize), price: Number(updatedSmPrice) },
