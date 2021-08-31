@@ -27,6 +27,7 @@ function ShippingForm() {
                 <label htmlFor="zip" className="shipping-grid__form-group__label">Zip Code</label>
                 <input type="text" className="shipping-grid__form-group__input" id="zip" />
             </div>
+            <button className="shipping-grid__form__submit-btn cta-btn">Checkout</button>
         </form>
     );
 }

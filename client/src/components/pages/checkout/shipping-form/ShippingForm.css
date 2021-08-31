@@ -20,3 +20,8 @@
 .shipping-grid__form-group__input--long {
     max-width: 20rem;
 }
+
+.shipping-grid__form__submit-btn {
+    margin-top: 2rem;
+    width: 100%;
+}

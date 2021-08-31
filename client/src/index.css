@@ -45,3 +45,15 @@ a {
 p {
   line-height: 1.6;
 }
+
+.cta-btn {
+  padding: .75rem 1.5rem;
+
+  border: none;
+  background-color: var(--cta-accent-clr);
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--cta-accent-clr-dark);
+  letter-spacing: .08em;
+}
