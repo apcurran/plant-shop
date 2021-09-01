@@ -6,12 +6,6 @@ const db = require("../../db/index");
 const { prepareLineItems } = require("../../util/prepare-line-items");
 
 async function postCreatePaymentIntent(req, res, next) {
-    const shippingAddress = {
-        street: req.body.userData.street,
-        city: req.body.userData.city,
-        state: req.body.userData.state,
-        zip: req.body.userData.zip
-    };
     const { currItemsArr } = req.body.cartData;
     
     try {
@@ -33,13 +27,13 @@ async function postCreatePaymentIntent(req, res, next) {
                     AND
                     product_extra_info.product_extra_info_id = $2
             `, [prodId, productExtraInfoId])).rows[0];
+
             const revisedItemInfo = {
-                prodId,
+                productId: prodId,
                 productExtraInfoId,
                 ...itemInfo
             };
 
-            // Add prodId and productExtraInfoId to new obj and push THAT obj to itemsInfoFromDb array
             itemsInfoFromDb.push(revisedItemInfo);
         }
 
@@ -53,9 +47,24 @@ async function postCreatePaymentIntent(req, res, next) {
             cancel_url: `${process.env.CLIENT_URL}/cart`
         });
         console.log(session);
-        const paymentTotal = session.amount_total;
+        const redirectUrl = session.url;
+        
+        if (redirectUrl === `${process.env.CLIENT_URL}/success`) {
+            const userId = req.user._id;
+            const paymentId = session.payment_intent;
+            const paymentTotal = (session.amount_total) / 100; // convert back to dollars from cents
+            const shippingAddress = {
+                street: req.body.userData.street,
+                city: req.body.userData.city,
+                state: req.body.userData.state,
+                zip: req.body.userData.zip
+            };
+            const now = new Date();
+            
+            // Save payment order and order items to db
+        }
 
-        res.json({ url: session.url });
+        res.json({ url: redirectUrl });
 
     } catch (err) {
         next(err);
