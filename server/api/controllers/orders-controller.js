@@ -6,17 +6,17 @@ const db = require("../../db/index");
 const { prepareLineItems } = require("../../util/prepare-line-items");
 
 async function postCreatePaymentIntent(req, res, next) {
-    const {
-        street,
-        city,
-        state,
-        zip
-    } = req.body.userData;
+    const shippingAddress = {
+        street: req.body.userData.street,
+        city: req.body.userData.city,
+        state: req.body.userData.state,
+        zip: req.body.userData.zip
+    };
     const { currItemsArr } = req.body.cartData;
     
     try {
         let itemsInfoFromDb = [];
-
+        
         for (let itemObj of currItemsArr) {
             const prodId = Number(itemObj.productId);
             const productExtraInfoId = itemObj.productExtraInfoId;
