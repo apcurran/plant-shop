@@ -32,7 +32,7 @@ CREATE TABLE app_user(
     is_admin BOOLEAN
 );
 
-CREATE TABLE order(
+CREATE TABLE app_user_order(
     order_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id),
@@ -45,10 +45,10 @@ CREATE TABLE order(
     created_at TIMESTAMPTZ NOT NULL
 );
 
-CREATE TABLE order_item(
+CREATE TABLE app_user_order_item(
     order_item_id SERIAL PRIMARY KEY,
     order_id INT NOT NULL,
-    FOREIGN KEY(order_id) REFERENCES order(order_id),
+    FOREIGN KEY(order_id) REFERENCES app_user_order(order_id),
     product_id INT NOT NULL,
     FOREIGN KEY(product_id) REFERENCES product(product_id),
     product_extra_info_id INT NOT NULL,
