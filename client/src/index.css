@@ -56,4 +56,5 @@ p {
   font-weight: 700;
   color: var(--cta-accent-clr-dark);
   letter-spacing: .08em;
+  cursor: pointer;
 }

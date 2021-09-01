@@ -6,7 +6,6 @@ const db = require("../../db/index");
 const { prepareLineItems } = require("../../util/prepare-line-items");
 
 async function postCreatePaymentIntent(req, res, next) {
-    console.log(req.user);
     const {
         street,
         city,
@@ -14,7 +13,6 @@ async function postCreatePaymentIntent(req, res, next) {
         zip
     } = req.body.userData;
     const { currItemsArr } = req.body.cartData;
-    console.log(currItemsArr);
     
     try {
         let itemsInfoFromDb = [];
@@ -35,8 +33,14 @@ async function postCreatePaymentIntent(req, res, next) {
                     AND
                     product_extra_info.product_extra_info_id = $2
             `, [prodId, productExtraInfoId])).rows[0];
+            const revisedItemInfo = {
+                prodId,
+                productExtraInfoId,
+                ...itemInfo
+            };
 
-            itemsInfoFromDb.push(itemInfo);
+            // Add prodId and productExtraInfoId to new obj and push THAT obj to itemsInfoFromDb array
+            itemsInfoFromDb.push(revisedItemInfo);
         }
 
         // Convert to Stripe API format

@@ -174,7 +174,8 @@ const store = (set, get) => ({
         }
     },
     setItems: (itemsArr) => set((state) => ({ items: itemsArr })),
-    setTotalQuantity: (qtyAmt) => set((state) => ({ totalQuantity: qtyAmt }))
+    setTotalQuantity: (qtyAmt) => set((state) => ({ totalQuantity: qtyAmt })),
+    resetCartState: () => set({ items: [], totalQuantity: 0 })
 });
 
 const useCartStore = create(store);
