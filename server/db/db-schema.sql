@@ -36,13 +36,14 @@ CREATE TABLE app_user_order(
     order_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     FOREIGN KEY(user_id) REFERENCES app_user(user_id),
-    stripe_payment_id VARCHAR NOT NULL,
     total_cost DECIMAL(16, 2) NOT NULL,
     street VARCHAR NOT NULL,
     city VARCHAR NOT NULL,
     state VARCHAR(2) NOT NULL,
     zip INT NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL
+    created_at TIMESTAMPTZ NOT NULL,
+    stripe_payment_id VARCHAR,
+    is_complete BOOLEAN
 );
 
 CREATE TABLE app_user_order_item(

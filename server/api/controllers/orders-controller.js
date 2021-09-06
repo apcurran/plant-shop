@@ -44,7 +44,7 @@ async function postCreatePaymentIntent(req, res, next) {
             mode: "payment",
             payment_method_types: ["card"],
             line_items: preparedLineItems,
-            success_url: `${process.env.CLIENT_URL}/success`,
+            success_url: `${process.env.CLIENT_URL}/success?id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${process.env.CLIENT_URL}/cart`
         });
         console.log(session);
