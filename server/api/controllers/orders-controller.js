@@ -44,7 +44,7 @@ async function postCreatePaymentIntent(req, res, next) {
             mode: "payment",
             payment_method_types: ["card"],
             line_items: preparedLineItems,
-            success_url: `${process.env.CLIENT_URL}/success?id={CHECKOUT_SESSION_ID}`,
+            success_url: `${process.env.CLIENT_URL}/success?id={CHECKOUT_SESSION_ID}&orderId=${orderId}`,
             cancel_url: `${process.env.CLIENT_URL}/cart`
         });
         console.log(session);
@@ -67,7 +67,7 @@ async function postCreatePaymentIntent(req, res, next) {
             // Save payment order and order items to db
             saveOrderInfoToDb(itemsInfoFromDb, userId, paymentId, paymentTotal, shippingAddress, now, next);
 
-            return res.status(201).json({ msg: "New order created." });
+            // return res.status(201).json({ msg: "New order created." });
         }
 
         // Payment cancellation
