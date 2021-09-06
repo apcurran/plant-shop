@@ -11,7 +11,7 @@ async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentId, paymentTota
         // SQL Transaction
         await client.query("BEGIN");
         // Save order to app_user_order table (returning the order_id)
-        const insertedOrderId = await client.query(`
+        const insertedOrderId = (await client.query(`
             INSERT INTO app_user_order
                 (user_id, stripe_payment_id, total_cost, street, city, state, zip, created_at)
             VALUES
@@ -27,17 +27,26 @@ async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentId, paymentTota
             shippingAddress.state,
             shippingAddress.zip,
             currDate
-        ]);
+        ])).rows[0].order_id;
 
         // Iterate through itemsInfoFromDb and save each obj data to app_user_order_item table
         for (let obj of itemsInfoFromDb) {
             await client.query(`
-                
-            `, [])
+                INSERT INTO app_user_order_item
+                    (order_id, product_id, product_extra_info_id)
+                VALUES
+                    ($1, $2, $3)
+            `, [insertedOrderId, obj.productId, obj.productExtraInfoId]);
         }
 
+        await client.query("COMMIT");
+
     } catch (err) {
+        await client.query("ROLLBACK");
+
         next(err);
+    } finally {
+        client.release();
     }
 }
 

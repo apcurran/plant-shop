@@ -4,6 +4,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const db = require("../../db/index");
 const { prepareLineItems } = require("../../util/prepare-line-items");
+const { saveOrderInfoToDb } = require("../../util/save-order-info-to-db");
 
 async function postCreatePaymentIntent(req, res, next) {
     const { currItemsArr } = req.body.cartData;
@@ -48,6 +49,8 @@ async function postCreatePaymentIntent(req, res, next) {
         });
         console.log(session);
         const redirectUrl = session.url;
+        // This does not work, there won't be a redirect url created until Stripe finishes payment from client-side
+        // Below code will not execute
         
         if (redirectUrl === `${process.env.CLIENT_URL}/success`) {
             const userId = req.user._id;
@@ -62,8 +65,12 @@ async function postCreatePaymentIntent(req, res, next) {
             const now = new Date();
             
             // Save payment order and order items to db
+            saveOrderInfoToDb(itemsInfoFromDb, userId, paymentId, paymentTotal, shippingAddress, now, next);
+
+            return res.status(201).json({ msg: "New order created." });
         }
 
+        // Payment cancellation
         res.json({ url: redirectUrl });
 
     } catch (err) {
