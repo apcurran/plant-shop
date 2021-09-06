@@ -52,7 +52,7 @@ async function postCreatePaymentIntent(req, res, next) {
         const now = new Date();
         
         // Save payment order and order items to db
-        saveOrderInfoToDb(itemsInfoFromDb, userId, orderTotal, shippingAddress, now, next);
+        const orderId = saveOrderInfoToDb(itemsInfoFromDb, userId, orderTotal, shippingAddress, now, next);
 
         // Convert to Stripe API format
         const preparedLineItems = prepareLineItems(itemsInfoFromDb, currItemsArr);
@@ -60,7 +60,7 @@ async function postCreatePaymentIntent(req, res, next) {
             mode: "payment",
             payment_method_types: ["card"],
             line_items: preparedLineItems,
-            success_url: `${process.env.CLIENT_URL}/success?id={CHECKOUT_SESSION_ID}&orderId=${orderId}`,
+            success_url: `${process.env.CLIENT_URL}/success?sessionId={CHECKOUT_SESSION_ID}&orderId=${orderId}`,
             cancel_url: `${process.env.CLIENT_URL}/cart`
         });
         console.log(session);
