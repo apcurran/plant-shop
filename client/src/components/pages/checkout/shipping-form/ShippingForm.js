@@ -90,8 +90,8 @@ function ShippingForm() {
                 <input onChange={handleCityChange} type="text" className="shipping-grid__form-group__input" id="city" />
             </div>
             <div className="shipping-grid__form-group">
-                <label htmlFor="state" className="shipping-grid__form-group__label">State</label>
-                <input onChange={handleStateChange} type="text" className="shipping-grid__form-group__input" id="state" />
+                <label htmlFor="state" className="shipping-grid__form-group__label">State (abbrev.)</label>
+                <input onChange={handleStateChange} type="text" className="shipping-grid__form-group__input" id="state" maxLength={2} />
             </div>
             <div className="shipping-grid__form-group">
                 <label htmlFor="zip" className="shipping-grid__form-group__label">Zip Code</label>
