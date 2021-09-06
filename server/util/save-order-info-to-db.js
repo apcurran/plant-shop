@@ -2,7 +2,7 @@
 
 const db = require("../db/index");
 
-async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentId, paymentTotal, shippingAddress, currDate, next) {
+async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentTotal, shippingAddress, currDate, next) {
     const client = await db.pool
                             .connect()
                             .catch((err) => next(err));
@@ -11,16 +11,15 @@ async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentId, paymentTota
         // SQL Transaction
         await client.query("BEGIN");
         // Save order to app_user_order table (returning the order_id)
-        const insertedOrderId = (await client.query(`
+        var insertedOrderId = (await client.query(`
             INSERT INTO app_user_order
-                (user_id, stripe_payment_id, total_cost, street, city, state, zip, created_at)
+                (user_id, total_cost, street, city, state, zip, created_at)
             VALUES
-                ($1, $2, $3, $4, $5, $6, $7, $8)
+                ($1, $2, $3, $4, $5, $6, $7)
             RETURNING order_id
         `,
         [
             userId,
-            paymentId,
             paymentTotal,
             shippingAddress.street,
             shippingAddress.city,
@@ -47,6 +46,8 @@ async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentId, paymentTota
         next(err);
     } finally {
         client.release();
+
+        return insertedOrderId;
     }
 }
 
