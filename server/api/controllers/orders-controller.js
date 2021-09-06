@@ -52,7 +52,7 @@ async function postCreatePaymentIntent(req, res, next) {
         const now = new Date();
         
         // Save payment order and order items to db
-        const orderId = saveOrderInfoToDb(itemsInfoFromDb, userId, orderTotal, shippingAddress, now, next);
+        const orderId = await saveOrderInfoToDb(itemsInfoFromDb, userId, orderTotal, shippingAddress, now, next);
 
         // Convert to Stripe API format
         const preparedLineItems = prepareLineItems(itemsInfoFromDb, currItemsArr);

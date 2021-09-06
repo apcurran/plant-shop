@@ -46,8 +46,8 @@ async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentTotal, shipping
         next(err);
     } finally {
         client.release();
-        // ERROR: This returns a promise rather than a value. Must refactor
-        return await insertedOrderId;
+        
+        return insertedOrderId;
     }
 }
 
