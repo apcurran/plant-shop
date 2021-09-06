@@ -43,7 +43,7 @@ CREATE TABLE app_user_order(
     zip INT NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     stripe_payment_id VARCHAR,
-    is_complete BOOLEAN
+    is_complete BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE app_user_order_item(
