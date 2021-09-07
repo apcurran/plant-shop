@@ -9,4 +9,6 @@ const router = express.Router();
 
 router.post("/create-checkout-session", verifyAuth, ordersController.postCreatePaymentIntent);
 
+router.post("/complete-checkout", verifyAuth, ordersController.postCompleteCheckout);
+
 module.exports = router;

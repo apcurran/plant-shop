@@ -14,9 +14,8 @@ function PaymentSuccess() {
     // Make API req to server to update payment id and order id in db order table
     const currUrl = new URL(window.location.href);
     const params = new URLSearchParams(currUrl.search);
-    console.log(params);
-    console.log(params.get("sessionId"));
-    console.log(params.get("orderId"));
+    const sessionId = params.get("sessionId");
+    const orderId = params.get("orderId");
 
     const resetCartState = useCartStore((state) => state.resetCartState);
 

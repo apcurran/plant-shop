@@ -74,6 +74,26 @@ async function postCreatePaymentIntent(req, res, next) {
     }
 }
 
+async function postCompleteCheckout(req, res, next) {
+    try {
+        const { sessionId, orderId } = req.body;
+
+        await db.query(`
+            UPDATE app_user_order
+            SET
+                stripe_payment_id = $1,
+                is_complete = TRUE
+            WHERE order_id = $2
+        `, [sessionId, orderId]);
+
+        res.status(200).json({ msg: "Order completed." });
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     postCreatePaymentIntent,
+    postCompleteCheckout
 };
