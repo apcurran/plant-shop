@@ -9,6 +9,6 @@ const router = express.Router();
 
 router.post("/create-checkout-session", verifyAuth, ordersController.postCreatePaymentIntent);
 
-router.post("/complete-checkout", verifyAuth, ordersController.postCompleteCheckout);
+router.patch("/complete-checkout", verifyAuth, ordersController.patchCompleteCheckout);
 
 module.exports = router;

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import Header from "../../layout/header/Header";
 import TitleBar from "../../ui/title-bar/TitleBar";
 import MainWrapper from "../../layout/main-wrapper/MainWrapper";
@@ -7,15 +9,35 @@ import Footer from "../../layout/footer/Footer";
 
 import "./PaymentSuccess.css";
 
+import useAuthStore from "../../../stores/AuthStore";
 import useCartStore from "../../../stores/CartStore";
 import { clearCartItemsFromStorage } from "../../../utils/clear-cart-items-from-storage";
 
 function PaymentSuccess() {
-    // Make API req to server to update payment id and order id in db order table
+    const token = useAuthStore((state) => state.token);
+    console.log(token);
     const currUrl = new URL(window.location.href);
     const params = new URLSearchParams(currUrl.search);
     const sessionId = params.get("sessionId");
     const orderId = params.get("orderId");
+
+    // Make API req to server to update payment id and order id in db order table
+    useEffect(() => {
+        fetch("/api/orders/complete-checkout", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                sessionId,
+                orderId
+            })
+        })
+            .then((res) => res.json())
+            .then((data) => console.log(data))
+            .catch((err) => console.error(err));
+    }, [token, orderId, sessionId]);
 
     const resetCartState = useCartStore((state) => state.resetCartState);
 

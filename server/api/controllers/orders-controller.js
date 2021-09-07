@@ -74,7 +74,7 @@ async function postCreatePaymentIntent(req, res, next) {
     }
 }
 
-async function postCompleteCheckout(req, res, next) {
+async function patchCompleteCheckout(req, res, next) {
     try {
         const { sessionId, orderId } = req.body;
 
@@ -95,5 +95,5 @@ async function postCompleteCheckout(req, res, next) {
 
 module.exports = {
     postCreatePaymentIntent,
-    postCompleteCheckout
+    patchCompleteCheckout
 };
