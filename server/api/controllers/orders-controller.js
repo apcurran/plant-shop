@@ -86,7 +86,7 @@ async function patchCompleteCheckout(req, res, next) {
             WHERE order_id = $2
         `, [sessionId, orderId]);
 
-        res.status(200).json({ msg: "Order completed." });
+        res.status(200).json({ msg: "Payment successful" });
 
     } catch (err) {
         next(err);

@@ -14,12 +14,11 @@ import useCartStore from "../../../stores/CartStore";
 import { clearCartItemsFromStorage } from "../../../utils/clear-cart-items-from-storage";
 
 import ErrorMsg from "../../ui/error-msg/ErrorMsg";
-import LoadingSpinner from "../../ui/loading-spinner/LoadingSpinner";
 
 function PaymentSuccess() {
     // Local state
-    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [msg, setMsg] = useState("Please wait while payment is completing.");
 
     const token = useAuthStore((state) => state.token);
     const currUrl = new URL(window.location.href);
@@ -29,9 +28,6 @@ function PaymentSuccess() {
 
     // Make API req to update session id
     useEffect(() => {
-        setIsLoading(true);
-        debugger;
-
         fetch("/api/orders/complete-checkout", {
             method: "PATCH",
             headers: {
@@ -44,10 +40,8 @@ function PaymentSuccess() {
             })
         })
             .then((res) => res.json())
-            .then((data) => console.log(data))
+            .then((data) => setMsg(data.msg))
             .catch((err) => setError(err.error));
-
-        setIsLoading(false);
     }, [token, orderId, sessionId]);
 
     // Reset all cart data in store and sessionStorage after successful payment
@@ -59,10 +53,9 @@ function PaymentSuccess() {
         <div className="payment-success">
             <Header />
             <MainWrapper>
-                <TitleBar>Payment Success</TitleBar>
+                <TitleBar>{msg}</TitleBar>
                 <section className="payment-success__img-section">
                     <SuccessImg />
-                    {isLoading ? <LoadingSpinner /> : null}
                     {error ? <ErrorMsg error={error} /> : <SuccessDesc />}
                 </section>
             </MainWrapper>
