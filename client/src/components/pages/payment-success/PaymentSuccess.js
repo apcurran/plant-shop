@@ -43,11 +43,18 @@ function PaymentSuccess() {
                         orderId
                     })
                 });
+
+                if (!response.ok) {
+                    const serverErrMsg = await response.json();
+                    
+                    throw Error(serverErrMsg.error);
+                }
     
                 const data = await response.json();
                 setMsg(data.msg);
+                
             } catch (err) {
-                setError(err.error);
+                setError(err);
             }
         }
 
