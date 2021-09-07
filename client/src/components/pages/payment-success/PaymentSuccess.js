@@ -15,13 +15,12 @@ import { clearCartItemsFromStorage } from "../../../utils/clear-cart-items-from-
 
 function PaymentSuccess() {
     const token = useAuthStore((state) => state.token);
-    console.log(token);
     const currUrl = new URL(window.location.href);
     const params = new URLSearchParams(currUrl.search);
     const sessionId = params.get("sessionId");
     const orderId = params.get("orderId");
 
-    // Make API req to server to update payment id and order id in db order table
+    // Make API req to update session id
     useEffect(() => {
         fetch("/api/orders/complete-checkout", {
             method: "PATCH",
@@ -39,9 +38,8 @@ function PaymentSuccess() {
             .catch((err) => console.error(err));
     }, [token, orderId, sessionId]);
 
-    const resetCartState = useCartStore((state) => state.resetCartState);
-
     // Reset all cart data in store and sessionStorage after successful payment
+    const resetCartState = useCartStore((state) => state.resetCartState);
     resetCartState();
     clearCartItemsFromStorage();
 
