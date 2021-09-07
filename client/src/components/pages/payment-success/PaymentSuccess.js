@@ -20,7 +20,9 @@ function PaymentSuccess() {
     const [error, setError] = useState("");
     const [msg, setMsg] = useState("Please wait while payment is completing.");
 
+    // Global store state
     const token = useAuthStore((state) => state.token);
+    
     const currUrl = new URL(window.location.href);
     const params = new URLSearchParams(currUrl.search);
     const sessionId = params.get("sessionId");
@@ -28,20 +30,28 @@ function PaymentSuccess() {
 
     // Make API req to update session id
     useEffect(() => {
-        fetch("/api/orders/complete-checkout", {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                sessionId,
-                orderId
-            })
-        })
-            .then((res) => res.json())
-            .then((data) => setMsg(data.msg))
-            .catch((err) => setError(err.error));
+        async function sendData() {
+            try {
+                const response = await fetch("/api/orders/complete-checkout", {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        sessionId,
+                        orderId
+                    })
+                });
+    
+                const data = await response.json();
+                setMsg(data.msg);
+            } catch (err) {
+                setError(err.error);
+            }
+        }
+
+        sendData();
     }, [token, orderId, sessionId]);
 
     // Reset all cart data in store and sessionStorage after successful payment
