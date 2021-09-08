@@ -32,10 +32,10 @@ async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentTotal, shipping
         for (let obj of itemsInfoFromDb) {
             await client.query(`
                 INSERT INTO app_user_order_item
-                    (order_id, product_id, product_extra_info_id)
+                    (order_id, product_id, product_extra_info_id, product_qty)
                 VALUES
-                    ($1, $2, $3)
-            `, [insertedOrderId, obj.productId, obj.productExtraInfoId]);
+                    ($1, $2, $3, $4)
+            `, [insertedOrderId, obj.productId, obj.productExtraInfoId, obj.productQuantity]);
         }
 
         await client.query("COMMIT");

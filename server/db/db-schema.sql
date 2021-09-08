@@ -53,5 +53,6 @@ CREATE TABLE app_user_order_item(
     product_id INT NOT NULL,
     FOREIGN KEY(product_id) REFERENCES product(product_id),
     product_extra_info_id INT NOT NULL,
-    FOREIGN KEY(product_extra_info_id) REFERENCES product_extra_info(product_extra_info_id)
+    FOREIGN KEY(product_extra_info_id) REFERENCES product_extra_info(product_extra_info_id),
+    product_qty INT NOT NULL
 );
