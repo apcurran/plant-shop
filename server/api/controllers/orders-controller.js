@@ -11,7 +11,18 @@ async function getOrderHistory(req, res, next) {
     const userId = req.user._id;
 
     try {
-        
+        const ordersArr = (await db.query(`
+            SELECT
+                app_user_order.order_id,
+                app_user_order.total_cost,
+                app_user_order.created_at,
+                app_user_order.stripe_payment_id
+            FROM app_user_order
+            WHERE app_user_order.user_id = $1
+        `, [userId])).rows;
+        console.log(ordersArr);
+
+        res.end();
         
     } catch (err) {
         next(err);
