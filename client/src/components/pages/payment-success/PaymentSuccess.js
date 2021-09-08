@@ -54,11 +54,12 @@ function PaymentSuccess() {
                 setMsg(data.msg);
                 
             } catch (err) {
-                setError(err);
+                // setError(err);
+                console.error(err);
             }
         }
 
-        sendData();
+        if (token) sendData();
     }, [token, orderId, sessionId]);
 
     // Reset all cart data in store and sessionStorage after successful payment
