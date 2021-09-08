@@ -7,7 +7,7 @@ const { verifyAuth } = require("../middleware/verify-auth");
 
 const router = express.Router();
 
-router.get("/order-history/:userId", verifyAuth, ordersController.getOrderHistory);
+router.get("/order-history", verifyAuth, ordersController.getOrderHistory);
 
 router.post("/create-checkout-session", verifyAuth, ordersController.postCreatePaymentIntent);
 

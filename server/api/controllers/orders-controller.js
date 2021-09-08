@@ -8,6 +8,8 @@ const { saveOrderInfoToDb } = require("../../util/save-order-info-to-db");
 const { calcOrderTotal } = require("../../util/calc-order-total");
 
 async function getOrderHistory(req, res, next) {
+    const userId = req.user._id;
+
     try {
         
         
@@ -25,6 +27,7 @@ async function postCreatePaymentIntent(req, res, next) {
         for (let itemObj of currItemsArr) {
             const prodId = Number(itemObj.productId);
             const productExtraInfoId = itemObj.productExtraInfoId;
+            const productQuantity = itemObj.itemQuantity;
             const itemInfo = (await db.query(`
                 SELECT
                     product.title,
@@ -42,6 +45,7 @@ async function postCreatePaymentIntent(req, res, next) {
             const revisedItemInfo = {
                 productId: prodId,
                 productExtraInfoId,
+                productQuantity,
                 ...itemInfo
             };
 
