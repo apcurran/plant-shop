@@ -7,6 +7,15 @@ const { prepareLineItems } = require("../../util/prepare-line-items");
 const { saveOrderInfoToDb } = require("../../util/save-order-info-to-db");
 const { calcOrderTotal } = require("../../util/calc-order-total");
 
+async function getOrderHistory(req, res, next) {
+    try {
+        
+        
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function postCreatePaymentIntent(req, res, next) {
     const { currItemsArr } = req.body.cartData;
     
@@ -94,6 +103,7 @@ async function patchCompleteCheckout(req, res, next) {
 }
 
 module.exports = {
+    getOrderHistory,
     postCreatePaymentIntent,
     patchCompleteCheckout
 };
