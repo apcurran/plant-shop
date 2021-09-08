@@ -29,10 +29,17 @@ async function getOrderHistory(req, res, next) {
             const orderItemsArr = (await db.query(`
                 SELECT
                     product.title,
-                    product.category
+                    product.category,
+                    app_user_order_item.product_qty,
+                    product_img.public_id,
+                    product_img.alt_text,
+                    product_img.width,
+                    product_img.height
                 FROM app_user_order_item
                 INNER JOIN
                     product ON app_user_order_item.product_id = product.product_id
+                INNER JOIN
+                    product_img ON product.product_id = product_img.product_id
                 WHERE app_user_order_item.order_id = $1
             `, [order.order_id])).rows;
 
