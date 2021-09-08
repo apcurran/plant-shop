@@ -59,6 +59,7 @@ function PaymentSuccess() {
             }
         }
 
+        // Only make fetch req once token is pulled from Zustand store
         if (token) sendData();
     }, [token, orderId, sessionId]);
 
