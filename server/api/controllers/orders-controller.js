@@ -30,7 +30,11 @@ async function getOrderHistory(req, res, next) {
                 SELECT
                     product.title,
                     product.category,
+                    product.product_id,
+                    product_extra_info.size,
+                    product_extra_info.price,
                     app_user_order_item.product_qty,
+                    app_user_order_item.product_extra_info_id,
                     product_img.public_id,
                     product_img.alt_text,
                     product_img.width,
@@ -39,8 +43,13 @@ async function getOrderHistory(req, res, next) {
                 INNER JOIN
                     product ON app_user_order_item.product_id = product.product_id
                 INNER JOIN
+                    product_extra_info ON product.product_id = product_extra_info.product_id
+                INNER JOIN
                     product_img ON product.product_id = product_img.product_id
-                WHERE app_user_order_item.order_id = $1
+                WHERE
+                    app_user_order_item.order_id = $1
+                    AND
+                    product_extra_info.product_extra_info_id = app_user_order_item.product_extra_info_id
             `, [order.order_id])).rows;
 
             console.log("Order items:", orderItemsArr);
