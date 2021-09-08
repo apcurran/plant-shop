@@ -11,6 +11,8 @@ async function getOrderHistory(req, res, next) {
     const userId = req.user._id;
 
     try {
+        let ordersWithItemsInfoArr = [];
+
         const ordersArr = (await db.query(`
             SELECT
                 app_user_order.order_id,
@@ -20,7 +22,22 @@ async function getOrderHistory(req, res, next) {
             FROM app_user_order
             WHERE app_user_order.user_id = $1
         `, [userId])).rows;
-        console.log(ordersArr);
+
+        for (let order of ordersArr) {
+            console.log(order);
+
+            const orderItemsArr = (await db.query(`
+                SELECT
+                    product.title,
+                    product.category
+                FROM app_user_order_item
+                INNER JOIN
+                    product ON app_user_order_item.product_id = product.product_id
+                WHERE app_user_order_item.order_id = $1
+            `, [order.order_id])).rows;
+
+            console.log("Order items:", orderItemsArr);
+        }
 
         res.end();
         
