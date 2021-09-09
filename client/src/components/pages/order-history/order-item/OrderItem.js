@@ -2,8 +2,8 @@ import "./OrderItem.css";
 
 function OrderItem() {
     return (
-        <div>
-            
+        <div className="order-item">
+            Order Item
         </div>
     );
 }
