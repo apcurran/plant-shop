@@ -144,7 +144,7 @@ function AddProductForm() {
 
         } catch (err) {
             setIsLoading(false);
-            setError(err);
+            setError(err.message);
         }
     }
 

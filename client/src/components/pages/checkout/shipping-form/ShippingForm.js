@@ -75,7 +75,7 @@ function ShippingForm() {
 
         } catch (err) {
             setIsLoading(false);
-            setError(err);
+            setError(err.message);
         }
     }
 

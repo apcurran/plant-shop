@@ -170,7 +170,7 @@ const store = (set, get) => ({
             window.location = url;
 
         } catch (err) {
-            console.error(err);
+            console.error(err.message);
         }
     },
     setItems: (itemsArr) => set((state) => ({ items: itemsArr })),

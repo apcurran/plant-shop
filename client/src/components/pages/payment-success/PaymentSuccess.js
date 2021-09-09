@@ -54,7 +54,7 @@ function PaymentSuccess() {
                 setMsg(data.msg);
                 
             } catch (err) {
-                // setError(err);
+                setError(err.message);
                 console.error(err);
             }
         }

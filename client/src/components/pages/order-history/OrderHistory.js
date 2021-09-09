@@ -7,6 +7,7 @@ import MainWrapper from "../../layout/main-wrapper/MainWrapper";
 import TitleBar from "../../ui/title-bar/TitleBar";
 import ErrorMsg from "../../ui/error-msg/ErrorMsg";
 import LoadingSpinner from "../../ui/loading-spinner/LoadingSpinner";
+import Order from "./order/Order";
 
 function OrderHistory() {
     const [orders, setOrders] = useState([]);
@@ -43,7 +44,7 @@ function OrderHistory() {
 
             } catch (err) {
                 setIsLoading(false);
-                setError(err);
+                setError(err.message);
             }
         }
 
@@ -53,6 +54,9 @@ function OrderHistory() {
     // JSX elems
     const errorMsg = error ? <ErrorMsg error={error} /> : null;
     const loadingSpinner = isLoading ? <LoadingSpinner /> : null;
+    const orderComps = orders.map((orderData) => {
+        return <Order key={orderData.orderId} orderData={orderData} />;
+    });
 
     return (
         <div className="order-history">
@@ -61,6 +65,7 @@ function OrderHistory() {
                 <TitleBar>Order History</TitleBar>
                 {errorMsg}
                 {loadingSpinner}
+                {orderComps}
             </MainWrapper>
         </div>
     );
