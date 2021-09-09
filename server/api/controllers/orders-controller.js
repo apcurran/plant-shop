@@ -15,17 +15,15 @@ async function getOrderHistory(req, res, next) {
 
         const ordersArr = (await db.query(`
             SELECT
-                app_user_order.order_id,
-                app_user_order.total_cost,
-                app_user_order.created_at,
-                app_user_order.stripe_payment_id
+                app_user_order.order_id AS "orderId",
+                app_user_order.total_cost AS "totalCost",
+                app_user_order.created_at AS "createdAt",
+                app_user_order.stripe_payment_id AS "stripePaymentId"
             FROM app_user_order
             WHERE app_user_order.user_id = $1
         `, [userId])).rows;
 
         for (let order of ordersArr) {
-            console.log(order);
-
             const orderItemsArr = (await db.query(`
                 SELECT
                     product.title,
@@ -50,12 +48,17 @@ async function getOrderHistory(req, res, next) {
                     app_user_order_item.order_id = $1
                     AND
                     product_extra_info.product_extra_info_id = app_user_order_item.product_extra_info_id
-            `, [order.order_id])).rows;
+            `, [order.orderId])).rows;
 
-            console.log("Order items:", orderItemsArr);
+            const fullOrderWithItems = {
+                ...order,
+                orderItems: orderItemsArr
+            };
+
+            ordersWithItemsInfoArr.push(fullOrderWithItems);
         }
 
-        res.end();
+        res.json(ordersWithItemsInfoArr);
         
     } catch (err) {
         next(err);

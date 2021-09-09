@@ -6,7 +6,6 @@
  * @returns {number} - Total amount
  */
 function calcOrderTotal(itemsArr) {
-    // return itemsArr.reduce((total, itemObj) => total + itemObj.price, 0);
     return itemsArr.reduce((total, itemObj) => {
         const productTotal = itemObj.price * itemObj.productQuantity;
 
