@@ -41,7 +41,7 @@ CREATE TABLE app_user_order(
     city VARCHAR NOT NULL,
     state VARCHAR(2) NOT NULL,
     zip INT NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     stripe_payment_id VARCHAR,
     is_complete BOOLEAN DEFAULT FALSE
 );

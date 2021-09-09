@@ -9,6 +9,8 @@ import ErrorMsg from "../../ui/error-msg/ErrorMsg";
 import LoadingSpinner from "../../ui/loading-spinner/LoadingSpinner";
 import Order from "./order/Order";
 
+import "./OrderHistory.css";
+
 function OrderHistory() {
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState("");
@@ -63,9 +65,11 @@ function OrderHistory() {
             <Header />
             <MainWrapper>
                 <TitleBar>Order History</TitleBar>
-                {errorMsg}
-                {loadingSpinner}
-                {orderComps}
+                <div className="order-history-inner-wrapper">
+                    {errorMsg}
+                    {loadingSpinner}
+                    {orderComps}
+                </div>
             </MainWrapper>
         </div>
     );

@@ -1,0 +1,12 @@
+.order {
+    margin-bottom: .5rem;
+    padding: 2rem 3rem;
+    max-width: 55rem;
+
+    background-color: var(--light-warm-grey);
+}
+
+.order__descriptor-group {
+    display: flex;
+    gap: 2rem;
+}
