@@ -1,8 +1,10 @@
 .order__descriptor__heading {
+    margin-bottom: .5rem;
     font-size: var(--fz-md);
 }
 
 .order__descriptor__data-segment {
     line-height: 1;
     max-width: 15rem;
+    color: var(--med-warm-grey);
 }

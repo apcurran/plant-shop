@@ -16,6 +16,7 @@ function Order({ orderData }) {
                 <OrderDescriptor heading="Total" dataSegment={`$${orderData.totalCost}`} />
                 <OrderDescriptor heading="Order #" dataSegment={lastFourOrderChars} />
             </div>
+            
         </section>
     );
 }
