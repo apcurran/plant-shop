@@ -30,13 +30,13 @@ async function getOrderHistory(req, res, next) {
                 SELECT
                     product.title,
                     product.category,
-                    product.product_id,
+                    product.product_id AS "productId",
                     product_extra_info.size,
                     product_extra_info.price,
-                    app_user_order_item.product_qty,
-                    app_user_order_item.product_extra_info_id,
-                    product_img.public_id,
-                    product_img.alt_text,
+                    app_user_order_item.product_qty AS "productQty",
+                    app_user_order_item.product_extra_info_id AS "productExtraInfoId",
+                    product_img.public_id AS "publicId",
+                    product_img.alt_text AS "altText",
                     product_img.width,
                     product_img.height
                 FROM app_user_order_item
