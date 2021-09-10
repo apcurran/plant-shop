@@ -12,7 +12,13 @@ function OrderItem({ title, category, price, size, qty, publicId, altText, width
                     </Image>
                 </figure>
                 <div className="order-item__content">
-                    
+                    <h3 className="order-item__content__title">{title}</h3>
+                    <h4 className="order-item__content__sub-heading order-item__content__sub-heading--size">Size</h4>
+                    <p className="order-item__content__size">{size} gallon</p>
+                    <h4 className="order-item__content__sub-heading order-item__content__sub-heading--price">Price</h4>
+                    <p className="order-item__content__price">${price}</p>
+                    <h4 className="order-item__content__sub-heading order-item__content__sub-heading--qty">Quantity</h4>
+                    <p className="order-item__content__qty">x{qty}</p>
                 </div>
             </div>
         </div>

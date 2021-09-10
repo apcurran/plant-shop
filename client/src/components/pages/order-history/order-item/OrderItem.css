@@ -3,6 +3,12 @@
     background-color: #fff;
 }
 
+.order-item__inner-container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
 .order-item__fig {
     width: 8rem;
 }
@@ -10,4 +16,47 @@
 .order-item__fig__img {
     width: 100%;
     height: auto;
+}
+
+/* Card grid layout */
+.order-item__content {
+    display: grid;
+    grid-template-areas:
+        "title    title    title"
+        "size-h   price-h  qty-h"
+        "size     price    qty";
+    column-gap: 2rem;
+}
+
+.order-item__content__title {
+    grid-area: title;
+    margin-bottom: 1rem;
+}
+
+.order-item__content__sub-heading {
+    margin-bottom: .5rem;
+}
+
+.order-item__content__sub-heading--size {
+    grid-area: size-h;
+}
+
+.order-item__content__sub-heading--price {
+    grid-area: price-h;
+}
+
+.order-item__content__sub-heading--qty {
+    grid-area: qty-h;
+}
+
+.order-item__content__size {
+    grid-area: size;
+}
+
+.order-item__content__price {
+    grid-area: price;
+}
+
+.order-item__content__qty {
+    grid-area: qty;
 }
