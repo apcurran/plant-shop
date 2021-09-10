@@ -4,4 +4,6 @@
     grid-template-rows: 1fr 2fr 1fr;
     min-height: 100vh;
     background-image: url("https://res.cloudinary.com/dev-project/image/upload/f_auto,q_auto:best/v1625242585/evergreen-app/leaf-rain-bg_modldu.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
