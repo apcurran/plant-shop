@@ -2,3 +2,12 @@
     padding: 2rem;
     background-color: #fff;
 }
+
+.order-item__fig {
+    width: 8rem;
+}
+
+.order-item__fig__img {
+    width: 100%;
+    height: auto;
+}
