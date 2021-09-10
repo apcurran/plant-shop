@@ -10,7 +10,20 @@ function Order({ orderData }) {
     const formattedDate = formatDate(orderData.createdAt);
     const lastFourOrderChars = (orderData.stripePaymentId).slice(-4);
     const orderItems = orderData.orderItems.map((orderItem) => {
-        return <OrderItem key={orderItem.productExtraInfoId} />; 
+        return (
+            <OrderItem
+                key={orderItem.productExtraInfoId}
+                title={orderItem.title}
+                category={orderItem.category}
+                price={orderItem.price}
+                size={orderItem.size}
+                qty={orderItem.productQty}
+                publicId={orderItem.publicId}
+                altText={orderItem.altText}
+                width={orderItem.width}
+                height={orderItem.height}
+            />
+        ); 
     });
 
     return (
