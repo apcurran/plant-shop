@@ -1,5 +1,5 @@
 .order-item {
-    padding: 2rem;
+    padding: 1.25rem 1rem;
     background-color: #fff;
 }
 
@@ -25,7 +25,7 @@
         "title    title    title"
         "size-h   price-h  qty-h"
         "size     price    qty";
-    column-gap: 2rem;
+    column-gap: 2.5rem;
 }
 
 .order-item__content__title {
@@ -35,6 +35,7 @@
 
 .order-item__content__sub-heading {
     margin-bottom: .5rem;
+    color: var(--light-med-warm-grey);
 }
 
 .order-item__content__sub-heading--size {
@@ -49,6 +50,11 @@
     grid-area: qty-h;
 }
 
+.order-item__content__desc {
+    line-height: 1;
+    color: var(--med-warm-grey);
+}
+
 .order-item__content__size {
     grid-area: size;
 }
@@ -59,4 +65,10 @@
 
 .order-item__content__qty {
     grid-area: qty;
+}
+
+.order-item__content__qty__x {
+    display: inline-block;
+    margin-right: .25rem;
+    font-size: var(--fz-sm);
 }

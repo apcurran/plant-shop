@@ -14,11 +14,14 @@ function OrderItem({ title, category, price, size, qty, publicId, altText, width
                 <div className="order-item__content">
                     <h3 className="order-item__content__title">{title}</h3>
                     <h4 className="order-item__content__sub-heading order-item__content__sub-heading--size">Size</h4>
-                    <p className="order-item__content__size">{size} gallon</p>
+                    <p className="order-item__content__desc order-item__content__size">{size} gallon</p>
                     <h4 className="order-item__content__sub-heading order-item__content__sub-heading--price">Price</h4>
-                    <p className="order-item__content__price">${price}</p>
+                    <p className="order-item__content__desc order-item__content__price">${price}</p>
                     <h4 className="order-item__content__sub-heading order-item__content__sub-heading--qty">Quantity</h4>
-                    <p className="order-item__content__qty">x{qty}</p>
+                    <p className="order-item__content__desc order-item__content__qty">
+                        <span className="order-item__content__qty__x">x</span>
+                        {qty}
+                    </p>
                 </div>
             </div>
         </div>
