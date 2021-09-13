@@ -4,3 +4,9 @@
     gap: 1rem;
     margin-bottom: 4.5rem;
 }
+
+@media screen and (max-width: 68.75em) {
+    .shop__hero {
+        display: none;
+    }
+}
