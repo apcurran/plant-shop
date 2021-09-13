@@ -1,6 +1,6 @@
 "use strict";
 
-const { transformProductResults } = require("./transform-product-results");
+const { transformProductResults } = require("../transform-product-results");
 
 describe("transformProductResults function", () => {
     xtest("formats initial product data array into a single JSON-style object with product information", () => {
