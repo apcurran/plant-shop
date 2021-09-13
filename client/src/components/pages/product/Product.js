@@ -73,7 +73,7 @@ function Product() {
                 <div className="product__grid-wrapper">
                     <figure className="product__fig">
                         <Image publicId={productData.publicId} alt={productData.altText} width={productData.width} height={productData.height} className="product__fig__img">
-                            <Transformation quality="auto" fetchFormat="auto" />
+                            <Transformation width="500" crop="fill" quality="auto" fetchFormat="auto" />
                         </Image>
                     </figure>
                     <section className="product__content">
