@@ -1,5 +1,12 @@
 .shop-inner-wrapper {
     padding: 3rem 0;
-    width: 90%;
+    max-width: 90%;
     display: flex;
+}
+
+@media screen and (max-width: 83.125em) {
+    .shop-inner-wrapper {
+        margin: 0 1.5rem;
+        max-width: 100%;
+    }
 }

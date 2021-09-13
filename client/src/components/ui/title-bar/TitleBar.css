@@ -5,3 +5,9 @@
     line-height: 1;
     text-transform: capitalize;
 }
+
+@media screen and (max-width: 83.125em) {
+    .title-bar {
+        margin: 0 1.5rem;
+    }
+}
