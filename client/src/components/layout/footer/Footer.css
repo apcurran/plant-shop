@@ -68,3 +68,14 @@
         grid-template-columns: 1fr;
     }
 }
+
+@media screen and (max-width: 31.25em) {
+    .footer-section-wrapper {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+
+    .footer__container--right {
+        order: -1;
+    }
+}
