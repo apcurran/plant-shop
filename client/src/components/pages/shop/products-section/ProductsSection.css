@@ -7,3 +7,9 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
 }
+
+@media screen and (max-width: 68.75em) {
+    .shop__products-section__product-card-grid-wrapper {
+        grid-template-columns: repeat( auto-fit, minmax(200px, 1fr) );
+    }
+}

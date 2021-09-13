@@ -27,3 +27,11 @@
 .shop__products-section__card__title {
     font-weight: 400;
 }
+
+@media screen and (max-width: 68.75em) {
+    .shop__products-section__card__content-group {
+        flex-direction: column;
+        align-items: start;
+        gap: .25rem;
+    }
+}
