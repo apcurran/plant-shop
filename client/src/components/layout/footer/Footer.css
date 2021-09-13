@@ -8,7 +8,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8rem;
-    width: var(--base-container-width);
+    max-width: var(--base-container-width);
 }
 
 .footer__container--left,
@@ -55,4 +55,16 @@
 .footer__creation-attribution,
 .footer__link {
     color: var(--med-warm-grey);
+}
+
+@media screen and (max-width: 83.125em) {
+    .footer {
+        padding: 0 1.5rem;
+    }
+}
+
+@media screen and (max-width: 50em) {
+    .footer__container--right {
+        grid-template-columns: 1fr;
+    }
 }
