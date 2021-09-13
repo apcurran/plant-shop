@@ -78,4 +78,9 @@
     .footer__container--right {
         order: -1;
     }
+
+    .footer__container--left {
+        border-right: none;
+        border-top: 1px solid #d6d3d1;
+    }
 }
