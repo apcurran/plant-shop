@@ -51,3 +51,23 @@
     width: 100%;
     max-width: 100%;
 }
+
+@media screen and (max-width: 46.25em) {
+    .about__features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 27em) {
+    .about__mission-section {
+        padding: 4rem 1.5rem;
+    }
+
+    .about__mission-section__desc {
+        font-size: var(--fz-md);
+    }
+
+    .about__features__article {
+        padding: 1rem 1.5rem;
+    }
+}
