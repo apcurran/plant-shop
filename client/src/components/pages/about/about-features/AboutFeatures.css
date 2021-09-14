@@ -1,5 +1,6 @@
 .about__features {
-    width: var(--base-container-width);
+    width: 100%;
+    max-width: var(--base-container-width);
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -9,7 +10,7 @@
 }
 
 .about__features__fig {
-    width: 35rem;
+    max-width: 35rem;
 }
 
 .about__features__fig__img {
@@ -48,4 +49,5 @@
 .about__features__fig--span-all {
     grid-column: 1 / -1;
     width: 100%;
+    max-width: 100%;
 }
