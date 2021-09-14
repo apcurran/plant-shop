@@ -14,3 +14,16 @@
 .auth-card__content__title {
     margin-bottom: 2.5rem;
 }
+
+@media screen and (max-width: 51.25em) {
+    .auth-card {
+        grid-template-columns: 1fr;
+        min-height: 50vh;
+    }
+}
+
+@media screen and (max-width: 27em) {
+    .auth-card__content {
+        padding: 1rem 1.5rem;
+    }
+}
