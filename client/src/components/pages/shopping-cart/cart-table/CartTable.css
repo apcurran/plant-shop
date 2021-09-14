@@ -87,3 +87,9 @@
 .total-info__group__span-val--total {
     color: var(--cta-accent-clr-dark);
 }
+
+@media screen and (max-width: 83.125em) {
+    .cart-table {
+        margin: 0 1.5rem 4rem 1.5rem;
+    }
+}
