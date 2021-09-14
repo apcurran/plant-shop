@@ -3,7 +3,8 @@
 }
 
 .home__plant-types-inner-wrapper {
-    width: var(--base-container-width);
+    width: 100%;
+    max-width: var(--base-container-width);
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
