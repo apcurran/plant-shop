@@ -18,5 +18,15 @@
 }
 
 .product__content__size-btn__price {
-    font-size: var(--fz-sm);
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 26.25em) {
+    .product__content__size-btn {
+        margin-bottom: 1.5rem;
+    }
+
+    .product__content__size-btn:not(:last-of-type) {
+        margin-right: 1rem;
+    }
 }
