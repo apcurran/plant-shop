@@ -26,3 +26,14 @@
 .about__hero__card__desc {
     font-size: var(--fz-md);
 }
+
+@media screen and (max-width: 68em) {
+    .about__hero {
+        display: block;
+    }
+
+    .about__hero__card {
+        width: 100%;
+        background-color: hsla(0, 0%, 100%, .6);
+    }
+}
