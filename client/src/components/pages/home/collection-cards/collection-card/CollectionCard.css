@@ -1,5 +1,6 @@
 .home__collection-card__inner-container {
-    width: var(--base-container-width);
+    width: 100%;
+    max-width: var(--base-container-width);
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -67,4 +68,50 @@
     border: none;
     cursor: pointer;
     background: none;
+}
+
+@media screen and (max-width: 83em) {
+    .home__collection-card.home__collection-card--narrow {
+        padding: 6rem 1.5rem;
+    }
+
+    .home__collection-card__inner-container {
+        gap: 10rem;
+    }
+}
+
+@media screen and (max-width: 55em) {
+    .home__collection-card.home__collection-card--narrow {
+        padding: 4rem 1.5rem;
+    }
+
+    .home__collection-card__inner-container {
+        gap: 4rem;
+    }
+}
+
+@media screen and (max-width: 44em) {
+    .home__plant-types-inner-wrapper {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .home__plant-types__column--left,
+    .home__plant-types__column--right {
+        padding: 4rem 1.5rem;
+    }
+
+    .home__collection-card__inner-container {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .home__collection-card__fig {
+        order: -1;
+    }
+
+    .home__collection-card__fig__img {
+        width: 15rem;
+        height: 15rem;
+    }
 }

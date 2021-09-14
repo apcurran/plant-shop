@@ -1,4 +1,3 @@
-import "./CollectionCards.css";
 import CollectionCard from "./collection-card/CollectionCard";
 
 function CollectionCards() {

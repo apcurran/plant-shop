@@ -5,7 +5,7 @@ import "./CollectionCard.css";
 
 function CollectionCard({ title, desc, linkHref, imgPublicId, imgAlt, imgWidth, imgHeight }) {
     return (
-        <section className="home__collection-card">
+        <section className="home__collection-card home__collection-card--narrow">
             <div className="home__collection-card__inner-container">
                 <figure className="home__collection-card__fig">
                     <Image publicId={imgPublicId} alt={imgAlt} className="home__collection-card__fig__img" loading="lazy" width={imgWidth} height={imgHeight}>
