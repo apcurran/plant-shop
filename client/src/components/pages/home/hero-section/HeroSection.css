@@ -14,3 +14,12 @@
     display: block;
     margin-left: auto;
 }
+
+@media screen and (max-width: 83em) {
+    .home-hero__section {
+        width: 100%;
+        max-width: var(--base-container-width);
+        padding-bottom: 2rem;
+        grid-row: 3 / 4;
+    }
+}
