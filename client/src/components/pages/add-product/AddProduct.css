@@ -7,3 +7,11 @@
 .add-product-inner-wrapper__right {
     flex-grow: 1;
 }
+
+@media screen and (max-width: 65.625em) {
+    .add-product-inner-wrapper {
+        max-width: 100%;
+        width: 100%;
+        padding: 3rem 1.5rem;
+    }
+}

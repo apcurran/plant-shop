@@ -9,3 +9,10 @@
 
     background-color: var(--light-warm-grey);
 }
+
+@media screen and (max-width: 65.625em) {
+    .form-segment {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
