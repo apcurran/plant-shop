@@ -17,3 +17,10 @@
     width: 4rem;
     margin-bottom: 1rem;
 }
+
+@media screen and (max-width: 30em) {
+    .add-product__form__file-img {
+        width: 12rem;
+        height: 12rem;
+    }
+}

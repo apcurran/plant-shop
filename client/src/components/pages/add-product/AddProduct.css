@@ -15,3 +15,10 @@
         padding: 3rem 1.5rem;
     }
 }
+
+@media screen and (max-width: 38.125em) {
+    .add-product-inner-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

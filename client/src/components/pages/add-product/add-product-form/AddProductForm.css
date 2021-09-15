@@ -28,6 +28,8 @@
     font-size: 1rem;
     border: none;
     line-height: 1.6;
+    max-width: 25rem;
+    width: 100%;
 }
 
 .add-product__form__sizes-group:not(:last-of-type) {
@@ -50,4 +52,22 @@
     font-weight: 700;
     color: var(--cta-accent-clr-dark);
     cursor: pointer;
+}
+
+@media screen and (max-width: 30em) {
+    .add-product__form__sub-title {
+        font-size: var(--fz-md);
+    }
+
+    .add-product__form__sub-heading {
+        font-size: 1rem;
+    }
+
+    .form-group__label {
+        font-size: 1rem;
+    }
+
+    .form-group__textarea {
+        max-width: 14rem;
+    }
 }

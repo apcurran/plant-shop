@@ -159,7 +159,7 @@ function AddProductForm() {
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>1</NumberBadge>
-                    <h2>Product Info</h2>
+                    <h2 className="add-product__form__sub-title">Product Info</h2>
                 </div>
                 <div className="add-product__form__column--right">
                     <div className="form-group">
@@ -183,7 +183,7 @@ function AddProductForm() {
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>2</NumberBadge>
-                    <h2>Product Sizes</h2>
+                    <h2 className="add-product__form__sub-title">Product Sizes</h2>
                 </div>
                 <div className="add-product__form__column--right">
                     <div className="add-product__form__sizes-group">
@@ -224,7 +224,7 @@ function AddProductForm() {
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>3</NumberBadge>
-                    <h2>Image Info</h2>
+                    <h2 className="add-product__form__sub-title">Image Info</h2>
                 </div>
                 <div className="add-product__form__column--right">
                     <div className="form-group">
