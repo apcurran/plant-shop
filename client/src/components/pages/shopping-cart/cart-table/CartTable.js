@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { Image, Transformation } from "cloudinary-react";
 
 import useCartStore from "../../../../stores/CartStore";
@@ -7,6 +7,9 @@ import "./CartTable.css";
 import CheckoutLink from "../../../ui/checkout-link/CheckoutLink";
 
 function CartTable({ items }) {
+    // Local state
+    const [isScrolled, setIsScrolled] = useState(false);
+    // Global store state
     const incrementOneItem = useCartStore(useCallback((state) => state.incrementOneItem, []));
     const decrementOneItem = useCartStore(useCallback((state) => state.decrementOneItem, []));
     const removeItemFromCart = useCartStore(useCallback((state) => state.removeItemFromCart, []));
@@ -55,9 +58,15 @@ function CartTable({ items }) {
         </section>
     );
 
+    function disableFade() {
+        setIsScrolled(true);
+    }
+
+    const cartTableClasses = isScrolled ? "cart-table cart-table--disable-fade" : "cart-table";
+
     return (
         <div className="shopping-cart-info-wrapper">
-            <table className="cart-table">
+            <table onScroll={disableFade} className={cartTableClasses}>
                 <thead className="cart-table__thead">
                     <tr className="cart-table__thead__tr">
                         <th className="cart-table__thead__tr__th cart-table__thead__product">Product</th>
