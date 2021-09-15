@@ -13,6 +13,9 @@ function OrderItem({ title, category, price, size, qty, publicId, altText, width
                 </figure>
                 <div className="order-item__content">
                     <h3 className="order-item__content__title">{title}</h3>
+                    <div className="order-item__content__category-chip-container">
+                        <span className="order-item__content__category-chip">{category}</span>
+                    </div>
                     <h4 className="order-item__content__sub-heading order-item__content__sub-heading--size">Size</h4>
                     <p className="order-item__content__desc order-item__content__size">{size} gallon</p>
                     <h4 className="order-item__content__sub-heading order-item__content__sub-heading--price">Price</h4>
