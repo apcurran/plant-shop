@@ -11,3 +11,15 @@
     gap: 2rem;
     margin-bottom: 2rem;
 }
+
+@media screen and (max-width: 39em) {
+    .order {
+        padding: 2rem 2.5rem;
+    }
+}
+
+@media screen and (max-width: 34.375em) {
+    .order {
+        padding: 1rem 1.5rem;
+    }
+}

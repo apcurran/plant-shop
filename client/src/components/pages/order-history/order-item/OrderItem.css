@@ -76,3 +76,61 @@
     margin-right: .25rem;
     font-size: var(--fz-sm);
 }
+
+@media screen and (max-width: 39em) {
+    .order-item__content {
+        column-gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 34.375em) {
+    .order__descriptor-group {
+        gap: 1.5rem;
+    }
+
+    .order__descriptor {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .order__descriptor__heading {
+        font-size: var(--fz-md);
+    }
+
+    .order__descriptor__data-segment {
+        font-size: var(--fz-sm);
+    }
+
+    .order-item__content {
+        grid-template-areas:
+            "title"
+            "size-h"
+            "size"
+            "price-h"
+            "price"
+            "qty-h"
+            "qty";
+    }
+
+    .order-item__content__sub-heading {
+        margin-bottom: .25rem;
+    }
+
+    .order-item__content__desc:not(:last-of-type) {
+        margin-bottom: 1.5rem;
+    }
+
+    .order-item__content__title {
+        font-size: var(--fz-md);
+    }
+
+    .order-item__content__sub-heading,
+    .order-item__content__desc {
+        font-size: var(--fz-sm);
+    }
+
+    .order-item__inner-container {
+        gap: 1rem;
+    }
+}
