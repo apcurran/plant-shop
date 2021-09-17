@@ -4,6 +4,7 @@ require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
+const compression = require("compression");
 
 const PORT = process.env.PORT || 5000;
 // Import routers
@@ -20,6 +21,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Middleware
+app.use(compression());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
 
