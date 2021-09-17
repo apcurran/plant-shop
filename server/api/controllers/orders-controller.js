@@ -123,7 +123,6 @@ async function postCreatePaymentIntent(req, res, next) {
             success_url: `${process.env.CLIENT_URL}/success?sessionId={CHECKOUT_SESSION_ID}&orderId=${orderId}`,
             cancel_url: `${process.env.CLIENT_URL}/cart`
         });
-        console.log(session);
         const redirectUrl = session.url;
 
         // Payment cancellation
