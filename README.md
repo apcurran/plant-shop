@@ -29,3 +29,16 @@
 - :test_tube: React Testing Library for component unit tests
 
 - :test_tube: Cypress automated testing for integration tests
+
+
+![Home page](./readme-imgs/home.webp)
+
+![About page](./readme-imgs/about.webp)
+
+![Collections page](./readme-imgs/collections.webp)
+
+![Product page](./readme-imgs/product.webp)
+
+![Shopping cart page](./readme-imgs/cart.webp)
+
+![Shipping info page](./readme-imgs/shipping.webp)
