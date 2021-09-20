@@ -3,6 +3,8 @@ import { useState } from "react";
 import "./ShippingForm.css";
 import useAuthStore from "../../../../stores/AuthStore";
 import useCartStore from "../../../../stores/CartStore";
+import ErrorMsg from "../../../ui/error-msg/ErrorMsg";
+import LoadingSpinner from "../../../ui/loading-spinner/LoadingSpinner";
 
 function ShippingForm() {
     const [street, setStreet] = useState("");
@@ -69,6 +71,8 @@ function ShippingForm() {
                 throw Error(serverErrMsg.error);
             }
 
+            setIsLoading(false);
+
             const { url } = await response.json();
             // Push to Stripe API generated URL
             window.location = url;
@@ -97,6 +101,8 @@ function ShippingForm() {
                 <label htmlFor="zip" className="shipping-grid__form-group__label">Zip Code</label>
                 <input onChange={handleZipChange} type="text" className="shipping-grid__form-group__input" id="zip" />
             </div>
+            {isLoading ? <LoadingSpinner /> : null}
+            {error ? <ErrorMsg error={error} /> : null}
             <button className="shipping-grid__form__submit-btn cta-btn">Checkout</button>
         </form>
     );
