@@ -16,10 +16,6 @@ function Footer() {
                             <h3 className="footer__title">About</h3>
                             <Link to="/about" className="footer__link">About Us</Link>
                         </div>
-                        <div className="footer__container--right__column--left__group">
-                            <h3 className="footer__title">Contact</h3>
-                            <Link to="/contact-us" className="footer__link">Contact Us</Link>
-                        </div>
                     </div>
                     <div className="footer__container--right__column--right">
                         <div className="footer__container--right__column--right__group">
