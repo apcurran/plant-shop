@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "development") {
 // Middleware
 app.use(compression());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "..", "client", "build")));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 // API routers
 app.use("/api/products", productsRouter);
@@ -39,7 +39,7 @@ app.use((err, req, res, next) => {
 
 // Catch-all GET handler to send back React's index.html file
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
 app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode, and listening on port ${PORT}.`));
