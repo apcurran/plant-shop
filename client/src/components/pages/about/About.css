@@ -7,7 +7,7 @@
 
 @media screen and (max-width: 85em) {
     .about-grid-wrapper {
-        min-height: unset;
+        min-height: revert;
         display: block;
     }
 }
