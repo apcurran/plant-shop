@@ -8,7 +8,7 @@ import { formatDate } from "../../../../utils/format-date";
 
 function Order({ orderData }) {
     const formattedDate = formatDate(orderData.createdAt);
-    const lastFourOrderChars = (orderData.stripePaymentId).slice(-4);
+    const lastFourOrderChars = orderData.stripePaymentId ? (orderData.stripePaymentId).slice(-4) : "Payment not completed";
     const orderItems = orderData.orderItems.map((orderItem) => {
         return (
             <OrderItem
