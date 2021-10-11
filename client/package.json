@@ -26,7 +26,22 @@
       "react-app",
       "react-app/jest"
     ],
-    "root": true
+    "root": true,
+    "rules": {
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "error",
+        "double"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ],
+      "arrow-parens": "error"
+    }
   },
   "browserslist": {
     "production": [

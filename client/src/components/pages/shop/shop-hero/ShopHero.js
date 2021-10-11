@@ -78,7 +78,7 @@ function ShopHero({ categoryQueryText }) {
             );
         });
         // Unique category tagline box
-        outputTagline = <ShopHeroTaglineBox titleText="Bring Nature Indoors" />
+        outputTagline = <ShopHeroTaglineBox titleText="Bring Nature Indoors" />;
     } else if (categoryQueryText === "fruit trees") {
         outputImgs = fruitTreeImgs.map((img) => {
             return (
@@ -86,7 +86,7 @@ function ShopHero({ categoryQueryText }) {
             );
         });
 
-        outputTagline = <ShopHeroTaglineBox titleText="Food From Your Backyard" />
+        outputTagline = <ShopHeroTaglineBox titleText="Food From Your Backyard" />;
     } else if (categoryQueryText === "shade trees") {
         outputImgs = shadeTreeImgs.map((img) => {
             return (
@@ -94,7 +94,7 @@ function ShopHero({ categoryQueryText }) {
             );
         });
 
-        outputTagline = <ShopHeroTaglineBox titleText="Create Your own Oasis" />
+        outputTagline = <ShopHeroTaglineBox titleText="Create Your own Oasis" />;
     } else {
         outputImgs = allCollectionsImgs.map((img) => {
             return (
@@ -102,7 +102,7 @@ function ShopHero({ categoryQueryText }) {
             );
         });
 
-        outputTagline = <ShopHeroTaglineBox titleText="Plants for Your Home" />
+        outputTagline = <ShopHeroTaglineBox titleText="Plants for Your Home" />;
     }
 
     return (

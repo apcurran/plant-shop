@@ -16,7 +16,7 @@ function CartTable({ items }) {
 
     const itemsSubTotal = items.reduce((total, currVal) => total + currVal.itemTotalPrice, 0);
 
-    const itemsArr = items.map(item => (
+    const itemsArr = items.map((item) => (
         <tr key={item.productExtraInfoId} className="cart-table__tbody__tr">
             <td className="cart-table__tbody__tr__td cart-table__prod-info">
                 <figure className="cart-table__prod-info__fig">

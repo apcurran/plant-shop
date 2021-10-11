@@ -66,7 +66,7 @@ const store = (set, get) => ({
                     ...existingItem,
                     itemQuantity: existingItem.itemQuantity + 1,
                     itemTotalPrice: existingItem.itemTotalPrice + existingItem.price
-                }
+                };
             }
 
             return item;
@@ -104,7 +104,7 @@ const store = (set, get) => ({
                         ...existingItem,
                         itemQuantity: existingItem.itemQuantity - 1,
                         itemTotalPrice: existingItem.itemTotalPrice - existingItem.price
-                    }
+                    };
                 }
     
                 return item;
