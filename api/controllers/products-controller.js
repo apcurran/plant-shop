@@ -2,7 +2,7 @@
 
 const db = require("../../db/index");
 const { transformProductResults } = require("../../util/transform-product-results");
-const { postProductValidation, patchProductValidation } = require("../validation/products-validation")
+const { postProductValidation, patchProductValidation } = require("../validation/products-validation");
 const { streamUploadToCloudinary } = require("../../util/stream-upload-to-cloudinary");
 
 async function getProducts(req, res, next) {

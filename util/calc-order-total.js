@@ -9,7 +9,7 @@ function calcOrderTotal(itemsArr) {
     return itemsArr.reduce((total, itemObj) => {
         const productTotal = itemObj.price * itemObj.productQuantity;
 
-        return total + productTotal
+        return total + productTotal;
     }, 0);
 }
 
