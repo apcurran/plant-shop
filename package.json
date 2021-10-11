@@ -28,7 +28,7 @@
     "stripe": "^8.170.0"
   },
   "devDependencies": {
-    "eslint": "^8.0.0",
+    "eslint": "^7.29.0",
     "morgan": "^1.10.0"
   }
 }
