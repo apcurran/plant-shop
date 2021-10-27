@@ -9,20 +9,13 @@ const { signupValidation, loginValidation } = require("../validation/auth-valida
 // POST controllers
 async function postSignup(req, res, next) {
     try {
-        await signupValidation(req.body);
-
-    } catch (err) {
-        return res.status(400).json({ error: err.details[0].message });
-    }
-
-    try {
         const {
             firstName,
             lastName,
             email,
             password,
             adminPassword
-        } = req.body;
+        } = await signupValidation(req.body);
         // Reject if there is already an existing user with the same email
         const emailExists = (await db.query(`
             SELECT app_user.user_id
@@ -52,6 +45,12 @@ async function postSignup(req, res, next) {
         res.status(201).json({ message: "New user created." });
 
     } catch (err) {
+        // Check for JOI validation error first
+        if (err.isJoi) {
+            // Send back JOI validation error message
+            return res.status(400).json({ error: err.message });
+        }
+
         next(err);
     }
 }
