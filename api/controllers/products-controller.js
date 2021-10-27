@@ -265,9 +265,9 @@ async function patchProduct(req, res, next) {
         next(err);
     } finally {
         client.release();
-
-        res.status(200).json({ msg: "Product information updated." });
     }
+
+    res.status(200).json({ msg: "Product information updated." });
 }
 
 async function deleteProduct(req, res, next) {
