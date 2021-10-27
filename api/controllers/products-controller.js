@@ -114,7 +114,7 @@ async function postProduct(req, res, next) {
     const productImgWidth = uploadedProductImgData.width;
     const productImgHeight = uploadedProductImgData.height;
     try {
-        // Validate incoming data
+        // Function-scoped vars
         var {
             title,
             description,
@@ -129,6 +129,7 @@ async function postProduct(req, res, next) {
 
         next(err);
     }
+    /** @type {object[]} */
     const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
     // node-postgres requires the use of client instead of pool.query here
@@ -187,28 +188,30 @@ async function postProduct(req, res, next) {
 }
 
 async function patchProduct(req, res, next) {
-    // Validate incoming data first
-    try {
-        await patchProductValidation(req.body);
-
-    } catch (err) {
-        console.error(err);
-        return res.status(400).json({ error: err.details[0].message });
-    }
-
     const { productId } = req.params;
     const imgFile = req.file ? req.file : null;
     const uploadedProductImgData = imgFile ? await streamUploadToCloudinary(imgFile, "evergreen-app").catch((err) => next(err)) : null;
     const productImgPublicId = uploadedProductImgData ? uploadedProductImgData.public_id : null;
     const productImgWidth = uploadedProductImgData ? uploadedProductImgData.width : null;
     const productImgHeight = uploadedProductImgData ? uploadedProductImgData.height : null;
-    const {
-        title,
-        description,
-        category,
-        imgAltText
-    } = req.body;
-    const productExtraInfo = JSON.parse(req.body.productExtraInfo); // array
+    try {
+        // Function-scoped vars
+        var {
+            title,
+            description,
+            category,
+            imgAltText
+        } = await patchProductValidation(req.body);
+        
+    } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        next(err);
+    }
+    /** @type {object[]} */
+    const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
     const client = await db.pool
                             .connect()
