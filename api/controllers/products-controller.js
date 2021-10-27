@@ -107,27 +107,28 @@ async function getProductsByCategory(req, res, next) {
 }
 
 async function postProduct(req, res, next) {
-    // Validate incoming data first
-    try {
-        await postProductValidation(req.body);
-
-    } catch (err) {
-        console.error(err);
-        return res.status(400).json({ error: err.details[0].message });
-    }
-
     const imgFile = req.file;
     const uploadedProductImgData = await streamUploadToCloudinary(imgFile, "evergreen-app")
                                             .catch((err) => next(err));
     const productImgPublicId = uploadedProductImgData.public_id;
     const productImgWidth = uploadedProductImgData.width;
     const productImgHeight = uploadedProductImgData.height;
-    const {
-        title,
-        description,
-        category,
-        imgAltText
-    } = req.body;
+    try {
+        // Validate incoming data
+        var {
+            title,
+            description,
+            category,
+            imgAltText
+        } = await postProductValidation(req.body);
+        
+    } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        next(err);
+    }
     const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
     // node-postgres requires the use of client instead of pool.query here
