@@ -174,16 +174,16 @@ async function postProduct(req, res, next) {
         );
         // Commit transaction to client
         await client.query("COMMIT");
-
+        
     } catch (err) {
         await client.query("ROLLBACK");
-
+        
         next(err);
     } finally {
         client.release();
-
-        res.status(201).json({ msg: "Product information added." });
     }
+
+    res.status(201).json({ msg: "Product information added." });
 }
 
 async function patchProduct(req, res, next) {
