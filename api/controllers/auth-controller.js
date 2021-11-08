@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const db = require("../../db/index");
-const { signupValidation, loginValidation } = require("../validation/auth-validation");
+const { signupValidation, loginValidation, forgotPasswordValidation } = require("../validation/auth-validation");
 
 // POST controllers
 async function postSignup(req, res, next) {
@@ -111,7 +111,34 @@ async function postLogin(req, res, next) {
     }
 }
 
+async function postForgot(req, res, next) {
+    try {
+        // Validate incoming data first
+        const { email } = await forgotPasswordValidation(req.body);
+        // Get user from db
+        const user = (await db.query(`
+            SELECT
+                first_name AS "firstName"
+            FROM app_user
+            WHERE app_user.email = $1
+        `, [email])).rows[0];
+
+        // Reject if user does not exist in db
+        if (!user) {
+            return res.status(400).json({ error: "Email is not found." });
+        }
+
+    } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        next(err);
+    }
+}
+
 module.exports = {
     postSignup,
-    postLogin
+    postLogin,
+    postForgot,
 };

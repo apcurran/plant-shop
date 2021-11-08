@@ -53,7 +53,21 @@ function loginValidation(data) {
     return schema.validateAsync(data);
 }
 
+function forgotPasswordValidation(data) {
+    const schema = Joi.object({
+        email:      Joi
+                    .string()
+                    .trim()
+                    .email()
+                    .max(100)
+                    .required()
+    });
+
+    return schema.validateAsync(data);
+}
+
 module.exports = {
     signupValidation,
-    loginValidation
+    loginValidation,
+    forgotPasswordValidation
 };
