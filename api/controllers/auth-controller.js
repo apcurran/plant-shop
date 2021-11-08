@@ -6,6 +6,7 @@ const { nanoid } = require("nanoid");
 
 const db = require("../../db/index");
 const { signupValidation, loginValidation, forgotPasswordValidation } = require("../validation/auth-validation");
+const { sendResetLink } = require("../../util/send-email");
 
 // POST controllers
 async function postSignup(req, res, next) {
@@ -140,9 +141,10 @@ async function postForgot(req, res, next) {
         `, [id, email]);
 
         // Send reset link to user's email
-        
+        await sendResetLink(id, email);
 
         // Return response with ok status
+        res.status(200).json({ message: "Email has been sent with your password reset link." });
 
     } catch (err) {
         if (err.isJoi) {

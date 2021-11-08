@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const nodemailer = require("nodemailer");
 
-async function sendResetLink(userEmail, id) {
+async function sendResetLink(id, userEmail) {
     try {
         const transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
