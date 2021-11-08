@@ -155,8 +155,47 @@ async function postForgot(req, res, next) {
     }
 }
 
+async function patchResetPassword(req, res, next) {
+    try {
+        // Get tempId from client req
+        const { tempId, newPassword } = req.body;
+        // Get user info by tempId
+        const userRequest = (await db.query(`
+            SELECT
+                email
+            FROM app_user_password_requests
+            WHERE temp_id = $1
+        `, [tempId])).rows[0];
+        const userEmail = userRequest.email;
+
+        if (!userRequest) {
+            return res.status(404).json({ error: "That account does not exist." });
+        }
+
+        const saltRounds = 12;
+        const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
+        
+        // Update current user's pw in db table
+        await db.query(`
+            UPDATE app_user
+            SET password = $1
+            WHERE email = $2
+        `, [newHashedPassword, userEmail]);
+
+        res.status(200).json({ message: "User password has been updated." });
+
+    } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        next(err);
+    }
+}
+
 module.exports = {
     postSignup,
     postLogin,
     postForgot,
+    patchResetPassword
 };
