@@ -132,8 +132,15 @@ async function postForgot(req, res, next) {
         // Generate uuid
         const id = nanoid();
         // Save in db table for forgotten passwords
+        await db.query(`
+            INSERT INTO app_user_password_requests
+                (temp_id, email)
+            VALUES
+                ($1, $2)
+        `, [id, email]);
 
         // Send reset link to user's email
+        
 
         // Return response with ok status
 
