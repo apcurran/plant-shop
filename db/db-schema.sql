@@ -32,6 +32,11 @@ CREATE TABLE app_user(
     is_admin BOOLEAN
 );
 
+CREATE TABLE app_user_password_requests(
+    temp_id VARCHAR NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE app_user_order(
     order_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
