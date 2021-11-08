@@ -2,6 +2,7 @@
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { nanoid } = require("nanoid");
 
 const db = require("../../db/index");
 const { signupValidation, loginValidation, forgotPasswordValidation } = require("../validation/auth-validation");
@@ -127,6 +128,14 @@ async function postForgot(req, res, next) {
         if (!user) {
             return res.status(400).json({ error: "Email is not found." });
         }
+
+        // Generate uuid
+        const id = nanoid();
+        // Save in db table for forgotten passwords
+
+        // Send reset link to user's email
+
+        // Return response with ok status
 
     } catch (err) {
         if (err.isJoi) {
