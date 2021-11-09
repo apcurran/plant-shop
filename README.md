@@ -22,6 +22,8 @@
 
 - Zustand store state management
 
+- Password reset implementation with Nodemailer
+
 - All custom CSS layout/styling with modern CSS features (Grid, Flexbox, Custom Properties, etc.)
 
 - Responsive CSS layout accommodating all common screen sizes
