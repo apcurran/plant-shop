@@ -88,6 +88,9 @@ function App() {
               <Auth title="Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />
             </Route>
             <Route exact path="/auth/forgot-password">
+              <Auth title="Forgot Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />
+            </Route>
+            <Route exact path="/auth/reset-password/:id">
               <Auth title="Reset Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />
             </Route>
             <Route exact path="/admin/auth/sign-up">

@@ -1,23 +1,25 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
 import Message from "../../../../ui/message/Message";
 
-function EmailLinkForm() {
-    const [email, setEmail] = useState("");
+function ResetPasswordForm() {
+    const [newPassword, setNewPassword] = useState("");
     const [error, setError] = useState("");
     const [userMessage, setUserMessage] = useState("");
 
-    async function handleSubmit(event) {
-        event.preventDefault();
+    const { id } = useParams();
 
+    async function handleSubmit() {
         try {
-            const response = await fetch("/api/auth/forgot-password", {
-                method: "POST",
+            const response = await fetch("/api/auth/reset-password", {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    email
+                    tempId: id,
+                    newPassword
                 })
             });
 
@@ -37,16 +39,15 @@ function EmailLinkForm() {
 
     return (
         <form onSubmit={handleSubmit} className="auth-card__content__form">
-            <p className="auth-card__content__instructions">Please enter your email and we will send a link to reset your password.</p>
             <div className="auth-card__content__form-group">
-                <label htmlFor="email" className="auth-card__content__form__label">Email</label>
-                <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth-card__content__form__input" required />
+                <label htmlFor="new-password" className="auth-card__content__form__label">New Password</label>
+                <input onChange={(event) => setNewPassword(event.target.value)} type="password" name="new-password" id="new-password" className="auth-card__content__form__input" required />
             </div>
-            <button className="auth-card__content__form__submit-btn">Send Link</button>
+            <button className="auth-card__content__form__submit-btn">Update Password</button>
             {error ? <ErrorMsg error={error} /> : null}
             {userMessage ? <Message msg={userMessage} /> : null}
         </form>
     );
 }
 
-export default EmailLinkForm;
+export default ResetPasswordForm;
