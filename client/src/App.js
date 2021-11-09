@@ -87,11 +87,11 @@ function App() {
             <Route exact path="/auth/log-in">
               <Auth title="Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />
             </Route>
-            <Route exact path="/auth/forgot-password">
-              <Auth title="Forgot Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />
-            </Route>
             <Route exact path="/auth/reset-password/:id">
               <Auth title="Reset Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />
+            </Route>
+            <Route exact path="/auth/forgot-password">
+              <Auth title="Forgot Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />
             </Route>
             <Route exact path="/admin/auth/sign-up">
               <Auth title="Admin Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />
