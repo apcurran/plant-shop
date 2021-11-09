@@ -21,7 +21,7 @@ async function sendResetLink(id, userEmail) {
             subject: "Password Reset",
             text: "Password Reset Link",
             html: `
-                <p>To reset your password, please click on this link: <a href="${process.env.CLIENT_URL}/reset-password/${id}">Reset Password</a></p>
+                <p>To reset your password, please click on this link: <a href="${process.env.CLIENT_URL}/auth/reset-password/${id}">Reset Password</a></p>
             `
         });
     

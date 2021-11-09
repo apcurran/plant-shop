@@ -10,7 +10,9 @@ function ResetPasswordForm() {
 
     const { id } = useParams();
 
-    async function handleSubmit() {
+    async function handleSubmit(event) {
+        event.preventDefault();
+        
         try {
             const response = await fetch("/api/auth/reset-password", {
                 method: "PATCH",
