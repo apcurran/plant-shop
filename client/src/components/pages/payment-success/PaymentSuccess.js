@@ -68,7 +68,6 @@ function PaymentSuccess() {
     resetCartState();
     clearCartItemsFromStorage();
 
-    // TODO: Fix error display, causing React render error trying to output an object
     return (
         <div className="payment-success">
             <Header />
