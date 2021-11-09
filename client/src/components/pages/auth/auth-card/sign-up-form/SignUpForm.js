@@ -64,7 +64,7 @@ function SignUpForm() {
                 <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth-card__content__form__input" min="6" max="50" required />
             </div>
             <button className="auth-card__content__form__submit-btn">Submit</button>
-            {error ? <ErrorMsg msg={error} /> : null}
+            {error ? <ErrorMsg error={error} /> : null}
         </form>
     );
 }

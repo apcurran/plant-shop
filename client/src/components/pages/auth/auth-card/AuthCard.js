@@ -1,6 +1,7 @@
 import "./AuthCard.css";
 import SignUpForm from "./sign-up-form/SignUpForm";
 import LogInForm from "./log-in-form/LogInForm";
+import EmailLinkForm from "./email-link-form/EmailLinkForm";
 import AdminSignUpForm from "./admin-sign-up-form/AdminSignUpForm";
 import AuthImg from "../auth-img/AuthImg";
 
@@ -13,6 +14,8 @@ function AuthCard({ title, imgPublicId, imgWidth, imgHeight }) {
                 return <SignUpForm />;
             case "Log In":
                 return <LogInForm />;
+            case "Reset Password":
+                return <EmailLinkForm />;
             case "Admin Sign Up":
                 return <AdminSignUpForm />;
             case "Admin Log In":

@@ -70,7 +70,7 @@ function AdminSignUpForm() {
                 <input onChange={(event) => setAdminPassword(event.target.value)} type="password" name="adminPassword" id="admin-password" className="auth-card__content__form__input" min="6" max="50" required />
             </div>
             <button className="auth-card__content__form__submit-btn">Submit</button>
-            {error ? <ErrorMsg msg={error} /> : null}
+            {error ? <ErrorMsg error={error} /> : null}
         </form>
     );
 }

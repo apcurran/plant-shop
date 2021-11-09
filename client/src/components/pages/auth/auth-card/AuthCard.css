@@ -15,6 +15,11 @@
     margin-bottom: 2.5rem;
 }
 
+.auth-card__content__instructions {
+    margin-bottom: 2rem;
+    color: var(--med-warm-grey);
+}
+
 @media screen and (max-width: 51.25em) {
     .auth-card {
         grid-template-columns: 1fr;

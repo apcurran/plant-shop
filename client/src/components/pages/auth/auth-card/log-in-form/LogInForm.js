@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import "../AuthForm.css";
 import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
@@ -40,7 +40,6 @@ function LogInForm() {
                 throw Error(serverErrMsg.error);
             }
 
-            // TODO: Store user log in info
             const { accessToken, userInfo } = await response.json();
             const isAdminVal = userInfo.isAdmin;
 
@@ -71,7 +70,8 @@ function LogInForm() {
                 <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth-card__content__form__input" min="6" max="50" required />
             </div>
             <button className="auth-card__content__form__submit-btn">Submit</button>
-            {error ? <ErrorMsg msg={error} /> : null}
+            <Link to="/auth/forgot-password">Reset my password</Link>
+            {error ? <ErrorMsg error={error} /> : null}
         </form>
     );
 }
