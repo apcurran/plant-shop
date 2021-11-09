@@ -5,11 +5,13 @@ import "../AuthForm.css";
 import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
 
 import useAuthStore from "../../../../../stores/AuthStore";
+import LoadingSpinner from "../../../../ui/loading-spinner/LoadingSpinner";
 
 function LogInForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     let history = useHistory();
 
@@ -20,6 +22,8 @@ function LogInForm() {
     
     async function handleSubmit(event) {
         event.preventDefault();
+
+        setIsLoading(true);
 
         try {
             const response = await fetch("/api/auth/log-in", {
@@ -51,10 +55,14 @@ function LogInForm() {
             setToken(accessToken);
             setUser(userInfo);
             setIsAdmin(isAdminVal);
+
+            setIsLoading(false);
+
             // Re-direct user
             history.push("/collections");
 
         } catch (err) {
+            setIsLoading(false);
             setError(err.message);
         }
     }
@@ -70,7 +78,8 @@ function LogInForm() {
                 <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth-card__content__form__input" min="6" max="50" required />
             </div>
             <button className="auth-card__content__form__submit-btn">Submit</button>
-            <Link to="/auth/forgot-password">Reset my password</Link>
+            <Link to="/auth/forgot-password" className="auth-card__content__form__link">Reset my password</Link>
+            {isLoading ? <LoadingSpinner /> : null}
             {error ? <ErrorMsg error={error} /> : null}
         </form>
     );

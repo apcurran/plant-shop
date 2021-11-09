@@ -28,3 +28,8 @@
     border: none;
     cursor: pointer;
 }
+
+.auth-card__content__form__link {
+    display: block;
+    margin-bottom: 1rem;
+}
