@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const { nanoid } = require("nanoid");
 
 const db = require("../../db/index");
-const { signupValidation, loginValidation, forgotPasswordValidation } = require("../validation/auth-validation");
+const { signupValidation, loginValidation, forgotPasswordValidation, resetPasswordValidation } = require("../validation/auth-validation");
 const { sendResetLink } = require("../../util/send-email");
 
 // POST controllers
@@ -158,7 +158,7 @@ async function postForgot(req, res, next) {
 async function patchResetPassword(req, res, next) {
     try {
         // Get tempId from client req
-        const { tempId, newPassword } = req.body;
+        const { tempId, newPassword } = await resetPasswordValidation(req.body);
         // Get user info by tempId
         const userRequest = (await db.query(`
             SELECT
