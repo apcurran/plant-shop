@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CloudinaryContext } from "cloudinary-react";
 
 import Home from "./components/pages/home/Home";
@@ -53,65 +53,27 @@ function App() {
     <CloudinaryContext cloudName="dev-project" secure="true">
       <Router>
         <div className="App">
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/about">
-              <About />
-            </Route>
-            <Route exact path="/collections">
-              <Shop categoryQueryText="all" titleBarText="Shop All Collections" />
-            </Route>
-            <Route exact path="/collections/house-plants">
-              <Shop categoryQueryText="house plants" titleBarText="House Plants" />
-            </Route>
-            <Route exact path="/collections/fruit-trees">
-              <Shop categoryQueryText="fruit trees" titleBarText="Fruit Trees" />
-            </Route>
-            <Route exact path="/collections/shade-trees">
-              <Shop categoryQueryText="shade trees" titleBarText="Shade Trees" />
-            </Route>
-            <Route exact path="/collections/:productId">
-              <Product />
-            </Route>
-            <Route exact path="/admin/collections/add-product">
-              <AddProduct />
-            </Route>
-            <Route exact path="/admin/collections/update-product/:productId">
-              <UpdateProduct />
-            </Route>
-            <Route exact path="/auth/sign-up">
-              <Auth title="Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />
-            </Route>
-            <Route exact path="/auth/log-in">
-              <Auth title="Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />
-            </Route>
-            <Route exact path="/auth/reset-password/:id">
-              <Auth title="Reset Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />
-            </Route>
-            <Route exact path="/auth/forgot-password">
-              <Auth title="Forgot Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />
-            </Route>
-            <Route exact path="/admin/auth/sign-up">
-              <Auth title="Admin Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />
-            </Route>
-            <Route exact path="/admin/auth/log-in">
-              <Auth title="Admin Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />
-            </Route>
-            <Route exact path="/cart">
-              <ShoppingCart />
-            </Route>
-            <Route exact path="/success">
-              <PaymentSuccess />
-            </Route>
-            <Route exact path="/checkout">
-              <Checkout />
-            </Route>
-            <Route exact path="/orders">
-              <OrderHistory />
-            </Route>
-          </Switch>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/collections" element={<Shop categoryQueryText="all" titleBarText="Shop All Collections" />} />
+            <Route path="/collections/house-plants" element={<Shop categoryQueryText="house plants" titleBarText="House Plants" />} />
+            <Route path="/collections/fruit-trees" element={<Shop categoryQueryText="fruit trees" titleBarText="Fruit Trees" />} />
+            <Route path="/collections/shade-trees" element={<Shop categoryQueryText="shade trees" titleBarText="Shade Trees" />} />
+            <Route path="/collections/:productId" element={<Product />} />
+            <Route path="/admin/collections/add-product" element={<AddProduct />} />
+            <Route path="/admin/collections/update-product/:productId" element={<UpdateProduct />} />
+            <Route path="/auth/sign-up" element={<Auth title="Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />} />
+            <Route path="/auth/log-in" element={<Auth title="Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />} />
+            <Route path="/auth/reset-password/:id" element={<Auth title="Reset Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />} />
+            <Route path="/auth/forgot-password" element={<Auth title="Forgot Password" imgPublicId="evergreen-app/reset-password/forgot-password_n8rcnd.jpg" imgWidth="1920" imgHeight="1081" />} />
+            <Route path="/admin/auth/sign-up" element={<Auth title="Admin Sign Up" imgPublicId="evergreen-app/sign-up/sign-up-bg_a3cud7.jpg" imgWidth="1920" imgHeight="1280" />} />
+            <Route path="/admin/auth/log-in" element={<Auth title="Admin Log In" imgPublicId="evergreen-app/log-in/succulent-bg_c9tles" imgWidth="1920" imgHeight="1192" />} />
+            <Route path="/cart" element={<ShoppingCart />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/orders" element={<OrderHistory />} />
+          </Routes>
         </div>
       </Router>
     </CloudinaryContext>
