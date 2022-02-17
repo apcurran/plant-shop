@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "../AuthForm.css";
 import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
@@ -11,7 +11,7 @@ function SignUpForm() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    let history = useHistory();
+    let navigate = useNavigate();
     
     async function handleSubmit(event) {
         event.preventDefault();
@@ -38,7 +38,7 @@ function SignUpForm() {
             }
 
             // Re-direct user
-            history.push("/auth/log-in");
+            navigate("/auth/log-in");
 
         } catch (err) {
             setError(err.message);

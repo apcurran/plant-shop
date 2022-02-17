@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "../AuthForm.css";
 import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
@@ -12,7 +12,7 @@ function AdminSignUpForm() {
     const [adminPassword, setAdminPassword] = useState("");
     const [error, setError] = useState("");
 
-    let history = useHistory();
+    let navigate = useNavigate();
     
     async function handleSubmit(event) {
         event.preventDefault();
@@ -40,7 +40,7 @@ function AdminSignUpForm() {
             }
 
             // Re-direct user
-            history.push("/admin/auth/log-in");
+            navigate("/admin/auth/log-in");
 
         } catch (err) {
             setError(err.message);

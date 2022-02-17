@@ -1,9 +1,9 @@
-import { useHistory, NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 import LogOutBtn from "../../ui/log-out-btn/LogOutBtn";
 
 function SignedInLinks({ setToken, setUser, setIsAdmin, userInfo }) {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     function handleLogOut() {
         sessionStorage.clear();
@@ -13,7 +13,7 @@ function SignedInLinks({ setToken, setUser, setIsAdmin, userInfo }) {
         setUser({});
         setIsAdmin(false);
 
-        history.push("/");
+        navigate("/");
     }
 
     return (

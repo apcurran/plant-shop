@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import "../AuthForm.css";
 import ErrorMsg from "../../../../ui/error-msg/ErrorMsg";
@@ -13,7 +13,7 @@ function LogInForm() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    let history = useHistory();
+    let navigate = useNavigate();
 
     // AuthStore funcs
     const setToken = useAuthStore((state) => state.setToken);
@@ -59,7 +59,7 @@ function LogInForm() {
             setIsLoading(false);
 
             // Re-direct user
-            history.push("/collections");
+            navigate("/collections");
 
         } catch (err) {
             setIsLoading(false);
