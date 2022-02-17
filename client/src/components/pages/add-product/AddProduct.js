@@ -1,4 +1,4 @@
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import "./AddProduct.css";
 import Header from "../../layout/header/Header";
@@ -13,7 +13,7 @@ function AddProduct() {
     // Route guard
     // String val pulled from sessionStorage
     if (isAdmin === "false" || isAdmin === null) {
-        return <Redirect to="/admin/auth/log-in" />;
+        return <Navigate to="/admin/auth/log-in" />;
     }
 
     return (

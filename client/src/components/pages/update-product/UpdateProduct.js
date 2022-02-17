@@ -1,4 +1,4 @@
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 
 import "../add-product/AddProduct.css";
 import Header from "../../layout/header/Header";
@@ -13,7 +13,7 @@ function UpdateProduct() {
 
     // Route guard
     if (isAdmin === "false" || isAdmin === null) {
-        return <Redirect to="/admin/auth/log-in" />;
+        return <Navigate to="/admin/auth/log-in" />;
     }
 
     return (
