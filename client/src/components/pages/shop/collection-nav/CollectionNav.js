@@ -19,7 +19,7 @@ function CollectionNav() {
             <ul className="shop__collection-nav__list">
                 {adminAddProductLink}
                 <li className="shop__collection-nav__list__item">
-                    <NavLink exact to="/collections" className="shop__collection-nav__list__link">All Plants</NavLink>
+                    <NavLink to="/collections" className="shop__collection-nav__list__link">All Plants</NavLink>
                 </li>
                 <li className="shop__collection-nav__list__item">
                     <NavLink to="/collections/house-plants" className="shop__collection-nav__list__link">House Plants</NavLink>
