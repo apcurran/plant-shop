@@ -15,8 +15,26 @@ describe("sidebar filter", () => {
         cy.contains("a", "House Plants")
           .click();
         
-        cy.contains(/The Peace Lily/i);
+        cy.contains(/The Peace Lily/i).should("exist");
         cy.contains(/The Fuji Apple/i).should("not.exist");
         cy.contains(/The Ash Tree/i).should("not.exist");
+    });
+
+    it("should display only fruit trees when the 'Fruit Trees' sidebar nav link is clicked", () => {
+        cy.contains("a", "Fruit Trees")
+          .click();
+
+        cy.contains(/The Fuji Apple/i).should("exist");
+        cy.contains(/The Peace Lily/i).should("not.exist");
+        cy.contains(/The Ash Tree/i).should("not.exist");
+    });
+
+    it("should display only shade trees when the 'Shade Trees' sidebar nav link is clicked", () => {
+        cy.contains("a", "Shade Trees")
+          .click();
+
+        cy.contains(/The Ash Tree/i).should("exist");
+        cy.contains(/The Fuji Apple/i).should("not.exist");
+        cy.contains(/The Peace Lily/i).should("not.exist");
     });
 });
