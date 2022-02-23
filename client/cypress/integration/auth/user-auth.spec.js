@@ -1,54 +1,46 @@
 /// <reference types="cypress" />
 
 describe("log in flow", () => {
-    beforeEach(() => {
-        cy.visit("/auth/log-in");
-    });
+  it("should log in user as John Doe", () => {
+    cy.visit("/auth/log-in");
 
-    it("should log in user as John Doe", () => {
-        cy.get("#email")
-          .type("johndoe@gmail.com");
+    cy.get("#email")
+      .type("johndoe@gmail.com");
 
-        cy.get("#password")
-          .type("password");
+    cy.get("#password")
+      .type("password");
 
-        cy.contains("button", /submit/i)
-          .click();
+    cy.contains("button", /submit/i)
+      .click();
 
-        cy.contains("header", /hello, john/i)
-          .should("be.visible");
-    });
+    cy.contains("header", /hello, john/i)
+      .should("be.visible");
+  });
 });
 
 describe("user log out", () => {
-    beforeEach(() => {
-        cy.visit("/auth/log-in");
-    });
+  it("should log out John Doe user", () => {
+    cy.visit("/auth/log-in");
 
-    it("should log out John Doe user", () => {
-        cy.get("#email")
-          .type("johndoe@gmail.com");
+    cy.get("#email")
+      .type("johndoe@gmail.com");
 
-        cy.get("#password")
-          .type("password");
+    cy.get("#password")
+      .type("password");
 
-        cy.contains("button", /submit/i)
-          .click();
+    cy.contains("button", /submit/i)
+      .click();
 
-        // User now logged in
+    // User now logged in
 
-        cy.contains("button", /log out/i)
-          .click();
-    });
+    cy.contains("button", /log out/i)
+      .click();
+  });
 });
 
 describe("user sign up", () => {
-  // Mocked req to server API
-  beforeEach(() => {
-    cy.visit("/auth/sign-up");
-  });
-
   it("should sign up a user as John Doe", () => {
+    cy.visit("/auth/sign-up");
     // Stubbed API req for user sign-up
     cy.intercept("POST", "/api/auth/sign-up", {
       statusCode: 201,
@@ -71,5 +63,7 @@ describe("user sign up", () => {
 
     cy.contains("button", "Submit")
       .click();
+
+    cy.url().should("include", "/log-in");
   });
-})
+});
