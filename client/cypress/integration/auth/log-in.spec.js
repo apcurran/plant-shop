@@ -3,6 +3,7 @@
 describe("log in flow", () => {
     beforeEach(() => {
         cy.visit("/auth/log-in");
+        sessionStorage.clear();
     });
 
     it("should log in user as John Doe", () => {
