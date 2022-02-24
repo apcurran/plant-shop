@@ -6,17 +6,17 @@ describe("log in flow", () => {
         sessionStorage.clear();
     });
 
-    it("should log in user as John Doe", () => {
+    it("should log in user as Bob Doe", () => {
         cy.get("#email")
-            .type("johndoe@gmail.com");
+            .type("bobdoe@gmail.com");
 
         cy.get("#password")
-            .type("password");
+            .type(Cypress.env("password"));
 
         cy.contains("button", /submit/i)
             .click();
 
-        cy.contains("header", /hello, john/i)
+        cy.contains("header", /hello, bob/i)
             .should("be.visible");
     });
 
@@ -36,7 +36,7 @@ describe("log in flow", () => {
 
     it("should give error message if user provides an email shorter than 6 characters long", () => {
         cy.get("#email")
-            .type("johndoe@gmail.com");
+            .type("bobdoe@gmail.com");
 
         cy.get("#password")
             .type("short");
@@ -50,7 +50,7 @@ describe("log in flow", () => {
 
     it("should give error message if user provides a password that is incorrect", () => {
         cy.get("#email")
-            .type("johndoe@gmail.com");
+            .type("bobdoe@gmail.com");
 
         cy.get("#password")
             .type("fakepassword");

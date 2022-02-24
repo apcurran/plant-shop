@@ -55,7 +55,6 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^9.5.0",
     "jest-watch-typeahead": "^0.6.5"
   }
 }

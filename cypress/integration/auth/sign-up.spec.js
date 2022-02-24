@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe("user sign up", () => {
-    it("should sign up a user as John Doe", () => {
+    it("should sign up a user as Bob Doe", () => {
         cy.visit("/auth/sign-up");
         // Stubbed API req for user sign-up
         cy.intercept("POST", "/api/auth/sign-up", {
@@ -12,16 +12,16 @@ describe("user sign up", () => {
         });
 
         cy.get("#first-name")
-            .type("John");
+            .type("Bob");
 
         cy.get("#last-name")
             .type("Doe");
 
         cy.get("#email")
-            .type("johndoe@gmail.com");
+            .type("bobdoe@gmail.com");
 
         cy.get("#password")
-            .type("password");
+            .type(Cypress.env("password"));
 
         cy.contains("button", "Submit")
             .click();

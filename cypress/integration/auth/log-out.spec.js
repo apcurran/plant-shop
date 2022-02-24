@@ -1,14 +1,14 @@
 /// <reference types="cypress" />
 
 describe("user log out", () => {
-    it("should log out John Doe user", () => {
+    it("should log out Bob Doe user", () => {
         cy.visit("/auth/log-in");
 
         cy.get("#email")
-            .type("johndoe@gmail.com");
+            .type("bobdoe@gmail.com");
 
         cy.get("#password")
-            .type("password");
+            .type(Cypress.env("password"));
 
         cy.contains("button", /submit/i)
             .click();
