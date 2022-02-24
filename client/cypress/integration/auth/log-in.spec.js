@@ -33,4 +33,32 @@ describe("log in flow", () => {
         cy.contains("p", /Email is not found/i)
             .should("be.visible");
     });
+
+    it("should give error message if user provides an email shorter than 6 characters long", () => {
+        cy.get("#email")
+            .type("johndoe@gmail.com");
+
+        cy.get("#password")
+            .type("short");
+
+        cy.contains("button", /submit/i)
+            .click();
+
+        cy.contains("p", /"password" length must be at least 6 characters long/i)
+            .should("be.visible");
+    });
+
+    it("should give error message if user provides a password that is incorrect", () => {
+        cy.get("#email")
+            .type("johndoe@gmail.com");
+
+        cy.get("#password")
+            .type("fakepassword");
+
+        cy.contains("button", /submit/i)
+            .click();
+
+        cy.contains("p", /Invalid credentials provided. Check your email or password again./i)
+            .should("be.visible");
+    });
 });
