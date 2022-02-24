@@ -33,12 +33,14 @@ describe("order history", () => {
             .contains("The Pear Tree");
 
         cy.get(".order-item__content__qty")
+            .first()
             .contains(1);
 
         cy.get(".order-item__content__qty")
             .contains(2);
 
         cy.get(".order-item__content__qty")
+            .last()
             .contains(1);
     });
 });
