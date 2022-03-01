@@ -30,7 +30,7 @@
 
 - :test_tube: React Testing Library for component unit tests
 
-- :test_tube: Cypress automated testing for integration tests
+- :test_tube: Cypress.io automated testing for E2E tests
 
 
 ![Home page](./readme-imgs/home.webp)
