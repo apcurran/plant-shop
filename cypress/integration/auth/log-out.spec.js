@@ -2,18 +2,7 @@
 
 describe("user log out", () => {
     it("should log out Bob Doe user", () => {
-        cy.visit("/auth/log-in");
-
-        cy.get("#email")
-            .type("bobdoe@gmail.com");
-
-        cy.get("#password")
-            .type(Cypress.env("testUserPassword"));
-
-        cy.contains("button", /submit/i)
-            .click();
-
-        // User now logged in
+        cy.login();
 
         cy.contains("button", /log out/i)
             .click();

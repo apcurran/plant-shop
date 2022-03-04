@@ -2,7 +2,6 @@
 
 describe("user sign up", () => {
     it("should sign up a user as Bob Doe", () => {
-        cy.visit("/auth/sign-up");
         // Stubbed API req for user sign-up
         cy.intercept("POST", "/api/auth/sign-up", {
             statusCode: 201,
@@ -10,6 +9,8 @@ describe("user sign up", () => {
                 message: "New user created"
             }
         });
+        
+        cy.visit("/auth/sign-up");
 
         cy.get("#first-name")
             .type("Bob");

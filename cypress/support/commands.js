@@ -13,8 +13,11 @@ Cypress.Commands.add("login", () => {
         const { accessToken, userInfo } = response.body;
         const { isAdmin } = userInfo;
 
-        window.localStorage.setItem("accessToken", accessToken);
-        window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-        window.localStorage.setItem("isAdmin", isAdmin);
+        window.sessionStorage.setItem("accessToken", accessToken);
+        window.sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+        window.sessionStorage.setItem("isAdmin", isAdmin);
+
+        // redirect user after log in
+        cy.visit("/collections");
     });
 });

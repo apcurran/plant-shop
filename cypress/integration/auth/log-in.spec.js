@@ -3,12 +3,11 @@
 describe("log in flow", () => {
     beforeEach(() => {
         cy.visit("/auth/log-in");
-        sessionStorage.clear();
     });
 
     it("should log in user as Bob Doe", () => {
         cy.get("#email")
-            .type("bobdoe@gmail.com");
+            .type(Cypress.env("testUserEmail"));
 
         cy.get("#password")
             .type(Cypress.env("testUserPassword"));
@@ -36,7 +35,7 @@ describe("log in flow", () => {
 
     it("should give error message if user provides an email shorter than 6 characters long", () => {
         cy.get("#email")
-            .type("bobdoe@gmail.com");
+            .type(Cypress.env("testUserEmail"));
 
         cy.get("#password")
             .type("short");
@@ -50,7 +49,7 @@ describe("log in flow", () => {
 
     it("should give error message if user provides a password that is incorrect", () => {
         cy.get("#email")
-            .type("bobdoe@gmail.com");
+            .type(Cypress.env("testUserEmail"));
 
         cy.get("#password")
             .type("fakepassword");

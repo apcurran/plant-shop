@@ -2,16 +2,7 @@
 
 describe("order history", () => {
     beforeEach(() => {
-        cy.visit("/auth/log-in");
-
-        cy.get("#email")
-            .type("bobdoe@gmail.com");
-
-        cy.get("#password")
-            .type(Cypress.env("testUserPassword"));
-
-        cy.contains("button", /submit/i)
-            .click();
+        cy.login();
     });
 
     it("should display an order with 1 oak tree, 2 ash trees, and 1 pear tree", () => {
