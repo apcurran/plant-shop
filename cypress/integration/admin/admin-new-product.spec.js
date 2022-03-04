@@ -2,14 +2,10 @@
 
 describe("admin add new product", () => {
     beforeEach(() => {
-        // cy.visit("/admin/auth/log-in");
-
-        // cy.get("#email")
-        //   .type("")
+        cy.login("admin");
     });
 
     it("new product information should be filled in and created", () => {
-        cy.get("#title")
-          .type("The Orange Tree");
+        
     });
 });

@@ -1,12 +1,16 @@
 /// <reference types="cypress" />
 
-Cypress.Commands.add("login", () => {
+Cypress.Commands.add("login", (type) => {
+    // dual log in functionality for either a user or admin
+    const email = type === "admin" ? Cypress.env("adminEmail") : Cypress.env("testUserEmail");
+    const password = type === "admin" ? Cypress.env("adminPassword") : Cypress.env("testUserPassword");
+
     cy.request({
         method: "POST",
         url: "http://localhost:3000/api/auth/log-in",
         body: {
-            email: Cypress.env("testUserEmail"),
-            password: Cypress.env("testUserPassword")
+            email: email,
+            password: password
         }
     })
     .then((response) => {
