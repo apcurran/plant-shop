@@ -3,8 +3,6 @@
 describe("product page", () => {
     beforeEach(() => {
         cy.visit("/collections/4");
-
-        sessionStorage.clear();
     });
 
     it("should update cart icon total qty when a product is added to the cart", () => {

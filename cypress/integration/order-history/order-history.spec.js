@@ -2,15 +2,13 @@
 
 describe("order history", () => {
     beforeEach(() => {
-        sessionStorage.clear();
-
         cy.visit("/auth/log-in");
 
         cy.get("#email")
             .type("bobdoe@gmail.com");
 
         cy.get("#password")
-            .type(Cypress.env("password"));
+            .type(Cypress.env("testUserPassword"));
 
         cy.contains("button", /submit/i)
             .click();

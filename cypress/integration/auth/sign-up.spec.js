@@ -21,7 +21,7 @@ describe("user sign up", () => {
             .type("bobdoe@gmail.com");
 
         cy.get("#password")
-            .type(Cypress.env("password"));
+            .type(Cypress.env("testUserPassword"));
 
         cy.contains("button", "Submit")
             .click();
