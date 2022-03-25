@@ -3,7 +3,7 @@ import CollectionCard from "./collection-card/CollectionCard";
 function CollectionCards() {
     const collectionCardsData = [
         {
-            title: "Organic Fruit for your Home Garden",
+            title: "Organic Fruit Trees",
             desc: "Nulla euismod justo sapien, cursus malesuada lorem efficitur ut. Sed nec dapibus ligula, ut luctus diam. Nunc est libero, sagittis fermentum felis vitae, fermentum volutpat neque. Vestibulum venenatis vel lorem a consequat. Praesent nec tellus metus. Aliquam consequat quis libero vitae euismod. Aliquam ac sem nec arcu facilisis imperdiet vitae et purus. Proin ut ornare nibh, in tincidunt enim.",
             linkHref: "/collections/fruit-trees",
             imgData: {
@@ -39,7 +39,7 @@ function CollectionCards() {
 
     return (
         <div className="home__collection-cards-container">
-            {collectionCardsData.map((card, index) => (
+            {collectionCardsData.map((card) => (
                 <CollectionCard
                     key={card.title}
                     title={card.title}
