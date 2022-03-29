@@ -62,12 +62,15 @@
     gap: .75rem;
     font-size: 1rem;
     font-weight: 700;
-    color: var(--dark-green);
     text-transform: uppercase;
     letter-spacing: .08em;
     border: none;
     cursor: pointer;
     background: none;
+}
+
+.home__collection-card__article__cta-btn__span {
+    color: var(--cta-accent-clr-dark);
 }
 
 @media screen and (max-width: 83em) {
