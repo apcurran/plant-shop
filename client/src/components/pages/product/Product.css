@@ -48,10 +48,12 @@
     padding: 1.25rem 3rem;
     border: none;
     background-color: var(--cta-accent-clr);
+    color: var(--cta-accent-clr-dark);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .08em;
     cursor: pointer;
+    font-size: var(--fz-sm);
 }
 
 .product__content__desc {
