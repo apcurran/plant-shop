@@ -9,6 +9,7 @@ import { formatDate } from "../../../../utils/format-date";
 function Order({ orderData }) {
     const formattedDate = formatDate(orderData.createdAt);
     const lastFourOrderChars = orderData.stripePaymentId ? (orderData.stripePaymentId).slice(-4) : "Payment not completed";
+    const formattedOrderCost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(orderData.totalCost);
     const orderItems = orderData.orderItems.map((orderItem) => {
         return (
             <OrderItem
@@ -30,7 +31,7 @@ function Order({ orderData }) {
         <section className="order">
             <div className="order__descriptor-group">
                 <OrderDescriptor heading="Order Placed" dataSegment={formattedDate} />
-                <OrderDescriptor heading="Total" dataSegment={`$${orderData.totalCost}`} />
+                <OrderDescriptor heading="Total" dataSegment={formattedOrderCost} />
                 <OrderDescriptor heading="Order #" dataSegment={lastFourOrderChars} />
             </div>
             {orderItems}
