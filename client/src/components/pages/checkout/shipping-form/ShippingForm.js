@@ -87,19 +87,19 @@ function ShippingForm() {
         <form onSubmit={handleSubmit} className="shipping-grid__form">
             <div className="shipping-grid__form-group">
                 <label htmlFor="street" className="shipping-grid__form-group__label">Street Address</label>
-                <input onChange={handleStreetChange} type="text" className="shipping-grid__form-group__input shipping-grid__form-group__input--long" id="street" />
+                <input onChange={handleStreetChange} type="text" className="shipping-grid__form-group__input shipping-grid__form-group__input--long" id="street" autoComplete="street-address" enterKeyHint="next" />
             </div>
             <div className="shipping-grid__form-group">
                 <label htmlFor="city" className="shipping-grid__form-group__label">City</label>
-                <input onChange={handleCityChange} type="text" className="shipping-grid__form-group__input" id="city" />
+                <input onChange={handleCityChange} type="text" className="shipping-grid__form-group__input" id="city" autoComplete="address-level2" enterKeyHint="next" />
             </div>
             <div className="shipping-grid__form-group">
                 <label htmlFor="state" className="shipping-grid__form-group__label">State (abbrev.)</label>
-                <input onChange={handleStateChange} type="text" className="shipping-grid__form-group__input" id="state" maxLength={2} />
+                <input onChange={handleStateChange} type="text" className="shipping-grid__form-group__input" id="state" maxLength={2} autoComplete="address-level1" enterKeyHint="next" />
             </div>
             <div className="shipping-grid__form-group">
                 <label htmlFor="zip" className="shipping-grid__form-group__label">Zip Code</label>
-                <input onChange={handleZipChange} type="text" className="shipping-grid__form-group__input" id="zip" />
+                <input onChange={handleZipChange} type="text" className="shipping-grid__form-group__input" id="zip" autoComplete="postal-code" enterKeyHint="done" />
             </div>
             {isLoading ? <LoadingSpinner /> : null}
             {error ? <ErrorMsg error={error} /> : null}
