@@ -71,11 +71,11 @@ function LogInForm() {
         <form onSubmit={handleSubmit} className="auth-card__content__form">
             <div className="auth-card__content__form-group">
                 <label htmlFor="email" className="auth-card__content__form__label">Email</label>
-                <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth-card__content__form__input" required />
+                <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth-card__content__form__input" required autoComplete="email" enterKeyHint="next" />
             </div>
             <div className="auth-card__content__form-group">
                 <label htmlFor="password" className="auth-card__content__form__label">Password</label>
-                <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth-card__content__form__input" min="6" max="50" required />
+                <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth-card__content__form__input" min="6" max="50" required autoComplete="current-password" enterKeyHint="done" />
             </div>
             <button className="auth-card__content__form__submit-btn">Submit</button>
             <Link to="/auth/forgot-password" className="auth-card__content__form__link">Reset my password</Link>
