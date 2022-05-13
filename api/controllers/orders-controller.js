@@ -11,8 +11,6 @@ async function getOrderHistory(req, res, next) {
     const userId = req.user._id;
 
     try {
-        let ordersWithItemsInfoArr = [];
-
         const ordersArr = (await db.query(`
             SELECT
                 app_user_order.order_id AS "orderId",
@@ -23,7 +21,7 @@ async function getOrderHistory(req, res, next) {
             WHERE app_user_order.user_id = $1
         `, [userId])).rows;
 
-        for (let order of ordersArr) {
+        const formattedOrders = await Promise.all(ordersArr.map(async (order) => {
             const orderItemsArr = (await db.query(`
                 SELECT
                     product.title,
@@ -50,16 +48,14 @@ async function getOrderHistory(req, res, next) {
                     product_extra_info.product_extra_info_id = app_user_order_item.product_extra_info_id
             `, [order.orderId])).rows;
 
-            const fullOrderWithItems = {
+            return {
                 ...order,
                 orderItems: orderItemsArr
             };
+        })).catch((err) => next(err));
 
-            ordersWithItemsInfoArr.push(fullOrderWithItems);
-        }
+        res.json(formattedOrders);
 
-        res.json(ordersWithItemsInfoArr);
-        
     } catch (err) {
         next(err);
     }
@@ -67,10 +63,10 @@ async function getOrderHistory(req, res, next) {
 
 async function postCreatePaymentIntent(req, res, next) {
     const { currItemsArr } = req.body.cartData;
-    
+
     try {
         let itemsInfoFromDb = [];
-        
+
         for (let itemObj of currItemsArr) {
             const prodId = Number(itemObj.productId);
             const productExtraInfoId = itemObj.productExtraInfoId;
@@ -110,7 +106,7 @@ async function postCreatePaymentIntent(req, res, next) {
             zip: req.body.userData.zip
         };
         const now = new Date();
-        
+
         // Save payment order and order items to db
         const orderId = await saveOrderInfoToDb(itemsInfoFromDb, userId, orderTotal, shippingAddress, now, next);
 
