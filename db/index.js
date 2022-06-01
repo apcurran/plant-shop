@@ -2,16 +2,13 @@
 
 require("dotenv").config();
 
-const { Pool } = require("pg");
+const pgp = require("pg-promise")({ capSQL: true });
 
-const pool = new Pool({
+const db = pgp({
     connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
 });
 
-module.exports = {
-    query: (text, params) => pool.query(text, params),
-    pool: pool
-};
+module.exports = { db };
