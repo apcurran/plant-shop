@@ -2,7 +2,6 @@
 
 const { db } = require("../../db/index");
 const pgp = db.$config.pgp;
-const { transformProductResults } = require("../../util/transform-product-results");
 const { postProductValidation, patchProductValidation } = require("../validation/products-validation");
 const { streamUploadToCloudinary } = require("../../util/stream-upload-to-cloudinary");
 
