@@ -87,7 +87,7 @@ async function getProduct(req, res, next) {
 async function getProductsByCategory(req, res, next) {
     try {
         const { q } = req.query;
-        const products = (await db.query(`
+        const products = await db.manyOrNone(`
             SELECT
                 product.product_id AS "productId",
                 product.title,
@@ -106,9 +106,9 @@ async function getProductsByCategory(req, res, next) {
                 ON product.product_id = product_extra_info.product_id
                 AND product_extra_info.size = 1
                 -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
-            WHERE product.category = $1
+            WHERE product.category = $<q>
         `,
-            [q])).rows;
+            { q });
 
         res.status(200).json(products);
 
