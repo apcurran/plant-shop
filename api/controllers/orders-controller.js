@@ -133,13 +133,13 @@ async function patchCompleteCheckout(req, res, next) {
     try {
         const { sessionId, orderId } = req.body;
 
-        await db.query(`
+        await db.none(`
             UPDATE app_user_order
             SET
-                stripe_payment_id = $1,
+                stripe_payment_id = $<sessionId>,
                 is_complete = TRUE
-            WHERE order_id = $2
-        `, [sessionId, orderId]);
+            WHERE order_id = $<orderId>
+        `, { sessionId, orderId });
 
         res.status(200).json({ msg: "Payment successful" });
 
