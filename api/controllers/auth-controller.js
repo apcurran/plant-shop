@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { nanoid } = require("nanoid");
 
-const db = require("../../db/index");
+const { db } = require("../../db/index");
 const { signupValidation, loginValidation, forgotPasswordValidation, resetPasswordValidation } = require("../validation/auth-validation");
 const { sendResetLink } = require("../../util/send-email");
 

@@ -2,7 +2,7 @@
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
-const db = require("../../db/index");
+const { db } = require("../../db/index");
 const { prepareLineItems } = require("../../util/prepare-line-items");
 const { saveOrderInfoToDb } = require("../../util/save-order-info-to-db");
 const { calcOrderTotal } = require("../../util/calc-order-total");
