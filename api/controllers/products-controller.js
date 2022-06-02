@@ -288,12 +288,12 @@ async function deleteProduct(req, res, next) {
     try {
         const { productId } = req.params;
 
-        await db.query(
+        await db.none(
             `
             DELETE FROM product
-            WHERE product.product_id = $1
+            WHERE product.product_id = $<productId>
             `,
-            [productId]
+            { productId }
         );
 
         res.status(200).json({ msg: "Product removed." });
