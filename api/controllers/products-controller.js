@@ -1,13 +1,14 @@
 "use strict";
 
 const { db } = require("../../db/index");
+const pgp = db.$config.pgp;
 const { transformProductResults } = require("../../util/transform-product-results");
 const { postProductValidation, patchProductValidation } = require("../validation/products-validation");
 const { streamUploadToCloudinary } = require("../../util/stream-upload-to-cloudinary");
 
 async function getProducts(req, res, next) {
     try {
-        const products = (await db.query(`
+        const products = await db.many(`
             SELECT
                 product.product_id AS "productId",
                 product.title,
@@ -27,7 +28,7 @@ async function getProducts(req, res, next) {
                 AND product_extra_info.size = 1
                 -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
             ORDER BY product.category
-        `)).rows;
+        `);
 
         res.status(200).json(products);
 
@@ -39,34 +40,45 @@ async function getProducts(req, res, next) {
 async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
-        const product = (await db.query(
-            `
-            SELECT
-                product.title,
-                product.description,
-                product.category,
+        const queries = [
+            {
+                query: `
+                    SELECT
+                        product.title,
+                        product.description,
+                        product.category,
 
-                product_img.public_id AS "publicId",
-                product_img.alt_text AS "altText",
-                product_img.width,
-                product_img.height,
+                        product_img.public_id AS "publicId",
+                        product_img.alt_text AS "altText",
+                        product_img.width,
+                        product_img.height
+                    FROM product
+                    INNER JOIN product_img
+                        ON product.product_id = product_img.product_id
+                    WHERE product.product_id = $<productId>
+                `,
+                values: { productId }
+            },
+            {
+                query: `
+                    SELECT
+                        product_extra_info.product_extra_info_id AS "productExtraInfoId",
+                        product_extra_info.size,
+                        product_extra_info.price
+                    FROM product_extra_info
+                    WHERE product_extra_info.product_id = $<productId>
+                `,
+                values: { productId }
+            }
+        ];
+        const formattedQueries = pgp.helpers.concat(queries);
+        const [primaryProductDataArr, productExtraInfoArr] = await db.multi(formattedQueries);
+        const finalFormattedProduct = {
+            ...primaryProductDataArr[0],
+            productExtraInfo: productExtraInfoArr
+        };
 
-                product_extra_info.product_extra_info_id AS "productExtraInfoId",
-                product_extra_info.size,
-                product_extra_info.price
-            FROM product
-            INNER JOIN product_img
-                ON product.product_id = product_img.product_id
-            INNER JOIN product_extra_info
-                ON product.product_id = product_extra_info.product_id
-            WHERE product.product_id = $1
-            `,
-            [productId]
-        )).rows;
-
-        const formattedProduct = transformProductResults(product);
-
-        res.status(200).json(formattedProduct);
+        res.status(200).json(finalFormattedProduct);
 
     } catch (err) {
         next(err);
