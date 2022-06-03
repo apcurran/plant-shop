@@ -119,34 +119,37 @@ async function postForgot(req, res, next) {
     try {
         // Validate incoming data first
         const { email } = await forgotPasswordValidation(req.body);
-        // Get user from db
-        const user = (await db.query(`
-            SELECT
-                first_name AS "firstName"
-            FROM app_user
-            WHERE app_user.email = $1
-        `, [email])).rows[0];
 
-        // Reject if user does not exist in db
-        if (!user) {
-            return res.status(400).json({ error: "Email is not found." });
-        }
-
-        // Generate uuid
-        const id = nanoid();
-        // Save in db table for forgotten passwords
-        await db.query(`
-            INSERT INTO app_user_password_requests
-                (temp_id, email)
-            VALUES
-                ($1, $2)
-        `, [id, email]);
-
-        // Send reset link to user's email
-        await sendResetLink(id, email);
-
-        // Return response with ok status
-        res.status(200).json({ message: "Email has been sent with your password reset link." });
+        await db.task(async (currTask) => {
+            // Get user from db
+            const user = await currTask.oneOrNone(`
+                SELECT
+                    first_name AS "firstName"
+                FROM app_user
+                WHERE app_user.email = $<email>
+            `, { email });
+    
+            // Reject if user does not exist in db
+            if (!user) {
+                return res.status(400).json({ error: "Email is not found." });
+            }
+    
+            // Generate uuid
+            const id = nanoid();
+            // Save in db table for forgotten passwords
+            await currTask.none(`
+                INSERT INTO app_user_password_requests
+                    (temp_id, email)
+                VALUES
+                    ($<id>, $<email>)
+            `, { id, email });
+    
+            // Send reset link to user's email
+            await sendResetLink(id, email);
+    
+            // Return response with ok status
+            res.status(200).json({ message: "Email has been sent with your password reset link." });
+        });
 
     } catch (err) {
         if (err.isJoi) {
