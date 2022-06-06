@@ -212,64 +212,57 @@ async function patchProduct(req, res, next) {
 
         next(err);
     }
+
     /** @type {object[]} */
     const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
-    const client = await db.pool
-                            .connect()
-                            .catch((err) => next(err));
-
     try {
-        // SQL Transaction
-        await client.query("BEGIN");
-        await client.query(
-            `
-            UPDATE product
-            SET
-                title = COALESCE($1, title),
-                description = COALESCE($2, description),
-                category = COALESCE($3, category)
-            WHERE product.product_id = $4
-            `,
-            [title, description, category, productId]
-        );
-
-        for (let obj of productExtraInfo) {
-            await client.query(
+        // SQL transaction
+        await db.tx("update-product-transaction", async (currTx) => {
+            await currTx.none(
                 `
-                UPDATE product_extra_info
+                UPDATE product
                 SET
-                    size = COALESCE($1, size),
-                    price = COALESCE($2, price)
-                WHERE
-                    product_extra_info.product_id = $3
-                    AND
-                    product_extra_info.product_extra_info_id = $4
+                    title = COALESCE($<title>, title),
+                    description = COALESCE($<description>, description),
+                    category = COALESCE($<category>, category)
+                WHERE product.product_id = $<productId>
                 `,
-                [obj.size, obj.price, productId, obj.productExtraInfoId]
+                { title, description, category, productId }
             );
-        }
 
-        await client.query(
-            `
-            UPDATE product_img
-            SET
-                alt_text = COALESCE($1, alt_text),
-                width = COALESCE($2, width),
-                height = COALESCE($3, height),
-                public_id = COALESCE($4, public_id)
-            WHERE product_img.product_id = $5
-            `,
-            [imgAltText, productImgWidth, productImgHeight, productImgPublicId, productId]
-        );
-        await client.query("COMMIT");
+            for (let { size, price, productExtraInfoId } of productExtraInfo) {
+                await currTx.none(
+                    `
+                    UPDATE product_extra_info
+                    SET
+                        size = COALESCE($<size>, size),
+                        price = COALESCE($<price>, price)
+                    WHERE
+                        product_extra_info.product_id = $<productId>
+                        AND
+                        product_extra_info.product_extra_info_id = $<productExtraInfoId>
+                    `,
+                    { size, price, productId, productExtraInfoId }
+                );
+            }
 
+            await currTx.none(
+                `
+                UPDATE product_img
+                SET
+                    alt_text = COALESCE($<imgAltText>, alt_text),
+                    width = COALESCE($<productImgWidth>, width),
+                    height = COALESCE($<productImgHeight>, height),
+                    public_id = COALESCE($<productImgPublicId>, public_id)
+                WHERE product_img.product_id = $<productId>
+                `,
+                { imgAltText, productImgWidth, productImgHeight, productImgPublicId, productId }
+            );
+        });
+        
     } catch (err) {
-        await client.query("ROLLBACK");
-
         next(err);
-    } finally {
-        client.release();
     }
 
     res.status(200).json({ msg: "Product information updated." });
