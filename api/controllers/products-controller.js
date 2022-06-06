@@ -140,59 +140,50 @@ async function postProduct(req, res, next) {
 
         next(err);
     }
+
     /** @type {object[]} */
     const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
-    // node-postgres requires the use of client instead of pool.query here
-    const client = await db.pool
-                            .connect()
-                            .catch((err) => next(err));
-
     try {
-        // SQL Transaction
-        await client.query("BEGIN");
-        // Save to product table (returning the product_id)
-        const insertedProductId = (await client.query(
-            `
-            INSERT INTO product
-                (title, description, category)
-            VALUES
-                ($1, $2, $3)
-            RETURNING product_id
-            `,
-            [title, description, category]
-        )).rows[0].product_id;
-        // Iterate productExtraInfo and save each obj data to product_extra_info table (save product_id as FK)
-        for (let obj of productExtraInfo) {
-            await client.query(
+        // db.tx() method already adds BEGIN, COMMIT, and ROLLBACK for postgres transaction
+        await db.tx("add-product-transaction", async (currTx) => {
+            // Save to product table (returning the product_id)
+            const insertedProductId = (await currTx.one(
                 `
-                INSERT INTO product_extra_info
-                    (product_id, size, price)
+                INSERT INTO product
+                    (title, description, category)
                 VALUES
-                    ($1, $2, $3)
+                    ($<title>, $<description>, $<category>)
+                RETURNING product_id
                 `,
-                [insertedProductId, obj.size, obj.price]
+                { title, description, category }
+            )).product_id;
+            // Iterate productExtraInfo and save each obj's data to product_extra_info table (save product_id as FK)
+            for (let { size, price } of productExtraInfo) {
+                await currTx.none(
+                    `
+                    INSERT INTO product_extra_info
+                        (product_id, size, price)
+                    VALUES
+                        ($<insertedProductId>, $<size>, $<price>)
+                    `,
+                    { insertedProductId, size, price }
+                );
+            }
+            // Save to product_img table (save product_id as FK)
+            await currTx.none(
+                `
+                INSERT INTO product_img
+                    (product_id, alt_text, width, height, public_id)
+                VALUES
+                    ($<insertedProductId>, $<imgAltText>, $<productImgWidth>, $<productImgHeight>, $<productImgPublicId>)
+                `,
+                { insertedProductId, imgAltText, productImgWidth, productImgHeight, productImgPublicId }
             );
-        }
-        // Save to product_img table (save product_id as FK)
-        await client.query(
-            `
-            INSERT INTO product_img
-                (product_id, alt_text, width, height, public_id)
-            VALUES
-                ($1, $2, $3, $4, $5)
-            `,
-            [insertedProductId, imgAltText, productImgWidth, productImgHeight, productImgPublicId]
-        );
-        // Commit transaction to client
-        await client.query("COMMIT");
-        
+        });
+
     } catch (err) {
-        await client.query("ROLLBACK");
-        
         next(err);
-    } finally {
-        client.release();
     }
 
     res.status(201).json({ msg: "Product information added." });
