@@ -83,10 +83,10 @@ async function postCreatePaymentIntent(req, res, next) {
                     INNER JOIN
                         product_extra_info ON product.product_id = product_extra_info.product_id
                     WHERE
-                        product.product_id = $1
+                        product.product_id = $<prodId>
                         AND
-                        product_extra_info.product_extra_info_id = $2
-                `, [prodId, productExtraInfoId]);
+                        product_extra_info.product_extra_info_id = $<productExtraInfoId>
+                `, { prodId, productExtraInfoId });
     
                 const revisedItemInfo = {
                     productId: prodId,
