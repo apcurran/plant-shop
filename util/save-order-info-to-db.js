@@ -2,7 +2,7 @@
 
 const db = require("../db/index");
 
-async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentTotal, shippingAddress, currDate, next) {
+async function saveOrderInfoToDb(itemsInfoFromDb, userId, paymentTotal, shippingAddress, currDate, currTask, next) {
     const client = await db.pool
                             .connect()
                             .catch((err) => next(err));
