@@ -11,50 +11,52 @@ async function getOrderHistory(req, res, next) {
     const userId = req.user._id;
 
     try {
-        const ordersArr = (await db.query(`
-            SELECT
-                app_user_order.order_id AS "orderId",
-                app_user_order.total_cost AS "totalCost",
-                app_user_order.created_at AS "createdAt",
-                app_user_order.stripe_payment_id AS "stripePaymentId"
-            FROM app_user_order
-            WHERE app_user_order.user_id = $1
-        `, [userId])).rows;
-
-        const formattedOrders = await Promise.all(ordersArr.map(async (order) => {
-            const orderItemsArr = (await db.query(`
+        await db.task(async (currTask) => {
+            const ordersArr = await currTask.manyOrNone(`
                 SELECT
-                    product.title,
-                    product.category,
-                    product.product_id AS "productId",
-                    product_extra_info.size,
-                    product_extra_info.price,
-                    app_user_order_item.product_qty AS "productQty",
-                    app_user_order_item.product_extra_info_id AS "productExtraInfoId",
-                    product_img.public_id AS "publicId",
-                    product_img.alt_text AS "altText",
-                    product_img.width,
-                    product_img.height
-                FROM app_user_order_item
-                INNER JOIN
-                    product ON app_user_order_item.product_id = product.product_id
-                INNER JOIN
-                    product_extra_info ON product.product_id = product_extra_info.product_id
-                INNER JOIN
-                    product_img ON product.product_id = product_img.product_id
-                WHERE
-                    app_user_order_item.order_id = $1
-                    AND
-                    product_extra_info.product_extra_info_id = app_user_order_item.product_extra_info_id
-            `, [order.orderId])).rows;
+                    app_user_order.order_id AS "orderId",
+                    app_user_order.total_cost AS "totalCost",
+                    app_user_order.created_at AS "createdAt",
+                    app_user_order.stripe_payment_id AS "stripePaymentId"
+                FROM app_user_order
+                WHERE app_user_order.user_id = $<userId>
+            `, { userId });
 
-            return {
-                ...order,
-                orderItems: orderItemsArr
-            };
-        })).catch((err) => next(err));
-
-        res.json(formattedOrders);
+            const formattedOrders = await Promise.all(ordersArr.map(async (order) => {
+                const orderItemsArr = await currTask.manyOrNone(`
+                    SELECT
+                        product.title,
+                        product.category,
+                        product.product_id AS "productId",
+                        product_extra_info.size,
+                        product_extra_info.price,
+                        app_user_order_item.product_qty AS "productQty",
+                        app_user_order_item.product_extra_info_id AS "productExtraInfoId",
+                        product_img.public_id AS "publicId",
+                        product_img.alt_text AS "altText",
+                        product_img.width,
+                        product_img.height
+                    FROM app_user_order_item
+                    INNER JOIN
+                        product ON app_user_order_item.product_id = product.product_id
+                    INNER JOIN
+                        product_extra_info ON product.product_id = product_extra_info.product_id
+                    INNER JOIN
+                        product_img ON product.product_id = product_img.product_id
+                    WHERE
+                        app_user_order_item.order_id = $<order>
+                        AND
+                        product_extra_info.product_extra_info_id = app_user_order_item.product_extra_info_id
+                `, { order: order.orderId });
+    
+                return {
+                    ...order,
+                    orderItems: orderItemsArr
+                };
+            })).catch((err) => next(err));
+    
+            res.json(formattedOrders);
+        });
 
     } catch (err) {
         next(err);
