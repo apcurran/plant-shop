@@ -18,7 +18,7 @@
 
 - Stripe payments
 
-- PostgreSQL DB with native PG driver
+- PostgreSQL DB with pg-promise
 
 - Zustand store state management
 
