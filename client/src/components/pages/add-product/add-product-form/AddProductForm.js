@@ -139,8 +139,8 @@ function AddProductForm() {
 
             setIsLoading(false);
 
-            const { msg } = await response.json();
-            setMsg(msg);
+            const { msg: serverMsg } = await response.json();
+            setMsg(serverMsg);
 
         } catch (err) {
             setIsLoading(false);
