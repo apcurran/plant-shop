@@ -5,6 +5,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const shrinkRay = require("shrink-ray-current");
+const rateLimit = require("express-rate-limit");
 
 const PORT = process.env.PORT || 5000;
 // Import routers
@@ -25,9 +26,17 @@ app.use(shrinkRay());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client", "build")));
 
+// Rate-limiting setup
+const authLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 7,
+    message: JSON.stringify({ error: "Too many requests, please try again in a minute." }),
+    legacyHeaders: false
+});
+
 // API routers
 app.use("/api/products", productsRouter);
-app.use("/api/auth", authRouter);
+app.use("/api/auth", authLimiter, authRouter);
 app.use("/api/orders", ordersRouter);
 
 // General server error handling
