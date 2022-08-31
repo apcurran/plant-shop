@@ -1,33 +1,33 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
-  /* Colors */
-  --light-warm-grey: #f5f5f4;
-  --light-med-warm-grey: #a8a29e;
-  --med-warm-grey: #57534e;
-  --base-font-dark-clr: #292524;
-  --dark-emerald-green: #065f46;
-  --med-emerald-green: #10b981;
-  --very-dark-emerald-green: #064e3b;
-  --light-green: #bbf7d0;
+    /* Colors */
+    --light-warm-grey: #f5f5f4;
+    --light-med-warm-grey: #a8a29e;
+    --med-warm-grey: #57534e;
+    --base-font-dark-clr: #292524;
+    --dark-emerald-green: #065f46;
+    --med-emerald-green: #10b981;
+    --very-dark-emerald-green: #064e3b;
+    --light-green: #bbf7d0;
 
-  --cta-accent-clr: #fef3c7;
-  --cta-accent-clr-dark: #b45309;
-  --err-clr-light: #fee2e2;
-  --err-clr-dark: #7f1d1d;
+    --cta-accent-clr: #fef3c7;
+    --cta-accent-clr-dark: #b45309;
+    --err-clr-light: #fee2e2;
+    --err-clr-dark: #7f1d1d;
 
-  /* Font Sizes */
-  --fz-sm: .875rem;
-  --fz-md: 1.125rem;
-  --fz-lg: 1.75rem;
-  --fz-xl: 2.75rem;
+    /* Font Sizes */
+    --fz-sm: .875rem;
+    --fz-md: 1.125rem;
+    --fz-lg: 1.75rem;
+    --fz-xl: 2.75rem;
 
-  /* Widths */
-  --base-container-width: 80rem;
+    /* Widths */
+    --base-container-width: 80rem;
 }
 
 body,
@@ -38,23 +38,24 @@ textarea,
 input,
 button,
 a {
-  font-family: "Work Sans", sans-serif;
-  color: var(--base-font-dark-clr);
+    font-family: "Work Sans", sans-serif;
+    color: var(--base-font-dark-clr);
 }
 
 p {
-  line-height: 1.6;
+    line-height: 1.6;
 }
 
-.cta-btn {
-  padding: .75rem 1.5rem;
+.cta-btn,
+input::file-selector-button {
+    padding: .75rem 1.5rem;
 
-  border: none;
-  background-color: var(--cta-accent-clr);
-  font-size: 1rem;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--cta-accent-clr-dark);
-  letter-spacing: .08em;
-  cursor: pointer;
+    border: none;
+    background-color: var(--cta-accent-clr);
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--cta-accent-clr-dark);
+    letter-spacing: .08em;
+    cursor: pointer;
 }
