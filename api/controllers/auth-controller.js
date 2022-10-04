@@ -2,7 +2,7 @@
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { nanoid } = require("nanoid");
+const crypto = require("crypto");
 
 const { db } = require("../../db/index");
 const { signupValidation, loginValidation, forgotPasswordValidation, resetPasswordValidation } = require("../validation/auth-validation");
@@ -135,7 +135,7 @@ async function postForgot(req, res, next) {
             }
     
             // Generate uuid
-            const id = nanoid();
+            const id = crypto.randomUUID();
             // Save in db table for forgotten passwords
             await currTask.none(`
                 INSERT INTO app_user_password_requests
