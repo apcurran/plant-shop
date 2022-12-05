@@ -1,6 +1,6 @@
 # Evergreen Plant Shop
 
-[Visit Live Site](https://apcurran-evergreen.herokuapp.com/)
+[Visit Live Site](https://evergreen.currandev.com)
 
 ## Features:
 
