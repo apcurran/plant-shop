@@ -20,6 +20,7 @@ async function getOrderHistory(req, res, next) {
                     app_user_order.stripe_payment_id AS "stripePaymentId"
                 FROM app_user_order
                 WHERE app_user_order.user_id = $<userId>
+                ORDER BY app_user_order.created_at DESC
             `, { userId });
 
             const formattedOrders = await Promise.all(ordersArr.map(async (order) => {
