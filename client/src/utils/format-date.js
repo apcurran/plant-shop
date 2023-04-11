@@ -1,9 +1,9 @@
+const dateFormatter = new Intl.DateTimeFormat("en-US", { dateStyle: "long" });
+
 function formatDate(myDate) {
     const myDateObj = new Date(myDate);
 
-    return new Intl
-                .DateTimeFormat("en-US", { dateStyle: "long" })
-                .format(myDateObj);
+    return dateFormatter.format(myDateObj);
 }
 
 export { formatDate };
