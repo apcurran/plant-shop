@@ -5,10 +5,11 @@ import OrderItem from "../order-item/OrderItem";
 
 // Utils
 import { formatDate } from "../../../../utils/format-date";
+import { formatCurrency } from "../../../../utils/format-currency";
 
 function Order({ orderData }) {
     const formattedDate = formatDate(orderData.createdAt);
-    const formattedOrderCost = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(orderData.totalCost);
+    const formattedOrderCost = formatCurrency(orderData.totalCost);
     const lastFourOrderChars = orderData.stripePaymentId ? (orderData.stripePaymentId).slice(-4) : "Payment not completed";
     const orderItems = orderData.orderItems.map((orderItem) => {
         return (
