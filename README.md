@@ -1,6 +1,6 @@
 # Evergreen Plant Shop
 
-[Visit Live Site](https://evergreen.currandev.com)
+[Visit live site](https://evergreen.currandev.com)
 
 ## Features:
 
@@ -31,7 +31,6 @@
 - :test_tube: React Testing Library for component unit tests
 
 - :test_tube: Cypress.io automated testing for E2E tests
-
 
 ![Home page](./readme-imgs/home.webp)
 
