@@ -4,7 +4,6 @@ require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
-const shrinkRay = require("shrink-ray-current");
 const rateLimit = require("express-rate-limit");
 const helmet = require("helmet");
 
@@ -30,7 +29,6 @@ app.use(helmet({
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false
 }));
-app.use(shrinkRay());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client", "build")));
 
