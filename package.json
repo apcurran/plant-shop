@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "engines": {
-    "node": "16.x"
+    "node": "24.x"
   },
   "description": "",
   "main": "server.js",
@@ -12,7 +12,7 @@
     "cy:open": "npx cypress open",
     "lint": "eslint ./",
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "node --watch server.js",
     "heroku-postbuild": "cd client && npm ci --production && npm run build"
   },
   "author": "Alex Curran",
