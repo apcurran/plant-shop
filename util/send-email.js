@@ -1,7 +1,5 @@
 "use strict";
 
-require("dotenv").config();
-
 const nodemailer = require("nodemailer");
 
 async function sendResetLink(id, userEmail) {
