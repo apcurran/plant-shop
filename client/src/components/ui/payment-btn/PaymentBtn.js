@@ -8,7 +8,12 @@ function PaymentBtn() {
     const token = useAuthStore((state) => state.token);
 
     return (
-        <button onClick={() => sendCartData(token)} className="total-info__group__btn">Proceed to Payment</button>
+        <button
+            onClick={() => sendCartData(token)}
+            className="total-info__group__btn"
+        >
+            Proceed to Payment
+        </button>
     );
 }
 

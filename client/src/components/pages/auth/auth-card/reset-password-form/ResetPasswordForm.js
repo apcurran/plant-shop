@@ -17,17 +17,17 @@ function ResetPasswordForm() {
         event.preventDefault();
 
         setIsLoading(true);
-        
+
         try {
             const response = await fetch("/api/auth/reset-password", {
                 method: "PATCH",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     tempId: id,
-                    newPassword
-                })
+                    newPassword,
+                }),
             });
 
             if (!response.ok) {
@@ -39,7 +39,6 @@ function ResetPasswordForm() {
             const { message } = await response.json();
             setUserMessage(message);
             setIsLoading(false);
-
         } catch (err) {
             setIsLoading(false);
             setError(err.message);
@@ -49,10 +48,24 @@ function ResetPasswordForm() {
     return (
         <form onSubmit={handleSubmit} className="auth-card__content__form">
             <div className="auth-card__content__form-group">
-                <label htmlFor="new-password" className="auth-card__content__form__label">New Password</label>
-                <input onChange={(event) => setNewPassword(event.target.value)} type="password" name="new-password" id="new-password" className="auth-card__content__form__input" required />
+                <label
+                    htmlFor="new-password"
+                    className="auth-card__content__form__label"
+                >
+                    New Password
+                </label>
+                <input
+                    onChange={(event) => setNewPassword(event.target.value)}
+                    type="password"
+                    name="new-password"
+                    id="new-password"
+                    className="auth-card__content__form__input"
+                    required
+                />
             </div>
-            <button className="auth-card__content__form__submit-btn">Update Password</button>
+            <button className="auth-card__content__form__submit-btn">
+                Update Password
+            </button>
             {isLoading ? <LoadingSpinner /> : null}
             {error ? <ErrorMsg error={error} /> : null}
             {userMessage ? <Message msg={userMessage} /> : null}

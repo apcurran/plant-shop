@@ -18,7 +18,7 @@ describe("ShopHero component", () => {
         render(<MockShopHero categoryQueryText="all" />);
 
         const figureElems = screen.getAllByRole("figure");
-        
+
         expect(figureElems.length).toBe(4);
     });
 
@@ -26,7 +26,7 @@ describe("ShopHero component", () => {
         render(<MockShopHero categoryQueryText="house plants" />);
 
         const figureElems = screen.getAllByRole("figure");
-        
+
         expect(figureElems.length).toBe(4);
     });
 
@@ -34,7 +34,7 @@ describe("ShopHero component", () => {
         render(<MockShopHero categoryQueryText="fruit trees" />);
 
         const figureElems = screen.getAllByRole("figure");
-        
+
         expect(figureElems.length).toBe(4);
     });
 
@@ -42,7 +42,7 @@ describe("ShopHero component", () => {
         render(<MockShopHero categoryQueryText="shade trees" />);
 
         const figureElems = screen.getAllByRole("figure");
-        
+
         expect(figureElems.length).toBe(4);
     });
 });

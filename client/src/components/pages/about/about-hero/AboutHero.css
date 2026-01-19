@@ -15,11 +15,11 @@
 
     display: inline-block;
     padding: 2.5rem 3rem;
-    background-color: hsla(0, 0%, 100%, .32);
+    background-color: hsla(0, 0%, 100%, 0.32);
 }
 
 .about__hero__card__title {
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
     font-size: var(--fz-xl);
 }
 
@@ -34,6 +34,6 @@
 
     .about__hero__card {
         width: 100%;
-        background-color: hsla(0, 0%, 100%, .6);
+        background-color: hsla(0, 0%, 100%, 0.6);
     }
 }

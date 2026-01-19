@@ -10,13 +10,16 @@ const store = (set, get) => ({
         const currItemsArr = get().items;
         const existingItem = currItemsArr.find((item) => {
             // Same item, and same sizing price
-            return item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId;
+            return (
+                item.productId === newItem.productId &&
+                item.productExtraInfoId === newItem.productExtraInfoId
+            );
         });
         // Incr total qty by 1
         const currTotalQty = get().totalQuantity + 1;
         set({ totalQuantity: currTotalQty });
         saveQtyToStorage(currTotalQty);
-        
+
         if (!existingItem) {
             const currNewItem = {
                 // Fields needed for new item
@@ -30,7 +33,7 @@ const store = (set, get) => ({
                 imgPublicId: newItem.imgPublicId,
                 imgAltTxt: newItem.imgAltTxt,
                 imgWidth: newItem.imgWidth,
-                imgHeight: newItem.imgHeight
+                imgHeight: newItem.imgHeight,
             };
 
             const updatedItemsArr = [...currItemsArr, currNewItem];
@@ -39,14 +42,17 @@ const store = (set, get) => ({
         } else {
             // newItem already exists in items arr
             const updatedItemsArr = currItemsArr.map((item) => {
-                if (item.productId === newItem.productId && item.productExtraInfoId === newItem.productExtraInfoId) {
+                if (
+                    item.productId === newItem.productId &&
+                    item.productExtraInfoId === newItem.productExtraInfoId
+                ) {
                     return {
                         // Copy old obj properties
                         ...item,
                         // Update item qty by 1
                         itemQuantity: item.itemQuantity + 1,
                         // Update item total price
-                        itemTotalPrice: item.itemTotalPrice + newItem.price
+                        itemTotalPrice: item.itemTotalPrice + newItem.price,
                     };
                 }
 
@@ -60,12 +66,16 @@ const store = (set, get) => ({
     incrementOneItem: (existingItem) => {
         const currItemsArr = get().items;
         const updatedExistingItemsArr = currItemsArr.map((item) => {
-            if (item.productId === existingItem.productId && item.productExtraInfoId === existingItem.productExtraInfoId) {
+            if (
+                item.productId === existingItem.productId &&
+                item.productExtraInfoId === existingItem.productExtraInfoId
+            ) {
                 // Update existing item qty and price
                 return {
                     ...existingItem,
                     itemQuantity: existingItem.itemQuantity + 1,
-                    itemTotalPrice: existingItem.itemTotalPrice + existingItem.price
+                    itemTotalPrice:
+                        existingItem.itemTotalPrice + existingItem.price,
                 };
             }
 
@@ -86,27 +96,33 @@ const store = (set, get) => ({
         if (existingItem.itemQuantity === 1) {
             // When qty of one left, remove item from cart completely
             updatedExistingItemsArr = currItemsArr.filter((item) => {
-                if (item.productId !== existingItem.productId || item.productExtraInfoId !== existingItem.productExtraInfoId) {
+                if (
+                    item.productId !== existingItem.productId ||
+                    item.productExtraInfoId !== existingItem.productExtraInfoId
+                ) {
                     // Keep in arr
                     return true;
                 }
-    
+
                 // Remove from arr
                 return false;
             });
-
         } else {
             // Map over and decrement item's qty
             updatedExistingItemsArr = currItemsArr.map((item) => {
-                if (item.productId === existingItem.productId && item.productExtraInfoId === existingItem.productExtraInfoId) {
+                if (
+                    item.productId === existingItem.productId &&
+                    item.productExtraInfoId === existingItem.productExtraInfoId
+                ) {
                     // Update existing item qty and price
                     return {
                         ...existingItem,
                         itemQuantity: existingItem.itemQuantity - 1,
-                        itemTotalPrice: existingItem.itemTotalPrice - existingItem.price
+                        itemTotalPrice:
+                            existingItem.itemTotalPrice - existingItem.price,
                     };
                 }
-    
+
                 return item;
             });
         }
@@ -114,7 +130,7 @@ const store = (set, get) => ({
         // Calc currTotalQty and re-use for sessionStorage and store states
         const currTotalQty = get().totalQuantity - 1; // Decrement by one
         set({ items: updatedExistingItemsArr, totalQuantity: currTotalQty });
-        
+
         saveQtyToStorage(currTotalQty);
         saveCartItemsToStorage(updatedExistingItemsArr);
     },
@@ -123,7 +139,10 @@ const store = (set, get) => ({
         const currItemsArr = get().items;
         let qtyToDecrement = 0;
         const updatedItemsArr = currItemsArr.filter((item) => {
-            if (item.productId !== productId || item.productExtraInfoId !== productExtraInfoId) {
+            if (
+                item.productId !== productId ||
+                item.productExtraInfoId !== productExtraInfoId
+            ) {
                 // Keep in arr
                 return true;
             }
@@ -145,18 +164,21 @@ const store = (set, get) => ({
         const totalQty = get().totalQuantity;
         const cartData = {
             currItemsArr,
-            totalQty
+            totalQty,
         };
 
         try {
-            const response = await fetch("/api/orders/create-checkout-session", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+            const response = await fetch(
+                "/api/orders/create-checkout-session",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(cartData),
                 },
-                body: JSON.stringify(cartData)
-            });
+            );
 
             // Check for errors
             if (!response.ok) {
@@ -168,14 +190,13 @@ const store = (set, get) => ({
             const { url } = await response.json();
             // Push to Stripe API generated URL
             window.location = url;
-
         } catch (err) {
             console.error(err.message);
         }
     },
     setItems: (itemsArr) => set((state) => ({ items: itemsArr })),
     setTotalQuantity: (qtyAmt) => set((state) => ({ totalQuantity: qtyAmt })),
-    resetCartState: () => set({ items: [], totalQuantity: 0 })
+    resetCartState: () => set({ items: [], totalQuantity: 0 }),
 });
 
 const useCartStore = create(store);

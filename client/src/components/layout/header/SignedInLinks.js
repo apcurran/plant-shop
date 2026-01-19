@@ -22,7 +22,9 @@ function SignedInLinks({ setToken, setUser, setIsAdmin, userInfo }) {
             <li className="nav__item">
                 {<LogOutBtn handleLogOut={handleLogOut} />}
             </li>
-            <NavLink to="/orders" className="nav__links-list__link">Your Orders</NavLink>
+            <NavLink to="/orders" className="nav__links-list__link">
+                Your Orders
+            </NavLink>
         </ul>
     );
 }

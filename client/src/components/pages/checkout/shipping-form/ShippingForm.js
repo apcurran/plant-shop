@@ -44,25 +44,28 @@ function ShippingForm() {
             street,
             city,
             state,
-            zip
+            zip,
         };
         const cartData = {
             currItemsArr: cartItemsArr,
-            totalQty: cartTotalQty
+            totalQty: cartTotalQty,
         };
-        
+
         try {
-            const response = await fetch("/api/orders/create-checkout-session", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
+            const response = await fetch(
+                "/api/orders/create-checkout-session",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        userData,
+                        cartData,
+                    }),
                 },
-                body: JSON.stringify({
-                    userData,
-                    cartData
-                })
-            });
+            );
 
             // Check for errors
             if (!response.ok) {
@@ -76,7 +79,6 @@ function ShippingForm() {
             const { url } = await response.json();
             // Push to Stripe API generated URL
             window.location = url;
-
         } catch (err) {
             setIsLoading(false);
             setError(err.message);
@@ -86,24 +88,75 @@ function ShippingForm() {
     return (
         <form onSubmit={handleSubmit} className="shipping-grid__form">
             <div className="shipping-grid__form-group">
-                <label htmlFor="street" className="shipping-grid__form-group__label">Street Address</label>
-                <input onChange={handleStreetChange} type="text" className="shipping-grid__form-group__input shipping-grid__form-group__input--long" id="street" autoComplete="street-address" enterKeyHint="next" />
+                <label
+                    htmlFor="street"
+                    className="shipping-grid__form-group__label"
+                >
+                    Street Address
+                </label>
+                <input
+                    onChange={handleStreetChange}
+                    type="text"
+                    className="shipping-grid__form-group__input shipping-grid__form-group__input--long"
+                    id="street"
+                    autoComplete="street-address"
+                    enterKeyHint="next"
+                />
             </div>
             <div className="shipping-grid__form-group">
-                <label htmlFor="city" className="shipping-grid__form-group__label">City</label>
-                <input onChange={handleCityChange} type="text" className="shipping-grid__form-group__input" id="city" autoComplete="address-level2" enterKeyHint="next" />
+                <label
+                    htmlFor="city"
+                    className="shipping-grid__form-group__label"
+                >
+                    City
+                </label>
+                <input
+                    onChange={handleCityChange}
+                    type="text"
+                    className="shipping-grid__form-group__input"
+                    id="city"
+                    autoComplete="address-level2"
+                    enterKeyHint="next"
+                />
             </div>
             <div className="shipping-grid__form-group">
-                <label htmlFor="state" className="shipping-grid__form-group__label">State (abbrev.)</label>
-                <input onChange={handleStateChange} type="text" className="shipping-grid__form-group__input" id="state" maxLength={2} autoComplete="address-level1" enterKeyHint="next" />
+                <label
+                    htmlFor="state"
+                    className="shipping-grid__form-group__label"
+                >
+                    State (abbrev.)
+                </label>
+                <input
+                    onChange={handleStateChange}
+                    type="text"
+                    className="shipping-grid__form-group__input"
+                    id="state"
+                    maxLength={2}
+                    autoComplete="address-level1"
+                    enterKeyHint="next"
+                />
             </div>
             <div className="shipping-grid__form-group">
-                <label htmlFor="zip" className="shipping-grid__form-group__label">Zip Code</label>
-                <input onChange={handleZipChange} type="text" className="shipping-grid__form-group__input" id="zip" autoComplete="postal-code" enterKeyHint="done" />
+                <label
+                    htmlFor="zip"
+                    className="shipping-grid__form-group__label"
+                >
+                    Zip Code
+                </label>
+                <input
+                    onChange={handleZipChange}
+                    type="text"
+                    className="shipping-grid__form-group__input"
+                    id="zip"
+                    autoComplete="postal-code"
+                    enterKeyHint="done"
+                />
             </div>
             {isLoading ? <LoadingSpinner /> : null}
             {error ? <ErrorMsg error={error} /> : null}
-            <button className="shipping-grid__form__submit-btn cta-btn">Checkout</button>
+            <button className="shipping-grid__form__submit-btn cta-btn">
+                Checkout
+            </button>
         </form>
     );
 }

@@ -10,7 +10,12 @@ function CollectionNav() {
 
     const adminAddProductLink = isAdmin ? (
         <li className="shop__collection-nav__list__item">
-            <Link to="/admin/collections/add-product" className="shop__collections-nav__list__link admin-add-product-link">Add Product</Link>
+            <Link
+                to="/admin/collections/add-product"
+                className="shop__collections-nav__list__link admin-add-product-link"
+            >
+                Add Product
+            </Link>
         </li>
     ) : null;
 
@@ -19,16 +24,36 @@ function CollectionNav() {
             <ul className="shop__collection-nav__list">
                 {adminAddProductLink}
                 <li className="shop__collection-nav__list__item">
-                    <NavLink to="/collections" className="shop__collection-nav__list__link">All Plants</NavLink>
+                    <NavLink
+                        to="/collections"
+                        className="shop__collection-nav__list__link"
+                    >
+                        All Plants
+                    </NavLink>
                 </li>
                 <li className="shop__collection-nav__list__item">
-                    <NavLink to="/collections/house-plants" className="shop__collection-nav__list__link">House Plants</NavLink>
+                    <NavLink
+                        to="/collections/house-plants"
+                        className="shop__collection-nav__list__link"
+                    >
+                        House Plants
+                    </NavLink>
                 </li>
                 <li className="shop__collection-nav__list__item">
-                    <NavLink to="/collections/fruit-trees" className="shop__collection-nav__list__link">Fruit Trees</NavLink>
+                    <NavLink
+                        to="/collections/fruit-trees"
+                        className="shop__collection-nav__list__link"
+                    >
+                        Fruit Trees
+                    </NavLink>
                 </li>
                 <li className="shop__collection-nav__list__item">
-                    <NavLink to="/collections/shade-trees" className="shop__collection-nav__list__link">Shade Trees</NavLink>
+                    <NavLink
+                        to="/collections/shade-trees"
+                        className="shop__collection-nav__list__link"
+                    >
+                        Shade Trees
+                    </NavLink>
                 </li>
             </ul>
         </nav>

@@ -2,8 +2,13 @@
 
 const { db } = require("../../db/index");
 const pgp = db.$config.pgp;
-const { postProductValidation, patchProductValidation } = require("../validation/products-validation");
-const { streamUploadToCloudinary } = require("../../util/stream-upload-to-cloudinary");
+const {
+    postProductValidation,
+    patchProductValidation,
+} = require("../validation/products-validation");
+const {
+    streamUploadToCloudinary,
+} = require("../../util/stream-upload-to-cloudinary");
 
 async function getProducts(req, res, next) {
     try {
@@ -30,7 +35,6 @@ async function getProducts(req, res, next) {
         `);
 
         res.status(200).json(products);
-
     } catch (err) {
         next(err);
     }
@@ -56,7 +60,7 @@ async function getProduct(req, res, next) {
                         ON product.product_id = product_img.product_id
                     WHERE product.product_id = $<productId>
                 `,
-                values: { productId }
+                values: { productId },
             },
             {
                 query: `
@@ -67,18 +71,18 @@ async function getProduct(req, res, next) {
                     FROM product_extra_info
                     WHERE product_extra_info.product_id = $<productId>
                 `,
-                values: { productId }
-            }
+                values: { productId },
+            },
         ];
         const formattedQueries = pgp.helpers.concat(queries);
-        const [primaryProductDataArr, productExtraInfoArr] = await db.multi(formattedQueries);
+        const [primaryProductDataArr, productExtraInfoArr] =
+            await db.multi(formattedQueries);
         const finalFormattedProduct = {
             ...primaryProductDataArr[0],
-            productExtraInfo: productExtraInfoArr
+            productExtraInfo: productExtraInfoArr,
         };
 
         res.status(200).json(finalFormattedProduct);
-
     } catch (err) {
         next(err);
     }
@@ -87,7 +91,8 @@ async function getProduct(req, res, next) {
 async function getProductsByCategory(req, res, next) {
     try {
         const { q } = req.query;
-        const products = await db.manyOrNone(`
+        const products = await db.manyOrNone(
+            `
             SELECT
                 product.product_id AS "productId",
                 product.title,
@@ -108,10 +113,10 @@ async function getProductsByCategory(req, res, next) {
                 -- The above AND operator allows the product_extra_info.price value to restrict to only the lowest price, based on size of the plant.
             WHERE product.category = $<q>
         `,
-            { q });
+            { q },
+        );
 
         res.status(200).json(products);
-
     } catch (err) {
         next(err);
     }
@@ -119,20 +124,17 @@ async function getProductsByCategory(req, res, next) {
 
 async function postProduct(req, res, next) {
     const imgFile = req.file;
-    const uploadedProductImgData = await streamUploadToCloudinary(imgFile, "evergreen-app")
-                                            .catch((err) => next(err));
+    const uploadedProductImgData = await streamUploadToCloudinary(
+        imgFile,
+        "evergreen-app",
+    ).catch((err) => next(err));
     const productImgPublicId = uploadedProductImgData.public_id;
     const productImgWidth = uploadedProductImgData.width;
     const productImgHeight = uploadedProductImgData.height;
     try {
         // Function-scoped vars
-        var {
-            title,
-            description,
-            category,
-            imgAltText
-        } = await postProductValidation(req.body);
-        
+        var { title, description, category, imgAltText } =
+            await postProductValidation(req.body);
     } catch (err) {
         if (err.isJoi) {
             return res.status(400).json({ error: err.message });
@@ -148,16 +150,18 @@ async function postProduct(req, res, next) {
         // db.tx() method already adds BEGIN, COMMIT, and ROLLBACK for postgres transaction
         await db.tx("add-product-transaction", async (currTx) => {
             // Save to product table (returning the product_id)
-            const insertedProductId = (await currTx.one(
-                `
+            const insertedProductId = (
+                await currTx.one(
+                    `
                 INSERT INTO product
                     (title, description, category)
                 VALUES
                     ($<title>, $<description>, $<category>)
                 RETURNING product_id
                 `,
-                { title, description, category }
-            )).product_id;
+                    { title, description, category },
+                )
+            ).product_id;
             // Iterate productExtraInfo and save each obj's data to product_extra_info table (save product_id as FK)
             for (let { size, price } of productExtraInfo) {
                 await currTx.none(
@@ -167,7 +171,7 @@ async function postProduct(req, res, next) {
                     VALUES
                         ($<insertedProductId>, $<size>, $<price>)
                     `,
-                    { insertedProductId, size, price }
+                    { insertedProductId, size, price },
                 );
             }
             // Save to product_img table (save product_id as FK)
@@ -178,10 +182,15 @@ async function postProduct(req, res, next) {
                 VALUES
                     ($<insertedProductId>, $<imgAltText>, $<productImgWidth>, $<productImgHeight>, $<productImgPublicId>)
                 `,
-                { insertedProductId, imgAltText, productImgWidth, productImgHeight, productImgPublicId }
+                {
+                    insertedProductId,
+                    imgAltText,
+                    productImgWidth,
+                    productImgHeight,
+                    productImgPublicId,
+                },
             );
         });
-
     } catch (err) {
         next(err);
     }
@@ -192,19 +201,24 @@ async function postProduct(req, res, next) {
 async function patchProduct(req, res, next) {
     const { productId } = req.params;
     const imgFile = req.file ? req.file : null;
-    const uploadedProductImgData = imgFile ? await streamUploadToCloudinary(imgFile, "evergreen-app").catch((err) => next(err)) : null;
-    const productImgPublicId = uploadedProductImgData ? uploadedProductImgData.public_id : null;
-    const productImgWidth = uploadedProductImgData ? uploadedProductImgData.width : null;
-    const productImgHeight = uploadedProductImgData ? uploadedProductImgData.height : null;
+    const uploadedProductImgData = imgFile
+        ? await streamUploadToCloudinary(imgFile, "evergreen-app").catch(
+              (err) => next(err),
+          )
+        : null;
+    const productImgPublicId = uploadedProductImgData
+        ? uploadedProductImgData.public_id
+        : null;
+    const productImgWidth = uploadedProductImgData
+        ? uploadedProductImgData.width
+        : null;
+    const productImgHeight = uploadedProductImgData
+        ? uploadedProductImgData.height
+        : null;
     try {
         // Function-scoped vars
-        var {
-            title,
-            description,
-            category,
-            imgAltText
-        } = await patchProductValidation(req.body);
-        
+        var { title, description, category, imgAltText } =
+            await patchProductValidation(req.body);
     } catch (err) {
         if (err.isJoi) {
             return res.status(400).json({ error: err.message });
@@ -228,7 +242,7 @@ async function patchProduct(req, res, next) {
                     category = COALESCE($<category>, category)
                 WHERE product.product_id = $<productId>
                 `,
-                { title, description, category, productId }
+                { title, description, category, productId },
             );
 
             for (let { size, price, productExtraInfoId } of productExtraInfo) {
@@ -243,7 +257,7 @@ async function patchProduct(req, res, next) {
                         AND
                         product_extra_info.product_extra_info_id = $<productExtraInfoId>
                     `,
-                    { size, price, productId, productExtraInfoId }
+                    { size, price, productId, productExtraInfoId },
                 );
             }
 
@@ -257,10 +271,15 @@ async function patchProduct(req, res, next) {
                     public_id = COALESCE($<productImgPublicId>, public_id)
                 WHERE product_img.product_id = $<productId>
                 `,
-                { imgAltText, productImgWidth, productImgHeight, productImgPublicId, productId }
+                {
+                    imgAltText,
+                    productImgWidth,
+                    productImgHeight,
+                    productImgPublicId,
+                    productId,
+                },
             );
         });
-        
     } catch (err) {
         next(err);
     }
@@ -277,11 +296,10 @@ async function deleteProduct(req, res, next) {
             DELETE FROM product
             WHERE product.product_id = $<productId>
             `,
-            { productId }
+            { productId },
         );
 
         res.status(200).json({ msg: "Product removed." });
-
     } catch (err) {
         next(err);
     }
@@ -293,5 +311,5 @@ module.exports = {
     getProductsByCategory,
     postProduct,
     patchProduct,
-    deleteProduct
+    deleteProduct,
 };

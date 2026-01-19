@@ -10,7 +10,10 @@ function ProductsSection({ categoryQueryText }) {
     const setProducts = useProductsStore((state) => state.setProducts);
 
     useEffect(() => {
-        const apiUrl = categoryQueryText === "all" ? "/api/products" : `/api/products/category?q=${categoryQueryText}`;
+        const apiUrl =
+            categoryQueryText === "all"
+                ? "/api/products"
+                : `/api/products/category?q=${categoryQueryText}`;
 
         fetch(apiUrl)
             .then((response) => response.json())
@@ -18,13 +21,15 @@ function ProductsSection({ categoryQueryText }) {
             .catch((err) => console.error(err));
     }, [categoryQueryText, setProducts]);
 
-
     return (
         <section className="shop__products-section">
             <h2 className="shop__products-section__title">Our Stock</h2>
             <div className="shop__products-section__product-card-grid-wrapper">
                 {products.map((productData) => (
-                    <ProductCard key={productData.productId} productData={productData} />
+                    <ProductCard
+                        key={productData.productId}
+                        productData={productData}
+                    />
                 ))}
             </div>
         </section>

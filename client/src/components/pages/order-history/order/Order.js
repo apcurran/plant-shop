@@ -10,7 +10,9 @@ import { formatCurrency } from "../../../../utils/format-currency";
 function Order({ orderData }) {
     const formattedDate = formatDate(orderData.createdAt);
     const formattedOrderCost = formatCurrency(orderData.totalCost);
-    const lastFourOrderChars = orderData.stripePaymentId ? (orderData.stripePaymentId).slice(-4) : "Payment not completed";
+    const lastFourOrderChars = orderData.stripePaymentId
+        ? orderData.stripePaymentId.slice(-4)
+        : "Payment not completed";
     const orderItems = orderData.orderItems.map((orderItem) => {
         return (
             <OrderItem
@@ -25,15 +27,24 @@ function Order({ orderData }) {
                 width={orderItem.width}
                 height={orderItem.height}
             />
-        ); 
+        );
     });
 
     return (
         <section className="order">
             <div className="order__descriptor-group">
-                <OrderDescriptor heading="Order Placed" dataSegment={formattedDate} />
-                <OrderDescriptor heading="Total" dataSegment={formattedOrderCost} />
-                <OrderDescriptor heading="Order #" dataSegment={lastFourOrderChars} />
+                <OrderDescriptor
+                    heading="Order Placed"
+                    dataSegment={formattedDate}
+                />
+                <OrderDescriptor
+                    heading="Total"
+                    dataSegment={formattedOrderCost}
+                />
+                <OrderDescriptor
+                    heading="Order #"
+                    dataSegment={lastFourOrderChars}
+                />
             </div>
             {orderItems}
         </section>

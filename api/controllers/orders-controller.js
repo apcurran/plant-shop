@@ -12,7 +12,8 @@ async function getOrderHistory(req, res, next) {
 
     try {
         await db.task(async (currTask) => {
-            const ordersArr = await currTask.manyOrNone(`
+            const ordersArr = await currTask.manyOrNone(
+                `
                 SELECT
                     app_user_order.order_id AS "orderId",
                     app_user_order.total_cost AS "totalCost",
@@ -21,10 +22,14 @@ async function getOrderHistory(req, res, next) {
                 FROM app_user_order
                 WHERE app_user_order.user_id = $<userId>
                 ORDER BY app_user_order.created_at DESC
-            `, { userId });
+            `,
+                { userId },
+            );
 
-            const formattedOrders = await Promise.all(ordersArr.map(async (order) => {
-                const orderItemsArr = await currTask.manyOrNone(`
+            const formattedOrders = await Promise.all(
+                ordersArr.map(async (order) => {
+                    const orderItemsArr = await currTask.manyOrNone(
+                        `
                     SELECT
                         product.title,
                         product.category,
@@ -48,17 +53,19 @@ async function getOrderHistory(req, res, next) {
                         app_user_order_item.order_id = $<order>
                         AND
                         product_extra_info.product_extra_info_id = app_user_order_item.product_extra_info_id
-                `, { order: order.orderId });
-    
-                return {
-                    ...order,
-                    orderItems: orderItemsArr
-                };
-            })).catch((err) => next(err));
-    
+                `,
+                        { order: order.orderId },
+                    );
+
+                    return {
+                        ...order,
+                        orderItems: orderItemsArr,
+                    };
+                }),
+            ).catch((err) => next(err));
+
             res.json(formattedOrders);
         });
-
     } catch (err) {
         next(err);
     }
@@ -70,12 +77,13 @@ async function postCreatePaymentIntent(req, res, next) {
     try {
         await db.task(async (currTask) => {
             let itemsInfoFromDb = [];
-    
+
             for (let itemObj of currItemsArr) {
                 const prodId = Number(itemObj.productId);
                 const productExtraInfoId = itemObj.productExtraInfoId;
                 const productQuantity = itemObj.itemQuantity;
-                const itemInfo = await currTask.one(`
+                const itemInfo = await currTask.one(
+                    `
                     SELECT
                         product.title,
                         product_extra_info.size,
@@ -87,18 +95,20 @@ async function postCreatePaymentIntent(req, res, next) {
                         product.product_id = $<prodId>
                         AND
                         product_extra_info.product_extra_info_id = $<productExtraInfoId>
-                `, { prodId, productExtraInfoId });
-    
+                `,
+                    { prodId, productExtraInfoId },
+                );
+
                 const revisedItemInfo = {
                     productId: prodId,
                     productExtraInfoId,
                     productQuantity,
-                    ...itemInfo
+                    ...itemInfo,
                 };
-    
+
                 itemsInfoFromDb.push(revisedItemInfo);
             }
-    
+
             // Payment total
             const orderTotal = calcOrderTotal(itemsInfoFromDb);
             // Save order to db
@@ -107,28 +117,38 @@ async function postCreatePaymentIntent(req, res, next) {
                 street: req.body.userData.street,
                 city: req.body.userData.city,
                 state: req.body.userData.state,
-                zip: req.body.userData.zip
+                zip: req.body.userData.zip,
             };
             const now = new Date();
-    
+
             // Save payment order and order items to db
-            const orderId = await saveOrderInfoToDb(itemsInfoFromDb, userId, orderTotal, shippingAddress, now, currTask, next);
-    
+            const orderId = await saveOrderInfoToDb(
+                itemsInfoFromDb,
+                userId,
+                orderTotal,
+                shippingAddress,
+                now,
+                currTask,
+                next,
+            );
+
             // Convert to Stripe API format
-            const preparedLineItems = prepareLineItems(itemsInfoFromDb, currItemsArr);
+            const preparedLineItems = prepareLineItems(
+                itemsInfoFromDb,
+                currItemsArr,
+            );
             const session = await stripe.checkout.sessions.create({
                 mode: "payment",
                 payment_method_types: ["card"],
                 line_items: preparedLineItems,
                 success_url: `${process.env.CLIENT_URL}/success?sessionId={CHECKOUT_SESSION_ID}&orderId=${orderId}`,
-                cancel_url: `${process.env.CLIENT_URL}/cart`
+                cancel_url: `${process.env.CLIENT_URL}/cart`,
             });
             const redirectUrl = session.url;
-    
+
             // Payment cancellation
             res.json({ url: redirectUrl });
         });
-
     } catch (err) {
         next(err);
     }
@@ -138,16 +158,18 @@ async function patchCompleteCheckout(req, res, next) {
     try {
         const { sessionId, orderId } = req.body;
 
-        await db.none(`
+        await db.none(
+            `
             UPDATE app_user_order
             SET
                 stripe_payment_id = $<sessionId>,
                 is_complete = TRUE
             WHERE order_id = $<orderId>
-        `, { sessionId, orderId });
+        `,
+            { sessionId, orderId },
+        );
 
         res.status(200).json({ msg: "Payment successful" });
-
     } catch (err) {
         next(err);
     }
@@ -156,5 +178,5 @@ async function patchCompleteCheckout(req, res, next) {
 module.exports = {
     getOrderHistory,
     postCreatePaymentIntent,
-    patchCompleteCheckout
+    patchCompleteCheckout,
 };

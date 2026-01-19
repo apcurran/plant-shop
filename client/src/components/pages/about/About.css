@@ -4,7 +4,6 @@
     grid-template-rows: auto 1fr;
 }
 
-
 @media screen and (max-width: 85em) {
     .about-grid-wrapper {
         min-height: revert;

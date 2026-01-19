@@ -5,8 +5,8 @@ const store = (set) => ({
     user: {},
     isAdmin: false,
     setToken: (accessToken) => set((state) => ({ token: accessToken })),
-    setUser: (userInfo) => set((state) => ({ user: userInfo})),
-    setIsAdmin: (isAdmin) => set((state) => ({ isAdmin: isAdmin }))
+    setUser: (userInfo) => set((state) => ({ user: userInfo })),
+    setIsAdmin: (isAdmin) => set((state) => ({ isAdmin: isAdmin })),
 });
 
 const useAuthStore = create(store);

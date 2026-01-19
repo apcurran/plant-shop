@@ -10,8 +10,8 @@ function CollectionCards() {
                 publicId: "evergreen-app/apple-tree_avlhwn.jpg",
                 alt: "Ripe, red apple hanging on an apple tree.",
                 width: "1199",
-                height: "963"
-            }
+                height: "963",
+            },
         },
         {
             title: "House Plants",
@@ -21,8 +21,8 @@ function CollectionCards() {
                 publicId: "evergreen-app/home-house-plant_jwrlut.jpg",
                 alt: "House plant with large, green leaves against a white background.",
                 width: "1189",
-                height: "1038"
-            }
+                height: "1038",
+            },
         },
         {
             title: "Outdoor Shade Trees",
@@ -32,9 +32,9 @@ function CollectionCards() {
                 publicId: "evergreen-app/shade-tree_d8zwnz.jpg",
                 alt: "Large shade tree on a hill.",
                 width: "1625",
-                height: "1225"
-            }
-        }
+                height: "1225",
+            },
+        },
     ];
 
     return (

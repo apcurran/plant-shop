@@ -8,7 +8,7 @@
 
 .shop__collection-nav__list__item {
     white-space: nowrap;
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
 }
 
 .shop__collection-nav__list__link {
@@ -26,7 +26,7 @@
 .admin-add-product-link {
     display: inline-block;
     margin-bottom: 1rem;
-    padding: .5rem .75rem;
+    padding: 0.5rem 0.75rem;
     background-color: var(--light-green);
     color: var(--very-dark-emerald-green);
     text-decoration: none;

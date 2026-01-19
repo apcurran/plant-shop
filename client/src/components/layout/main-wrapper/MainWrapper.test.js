@@ -4,7 +4,7 @@ import MainWrapper from "./MainWrapper";
 describe("MainWrapper component", () => {
     test("renders component with 'main-page-wrapper' class", () => {
         render(<MainWrapper>Test</MainWrapper>);
-    
+
         const mainElem = screen.getByRole("main");
         expect(mainElem).toHaveClass("main-page-wrapper");
     });

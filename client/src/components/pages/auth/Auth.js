@@ -7,7 +7,12 @@ function Auth({ title, imgPublicId, imgWidth, imgHeight }) {
         <div className="auth">
             <MainWrapper>
                 <Header />
-                <AuthCard title={title} imgPublicId={imgPublicId} imgWidth={imgWidth} imgHeight={imgHeight} />
+                <AuthCard
+                    title={title}
+                    imgPublicId={imgPublicId}
+                    imgWidth={imgWidth}
+                    imgHeight={imgHeight}
+                />
             </MainWrapper>
         </div>
     );

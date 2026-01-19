@@ -9,10 +9,10 @@ async function sendResetLink(id, userEmail) {
             port: 587,
             auth: {
                 user: process.env.ETHEREAL_USERNAME,
-                pass: process.env.ETHEREAL_PW
-            }
+                pass: process.env.ETHEREAL_PW,
+            },
         });
-    
+
         const message = await transporter.sendMail({
             from: `Evergreen Plant Shop ${process.env.ETHEREAL_USERNAME}`,
             to: userEmail,
@@ -20,13 +20,12 @@ async function sendResetLink(id, userEmail) {
             text: "Password Reset Link",
             html: `
                 <p>To reset your password, please click on this link: <a href="${process.env.CLIENT_URL}/auth/reset-password/${id}">Reset Password</a></p>
-            `
+            `,
         });
-    
+
         console.log("Message sent: %s", message.messageId);
         // Preview only available when sending through an Ethereal account
         console.log("Preview URL: %s", nodemailer.getTestMessageUrl(message));
-        
     } catch (err) {
         console.error(err);
     }

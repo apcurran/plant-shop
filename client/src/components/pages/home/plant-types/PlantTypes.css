@@ -1,5 +1,9 @@
 .home__plant-types {
-    background: conic-gradient(from -90deg at 50% -25%, var(--dark-emerald-green), var(--light-green));
+    background: conic-gradient(
+        from -90deg at 50% -25%,
+        var(--dark-emerald-green),
+        var(--light-green)
+    );
 }
 
 .home__plant-types-inner-wrapper {
@@ -22,7 +26,7 @@
 }
 
 .home__plant-types__title {
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
 }
 
 .home__plant-types__sub-heading {

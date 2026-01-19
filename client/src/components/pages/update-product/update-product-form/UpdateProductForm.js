@@ -126,9 +126,21 @@ function UpdateProductForm({ productId }) {
         setIsLoading(true);
         // Stringify arr to send in formData to server
         const productExtraInfo = JSON.stringify([
-            { productExtraInfoId: Number(smSizeInfoId), size: Number(updatedSmSize), price: Number(updatedSmPrice) },
-            { productExtraInfoId: Number(medSizeInfoId), size: Number(updatedMedSize), price: Number(updatedMedPrice) },
-            { productExtraInfoId: Number(lgSizeInfoId), size: Number(updatedLgSize), price: Number(updatedLgPrice) }
+            {
+                productExtraInfoId: Number(smSizeInfoId),
+                size: Number(updatedSmSize),
+                price: Number(updatedSmPrice),
+            },
+            {
+                productExtraInfoId: Number(medSizeInfoId),
+                size: Number(updatedMedSize),
+                price: Number(updatedMedPrice),
+            },
+            {
+                productExtraInfoId: Number(lgSizeInfoId),
+                size: Number(updatedLgSize),
+                price: Number(updatedLgPrice),
+            },
         ]);
 
         let formData = new FormData();
@@ -147,9 +159,9 @@ function UpdateProductForm({ productId }) {
             const response = await fetch(`/api/products/${productId}`, {
                 method: "PATCH",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
-                body: formData
+                body: formData,
             });
 
             // Check for errors
@@ -163,7 +175,6 @@ function UpdateProductForm({ productId }) {
 
             const { msg: serverMsg } = await response.json();
             setMsg(serverMsg);
-
         } catch (err) {
             setIsLoading(false);
             setError(err.message);
@@ -171,13 +182,22 @@ function UpdateProductForm({ productId }) {
     }
 
     // JSX elems
-    const uploadPreview = updatedImgFile ? <FilePreview selectedImgPreview={imgPreview} selectedImgAltTxt={updatedAltText} /> : null;
+    const uploadPreview = updatedImgFile ? (
+        <FilePreview
+            selectedImgPreview={imgPreview}
+            selectedImgAltTxt={updatedAltText}
+        />
+    ) : null;
     const errorMsg = error ? <ErrorMsg error={error} /> : null;
     const resMessage = msg ? <Message msg={msg} /> : null;
     const loadingSpinner = isLoading ? <LoadingSpinner /> : null;
 
     return (
-        <form onSubmit={handleSubmit} className="update-product__form add-product__form" encType="multipart/form-data">
+        <form
+            onSubmit={handleSubmit}
+            className="update-product__form add-product__form"
+            encType="multipart/form-data"
+        >
             <FormSegment>
                 <div className="add-product__form__column--left">
                     <NumberBadge>1</NumberBadge>
@@ -185,16 +205,42 @@ function UpdateProductForm({ productId }) {
                 </div>
                 <div className="add-product__form__column--right">
                     <div className="form-group">
-                        <label htmlFor="title" className="form-group__label">Title</label>
-                        <input value={updatedTitle} onChange={handleTitleChange} id="title" type="text" className="form-group__input" />
+                        <label htmlFor="title" className="form-group__label">
+                            Title
+                        </label>
+                        <input
+                            value={updatedTitle}
+                            onChange={handleTitleChange}
+                            id="title"
+                            type="text"
+                            className="form-group__input"
+                        />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="description" className="form-group__label">Description</label>
-                        <textarea value={updatedDesc} onChange={handleDescriptionChange} id="description" rows={10} className="form-group__textarea"></textarea>
+                        <label
+                            htmlFor="description"
+                            className="form-group__label"
+                        >
+                            Description
+                        </label>
+                        <textarea
+                            value={updatedDesc}
+                            onChange={handleDescriptionChange}
+                            id="description"
+                            rows={10}
+                            className="form-group__textarea"
+                        ></textarea>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="category" className="form-group__label">Category</label>
-                        <select value={updatedCategory} onChange={handleSelectChange} id="category" className="form-group__select">
+                        <label htmlFor="category" className="form-group__label">
+                            Category
+                        </label>
+                        <select
+                            value={updatedCategory}
+                            onChange={handleSelectChange}
+                            id="category"
+                            className="form-group__select"
+                        >
                             <option value="house plants">House Plant</option>
                             <option value="fruit trees">Fruit Tree</option>
                             <option value="shade trees">Shade Tree</option>
@@ -209,36 +255,108 @@ function UpdateProductForm({ productId }) {
                 </div>
                 <div className="add-product__form__column--right">
                     <div className="add-product__form__sizes-group">
-                        <h3 className="add-product__form__sub-heading">Size Small</h3>
+                        <h3 className="add-product__form__sub-heading">
+                            Size Small
+                        </h3>
                         <div className="form-group">
-                            <label htmlFor="size-small-amt" className="form-group__label">Gallon Amount</label>
-                            <input value={updatedSmSize} onChange={handleSmallAmtChange} id="size-small-amt" type="number" className="form-group__input" />
+                            <label
+                                htmlFor="size-small-amt"
+                                className="form-group__label"
+                            >
+                                Gallon Amount
+                            </label>
+                            <input
+                                value={updatedSmSize}
+                                onChange={handleSmallAmtChange}
+                                id="size-small-amt"
+                                type="number"
+                                className="form-group__input"
+                            />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="size-small-price" className="form-group__label">Price</label>
-                            <input value={updatedSmPrice} onChange={handleSmallPriceChange} id="size-small-price" type="number" className="form-group__input" />
+                            <label
+                                htmlFor="size-small-price"
+                                className="form-group__label"
+                            >
+                                Price
+                            </label>
+                            <input
+                                value={updatedSmPrice}
+                                onChange={handleSmallPriceChange}
+                                id="size-small-price"
+                                type="number"
+                                className="form-group__input"
+                            />
                         </div>
                     </div>
                     <div className="add-product__form__sizes-group">
-                        <h3 className="add-product__form__sub-heading">Size Medium</h3>
+                        <h3 className="add-product__form__sub-heading">
+                            Size Medium
+                        </h3>
                         <div className="form-group">
-                            <label htmlFor="size-medium-amt" className="form-group__label">Gallon Amount</label>
-                            <input value={updatedMedSize} onChange={handleMediumAmtChange} id="size-medium-amt" type="number" className="form-group__input" />
+                            <label
+                                htmlFor="size-medium-amt"
+                                className="form-group__label"
+                            >
+                                Gallon Amount
+                            </label>
+                            <input
+                                value={updatedMedSize}
+                                onChange={handleMediumAmtChange}
+                                id="size-medium-amt"
+                                type="number"
+                                className="form-group__input"
+                            />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="size-medium-price" className="form-group__label">Price</label>
-                            <input value={updatedMedPrice} onChange={handleMediumPriceChange} id="size-medium-price" type="number" className="form-group__input" />
+                            <label
+                                htmlFor="size-medium-price"
+                                className="form-group__label"
+                            >
+                                Price
+                            </label>
+                            <input
+                                value={updatedMedPrice}
+                                onChange={handleMediumPriceChange}
+                                id="size-medium-price"
+                                type="number"
+                                className="form-group__input"
+                            />
                         </div>
                     </div>
                     <div className="add-product__form__sizes-group">
-                        <h3 className="add-product__form__sub-heading">Size Large</h3>
+                        <h3 className="add-product__form__sub-heading">
+                            Size Large
+                        </h3>
                         <div className="form-group">
-                            <label htmlFor="size-large-amt" className="form-group__label">Gallon Amount</label>
-                            <input value={updatedLgSize} onChange={handleLargeAmtChange} id="size-large-amt" type="number" className="form-group__input" />
+                            <label
+                                htmlFor="size-large-amt"
+                                className="form-group__label"
+                            >
+                                Gallon Amount
+                            </label>
+                            <input
+                                value={updatedLgSize}
+                                onChange={handleLargeAmtChange}
+                                id="size-large-amt"
+                                type="number"
+                                className="form-group__input"
+                            />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="size-large-price" className="form-group__label">Price</label>
-                            <input value={updatedLgPrice} onChange={handleLargePriceChange} id="size-large-price" type="number" className="form-group__input" />
+                            <label
+                                htmlFor="size-large-price"
+                                className="form-group__label"
+                            >
+                                Price
+                            </label>
+                            <input
+                                value={updatedLgPrice}
+                                onChange={handleLargePriceChange}
+                                id="size-large-price"
+                                type="number"
+                                className="form-group__input"
+                            />
                         </div>
                     </div>
                 </div>
@@ -250,20 +368,41 @@ function UpdateProductForm({ productId }) {
                 </div>
                 <div className="add-product__form__column--right">
                     <div className="form-group">
-                        <label htmlFor="img-file" className="form-group__label">Select Image File (Old image will be retained, unless a new image is selected.)</label>
-                        <input onChange={handleSelectedFile} type="file" id="img-file" className="add-product__form__file-input" />
+                        <label htmlFor="img-file" className="form-group__label">
+                            Select Image File (Old image will be retained,
+                            unless a new image is selected.)
+                        </label>
+                        <input
+                            onChange={handleSelectedFile}
+                            type="file"
+                            id="img-file"
+                            className="add-product__form__file-input"
+                        />
                         {uploadPreview}
                     </div>
                     <div className="form-group">
-                        <label htmlFor="img-alt-txt" className="form-group__label">Image Alt Text</label>
-                        <textarea value={updatedAltText} onChange={handleFileAltTxtChange} id="img-alt-txt" rows={3} className="form-group__textarea"></textarea>
+                        <label
+                            htmlFor="img-alt-txt"
+                            className="form-group__label"
+                        >
+                            Image Alt Text
+                        </label>
+                        <textarea
+                            value={updatedAltText}
+                            onChange={handleFileAltTxtChange}
+                            id="img-alt-txt"
+                            rows={3}
+                            className="form-group__textarea"
+                        ></textarea>
                     </div>
                 </div>
             </FormSegment>
             {errorMsg}
             {loadingSpinner}
             {resMessage}
-            <button type="submit" className="add-product__form__submit-btn">Submit</button>
+            <button type="submit" className="add-product__form__submit-btn">
+                Submit
+            </button>
         </form>
     );
 }

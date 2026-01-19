@@ -32,7 +32,7 @@
 
 .product__content__starting-price-para__price {
     display: inline-block;
-    margin-left: .5rem;
+    margin-left: 0.5rem;
     font-size: var(--fz-md);
 }
 
@@ -51,7 +51,7 @@
     color: var(--cta-accent-clr-dark);
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: .08em;
+    letter-spacing: 0.08em;
     cursor: pointer;
     font-size: var(--fz-sm);
 }

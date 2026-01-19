@@ -8,7 +8,7 @@ function streamUploadToCloudinary(imgFile, folderPath) {
     return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
             {
-                folder: folderPath
+                folder: folderPath,
             },
             (error, result) => {
                 if (result) {
@@ -16,12 +16,10 @@ function streamUploadToCloudinary(imgFile, folderPath) {
                 } else {
                     reject(error);
                 }
-            }
+            },
         );
 
-        Readable
-            .from(imgFile.buffer)
-            .pipe(stream);
+        Readable.from(imgFile.buffer).pipe(stream);
     });
 }
 

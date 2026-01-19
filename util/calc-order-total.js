@@ -1,8 +1,8 @@
 "use strict";
 
 /**
- * 
- * @param {array} itemsArr - Array of item objects with a "price" field on each object 
+ *
+ * @param {array} itemsArr - Array of item objects with a "price" field on each object
  * @returns {number} - Total amount
  */
 function calcOrderTotal(itemsArr) {

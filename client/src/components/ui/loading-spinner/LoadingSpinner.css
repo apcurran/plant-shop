@@ -2,7 +2,7 @@
     margin-bottom: 1rem;
     width: 2.25rem;
     height: 2.25rem;
-    border: .3125rem solid transparent;
+    border: 0.3125rem solid transparent;
     border-color: var(--light-warm-grey);
     border-top-color: var(--med-emerald-green);
     border-radius: 50%;

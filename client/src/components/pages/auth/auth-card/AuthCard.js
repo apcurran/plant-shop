@@ -35,7 +35,11 @@ function AuthCard({ title, imgPublicId, imgWidth, imgHeight }) {
                 {form}
             </section>
             <figure className="auth-card__fig">
-                <AuthImg imgPublicId={imgPublicId} imgWidth={imgWidth} imgHeight={imgHeight} />
+                <AuthImg
+                    imgPublicId={imgPublicId}
+                    imgWidth={imgWidth}
+                    imgHeight={imgHeight}
+                />
             </figure>
         </div>
     );

@@ -17,9 +17,7 @@ function OrderHistory() {
     const [isLoading, setIsLoading] = useState(false);
 
     // Global store state
-    const token = useAuthStore(
-        useCallback((state) => state.token, [])
-    );
+    const token = useAuthStore(useCallback((state) => state.token, []));
 
     useEffect(() => {
         async function getOrders() {
@@ -28,8 +26,8 @@ function OrderHistory() {
             try {
                 const response = await fetch("/api/orders/order-history", {
                     headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
 
                 // Check for errors
@@ -43,7 +41,6 @@ function OrderHistory() {
 
                 const data = await response.json();
                 setOrders(data);
-
             } catch (err) {
                 setIsLoading(false);
                 setError(err.message);

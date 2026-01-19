@@ -19,11 +19,11 @@ function EmailLinkForm() {
             const response = await fetch("/api/auth/forgot-password", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    email
-                })
+                    email,
+                }),
             });
 
             if (!response.ok) {
@@ -35,7 +35,6 @@ function EmailLinkForm() {
             const { message } = await response.json();
             setUserMessage(message);
             setIsLoading(false);
-
         } catch (err) {
             setIsLoading(false);
             setError(err.message);
@@ -44,12 +43,29 @@ function EmailLinkForm() {
 
     return (
         <form onSubmit={handleSubmit} className="auth-card__content__form">
-            <p className="auth-card__content__instructions">Please enter your email and we will send a link to reset your password.</p>
+            <p className="auth-card__content__instructions">
+                Please enter your email and we will send a link to reset your
+                password.
+            </p>
             <div className="auth-card__content__form-group">
-                <label htmlFor="email" className="auth-card__content__form__label">Email</label>
-                <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth-card__content__form__input" required />
+                <label
+                    htmlFor="email"
+                    className="auth-card__content__form__label"
+                >
+                    Email
+                </label>
+                <input
+                    onChange={(event) => setEmail(event.target.value)}
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="auth-card__content__form__input"
+                    required
+                />
             </div>
-            <button className="auth-card__content__form__submit-btn">Send Link</button>
+            <button className="auth-card__content__form__submit-btn">
+                Send Link
+            </button>
             {isLoading ? <LoadingSpinner /> : null}
             {error ? <ErrorMsg error={error} /> : null}
             {userMessage ? <Message msg={userMessage} /> : null}

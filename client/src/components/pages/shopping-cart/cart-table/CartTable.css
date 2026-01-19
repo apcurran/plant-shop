@@ -32,12 +32,12 @@
 }
 
 .cart-table__prod-info__title {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
     font-size: var(--fz-md);
 }
 
 .cart-table__qty-container__btn {
-    padding: .75rem;
+    padding: 0.75rem;
     border: none;
     background: none;
     cursor: pointer;
@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .5rem;
+    padding: 0.5rem;
 
     background: none;
     border: none;
@@ -67,7 +67,7 @@
 .total-info__group {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    row-gap: .5rem;
+    row-gap: 0.5rem;
     column-gap: 2rem;
 }
 
@@ -112,7 +112,7 @@
 
 @media screen and (max-width: 47.5em) {
     .cart-table__thead__tr__th {
-        padding: .5rem 0;
+        padding: 0.5rem 0;
     }
 
     .cart-table__thead__product {
@@ -120,7 +120,7 @@
     }
 
     .cart-table__tbody__tr__td {
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
     }
 
     .cart-table__prod-info {
@@ -148,7 +148,12 @@
         height: 100%;
         top: 0;
         left: 0;
-        background: linear-gradient(to right, hsla(0, 0%, 100%, 0) 75%, hsla(0, 0%, 100%, .9)) 100%;
+        background: linear-gradient(
+                to right,
+                hsla(0, 0%, 100%, 0) 75%,
+                hsla(0, 0%, 100%, 0.9)
+            )
+            100%;
         z-index: 1;
     }
 

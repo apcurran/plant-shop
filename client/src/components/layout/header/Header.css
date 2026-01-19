@@ -46,7 +46,7 @@
     .nav {
         flex-direction: column;
         align-items: start;
-        gap: .5rem;
+        gap: 0.5rem;
     }
 
     .nav__logo-link {

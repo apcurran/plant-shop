@@ -10,18 +10,17 @@ describe("admin delete action", () => {
         cy.intercept("DELETE", "/api/products/17", {
             statusCode: 200,
             body: {
-                msg: "Product removed."
-            }
+                msg: "Product removed.",
+            },
         });
 
-        cy.get("a[href=\"/collections/17\"]")
+        cy.get('a[href="/collections/17"]')
             .should("exist")
             .next()
             .next()
             .should("have.text", "Delete")
             .click();
 
-        cy.get("a[href=\"/collections/17\"]")
-            .should("not.exist");
+        cy.get('a[href="/collections/17"]').should("not.exist");
     });
 });

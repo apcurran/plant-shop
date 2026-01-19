@@ -19,7 +19,7 @@ function LogInForm() {
     const setToken = useAuthStore((state) => state.setToken);
     const setUser = useAuthStore((state) => state.setUser);
     const setIsAdmin = useAuthStore((state) => state.setIsAdmin);
-    
+
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -29,12 +29,12 @@ function LogInForm() {
             const response = await fetch("/api/auth/log-in", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email,
-                    password
-                })
+                    password,
+                }),
             });
 
             // Check for errors
@@ -60,7 +60,6 @@ function LogInForm() {
 
             // Re-direct user
             navigate("/collections");
-
         } catch (err) {
             setIsLoading(false);
             setError(err.message);
@@ -70,15 +69,52 @@ function LogInForm() {
     return (
         <form onSubmit={handleSubmit} className="auth-card__content__form">
             <div className="auth-card__content__form-group">
-                <label htmlFor="email" className="auth-card__content__form__label">Email</label>
-                <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth-card__content__form__input" required autoComplete="email" enterKeyHint="next" />
+                <label
+                    htmlFor="email"
+                    className="auth-card__content__form__label"
+                >
+                    Email
+                </label>
+                <input
+                    onChange={(event) => setEmail(event.target.value)}
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="auth-card__content__form__input"
+                    required
+                    autoComplete="email"
+                    enterKeyHint="next"
+                />
             </div>
             <div className="auth-card__content__form-group">
-                <label htmlFor="password" className="auth-card__content__form__label">Password</label>
-                <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth-card__content__form__input" min="6" max="50" required autoComplete="current-password" enterKeyHint="done" />
+                <label
+                    htmlFor="password"
+                    className="auth-card__content__form__label"
+                >
+                    Password
+                </label>
+                <input
+                    onChange={(event) => setPassword(event.target.value)}
+                    type="password"
+                    name="password"
+                    id="password"
+                    className="auth-card__content__form__input"
+                    min="6"
+                    max="50"
+                    required
+                    autoComplete="current-password"
+                    enterKeyHint="done"
+                />
             </div>
-            <button className="auth-card__content__form__submit-btn">Submit</button>
-            <Link to="/auth/forgot-password" className="auth-card__content__form__link">Reset my password</Link>
+            <button className="auth-card__content__form__submit-btn">
+                Submit
+            </button>
+            <Link
+                to="/auth/forgot-password"
+                className="auth-card__content__form__link"
+            >
+                Reset my password
+            </Link>
             {isLoading ? <LoadingSpinner /> : null}
             {error ? <ErrorMsg error={error} /> : null}
         </form>

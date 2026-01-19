@@ -11,7 +11,7 @@ describe("calcOrderTotal", () => {
                 title: "The Pothos Plant",
                 size: 2,
                 price: 15,
-                productQuantity: 1
+                productQuantity: 1,
             },
             {
                 productId: 2,
@@ -19,10 +19,10 @@ describe("calcOrderTotal", () => {
                 title: "The Succulent Medley",
                 size: 3,
                 price: 25,
-                productQuantity: 2
-            }
+                productQuantity: 2,
+            },
         ];
-    
+
         expect(calcOrderTotal(sampleItemsArr)).toBe(65);
     });
 });

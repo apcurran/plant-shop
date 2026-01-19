@@ -4,7 +4,9 @@ import "./CheckoutLink.css";
 
 function CheckoutLink() {
     return (
-        <Link to="/checkout" className="checkout-link">Checkout</Link>
+        <Link to="/checkout" className="checkout-link">
+            Checkout
+        </Link>
     );
 }
 

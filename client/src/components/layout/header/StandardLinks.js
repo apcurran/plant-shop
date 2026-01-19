@@ -4,10 +4,14 @@ function StandardLinks() {
     return (
         <ul className="nav__standard-links-list">
             <li className="nav__item">
-                <NavLink to="/about" className="nav__link">About</NavLink>
+                <NavLink to="/about" className="nav__link">
+                    About
+                </NavLink>
             </li>
             <li className="nav__item">
-                <NavLink to="/collections" className="nav__link">Shop</NavLink>
+                <NavLink to="/collections" className="nav__link">
+                    Shop
+                </NavLink>
             </li>
         </ul>
     );

@@ -9,8 +9,16 @@ const router = express.Router();
 
 router.get("/order-history", verifyAuth, ordersController.getOrderHistory);
 
-router.post("/create-checkout-session", verifyAuth, ordersController.postCreatePaymentIntent);
+router.post(
+    "/create-checkout-session",
+    verifyAuth,
+    ordersController.postCreatePaymentIntent,
+);
 
-router.patch("/complete-checkout", verifyAuth, ordersController.patchCompleteCheckout);
+router.patch(
+    "/complete-checkout",
+    verifyAuth,
+    ordersController.patchCompleteCheckout,
+);
 
 module.exports = router;

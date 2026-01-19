@@ -22,7 +22,7 @@ function PaymentSuccess() {
 
     // Global store state
     const token = useAuthStore((state) => state.token);
-    
+
     const currUrl = new URL(window.location.href);
     const params = new URLSearchParams(currUrl.search);
     const sessionId = params.get("sessionId");
@@ -36,23 +36,22 @@ function PaymentSuccess() {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
+                        Authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
                         sessionId,
-                        orderId
-                    })
+                        orderId,
+                    }),
                 });
 
                 if (!response.ok) {
                     const serverErrMsg = await response.json();
-                    
+
                     throw Error(serverErrMsg.error);
                 }
-    
+
                 const data = await response.json();
                 setMsg(data.msg);
-                
             } catch (err) {
                 setError(err.message);
                 console.error(err);

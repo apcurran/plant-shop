@@ -14,8 +14,8 @@ describe("CollectionCard component", () => {
                 publicId: "evergreen-app/apple-tree_avlhwn.jpg",
                 alt: "Ripe, red apple hanging on an apple tree.",
                 width: "1199",
-                height: "963"
-            }
+                height: "963",
+            },
         };
 
         render(
@@ -32,13 +32,19 @@ describe("CollectionCard component", () => {
                         imgHeight={card.imgData.height}
                     />
                 </CloudinaryContext>
-            </MemoryRouter>
+            </MemoryRouter>,
         );
 
         expect(screen.getByRole("img")).toBeInTheDocument();
         expect(screen.getByText("Collection")).toBeInTheDocument();
-        expect(screen.getByText("Organic Fruit for your Home Garden")).toBeInTheDocument();
-        expect(screen.getByText("Nulla euismod justo sapien, cursus malesuada lorem efficitur ut. Sed nec dapibus ligula, ut luctus diam. Nunc est libero, sagittis fermentum felis vitae, fermentum volutpat neque. Vestibulum venenatis vel lorem a consequat. Praesent nec tellus metus. Aliquam consequat quis libero vitae euismod. Aliquam ac sem nec arcu facilisis imperdiet vitae et purus. Proin ut ornare nibh, in tincidunt enim.")).toBeInTheDocument();
+        expect(
+            screen.getByText("Organic Fruit for your Home Garden"),
+        ).toBeInTheDocument();
+        expect(
+            screen.getByText(
+                "Nulla euismod justo sapien, cursus malesuada lorem efficitur ut. Sed nec dapibus ligula, ut luctus diam. Nunc est libero, sagittis fermentum felis vitae, fermentum volutpat neque. Vestibulum venenatis vel lorem a consequat. Praesent nec tellus metus. Aliquam consequat quis libero vitae euismod. Aliquam ac sem nec arcu facilisis imperdiet vitae et purus. Proin ut ornare nibh, in tincidunt enim.",
+            ),
+        ).toBeInTheDocument();
         expect(screen.getByText(/Shop Now/i)).toBeInTheDocument();
     });
 });

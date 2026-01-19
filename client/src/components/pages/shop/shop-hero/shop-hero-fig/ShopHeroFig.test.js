@@ -5,7 +5,7 @@ import ShopHeroFig from "./ShopHeroFig";
 
 const imgData = {
     publicId: "evergreen-app/collections/hero/long-leaves-bg_focsfr.jpg",
-    alt: "Plant with long green leaves."
+    alt: "Plant with long green leaves.",
 };
 
 function MockShopHeroFig({ img }) {
@@ -30,7 +30,9 @@ describe("ShopHeroFig component", () => {
     test("hero img contains appropriate alt text", () => {
         render(<MockShopHeroFig img={imgData} />);
 
-        const img = screen.getByRole("img", { name: "Plant with long green leaves." });
+        const img = screen.getByRole("img", {
+            name: "Plant with long green leaves.",
+        });
 
         expect(img).toBeInTheDocument();
     });

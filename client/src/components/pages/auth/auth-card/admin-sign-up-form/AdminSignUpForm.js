@@ -13,7 +13,7 @@ function AdminSignUpForm() {
     const [error, setError] = useState("");
 
     let navigate = useNavigate();
-    
+
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -21,15 +21,15 @@ function AdminSignUpForm() {
             const response = await fetch("/api/auth/sign-up", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     firstName,
                     lastName,
                     email,
                     password,
-                    adminPassword
-                })
+                    adminPassword,
+                }),
             });
 
             // Check for errors
@@ -41,7 +41,6 @@ function AdminSignUpForm() {
 
             // Re-direct user
             navigate("/admin/auth/log-in");
-
         } catch (err) {
             setError(err.message);
         }
@@ -50,26 +49,92 @@ function AdminSignUpForm() {
     return (
         <form onSubmit={handleSubmit} className="auth-card__content__form">
             <div className="auth-card__content__form-group">
-                <label htmlFor="first-name" className="auth-card__content__form__label">First Name</label>
-                <input onChange={(event) => setFirstName(event.target.value)} type="text" name="first-name" id="first-name" className="auth-card__content__form__input" required />
+                <label
+                    htmlFor="first-name"
+                    className="auth-card__content__form__label"
+                >
+                    First Name
+                </label>
+                <input
+                    onChange={(event) => setFirstName(event.target.value)}
+                    type="text"
+                    name="first-name"
+                    id="first-name"
+                    className="auth-card__content__form__input"
+                    required
+                />
             </div>
             <div className="auth-card__content__form-group">
-                <label htmlFor="last-name" className="auth-card__content__form__label">Last Name</label>
-                <input onChange={(event) => setLastName(event.target.value)} type="text" name="last-name" id="last-name" className="auth-card__content__form__input" required />
+                <label
+                    htmlFor="last-name"
+                    className="auth-card__content__form__label"
+                >
+                    Last Name
+                </label>
+                <input
+                    onChange={(event) => setLastName(event.target.value)}
+                    type="text"
+                    name="last-name"
+                    id="last-name"
+                    className="auth-card__content__form__input"
+                    required
+                />
             </div>
             <div className="auth-card__content__form-group">
-                <label htmlFor="email" className="auth-card__content__form__label">Email</label>
-                <input onChange={(event) => setEmail(event.target.value)} type="email" name="email" id="email" className="auth-card__content__form__input" required />
+                <label
+                    htmlFor="email"
+                    className="auth-card__content__form__label"
+                >
+                    Email
+                </label>
+                <input
+                    onChange={(event) => setEmail(event.target.value)}
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="auth-card__content__form__input"
+                    required
+                />
             </div>
             <div className="auth-card__content__form-group">
-                <label htmlFor="password" className="auth-card__content__form__label">Password (6 character minimum)</label>
-                <input onChange={(event) => setPassword(event.target.value)} type="password" name="password" id="password" className="auth-card__content__form__input" min="6" max="50" required />
+                <label
+                    htmlFor="password"
+                    className="auth-card__content__form__label"
+                >
+                    Password (6 character minimum)
+                </label>
+                <input
+                    onChange={(event) => setPassword(event.target.value)}
+                    type="password"
+                    name="password"
+                    id="password"
+                    className="auth-card__content__form__input"
+                    min="6"
+                    max="50"
+                    required
+                />
             </div>
             <div className="auth-card__content__form-group">
-                <label htmlFor="password" className="auth-card__content__form__label">Admin Code</label>
-                <input onChange={(event) => setAdminPassword(event.target.value)} type="password" name="adminPassword" id="admin-password" className="auth-card__content__form__input" min="6" max="50" required />
+                <label
+                    htmlFor="password"
+                    className="auth-card__content__form__label"
+                >
+                    Admin Code
+                </label>
+                <input
+                    onChange={(event) => setAdminPassword(event.target.value)}
+                    type="password"
+                    name="adminPassword"
+                    id="admin-password"
+                    className="auth-card__content__form__input"
+                    min="6"
+                    max="50"
+                    required
+                />
             </div>
-            <button className="auth-card__content__form__submit-btn">Submit</button>
+            <button className="auth-card__content__form__submit-btn">
+                Submit
+            </button>
             {error ? <ErrorMsg error={error} /> : null}
         </form>
     );

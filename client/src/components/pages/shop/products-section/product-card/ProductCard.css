@@ -4,7 +4,7 @@
 }
 
 .shop__products-section__card__fig {
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
 }
 
 .shop__products-section__card__img {
@@ -32,6 +32,6 @@
     .shop__products-section__card__content-group {
         flex-direction: column;
         align-items: start;
-        gap: .25rem;
+        gap: 0.25rem;
     }
 }

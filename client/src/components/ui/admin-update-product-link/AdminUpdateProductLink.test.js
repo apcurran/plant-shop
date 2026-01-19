@@ -7,6 +7,9 @@ describe("AdminUpdateProductLink component", () => {
         render(<AdminUpdateProductLink productId={productId} />);
 
         const link = screen.getByRole("link");
-        expect(link).toHaveAttribute("href", `/admin/collections/update-product/${productId}`);
+        expect(link).toHaveAttribute(
+            "href",
+            `/admin/collections/update-product/${productId}`,
+        );
     });
 });
