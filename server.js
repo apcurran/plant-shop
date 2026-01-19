@@ -23,10 +23,12 @@ if (process.env.NODE_ENV === "development") {
 app.disable("x-powered-by");
 
 // Middleware
-app.use(helmet({
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false
-}));
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+        crossOriginEmbedderPolicy: false,
+    }),
+);
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "client", "build")));
 
@@ -34,8 +36,10 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 const authLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
     max: 7,
-    message: JSON.stringify({ error: "Too many requests, please try again in a minute." }),
-    legacyHeaders: false
+    message: JSON.stringify({
+        error: "Too many requests, please try again in a minute.",
+    }),
+    legacyHeaders: false,
 });
 
 // API routers
@@ -56,4 +60,8 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-app.listen(PORT, () => console.log(`Server running in ${process.env.NODE_ENV} mode, and listening on port ${PORT}.`));
+app.listen(PORT, () =>
+    console.log(
+        `Server running in ${process.env.NODE_ENV} mode, and listening on port ${PORT}.`,
+    ),
+);
