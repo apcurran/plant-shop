@@ -10,17 +10,22 @@ function verifyAuth(req, res, next) {
         return res.status(401).json({ error: "Access denied." });
     }
 
-    jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-        if (err) {
-            console.error(err);
+    jwt.verify(
+        token,
+        process.env.TOKEN_SECRET,
+        { algorithms: ["HS256"] },
+        (err, user) => {
+            if (err) {
+                console.error(err);
 
-            return res.status(403).json({ error: "Invalid token." });
-        }
+                return res.status(403).json({ error: "Invalid token." });
+            }
 
-        // Validation passed
-        req.user = user;
-        next();
-    });
+            // Validation passed
+            req.user = user;
+            next();
+        },
+    );
 }
 
 module.exports = { verifyAuth };
