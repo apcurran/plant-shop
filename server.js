@@ -25,7 +25,28 @@ app.disable("x-powered-by");
 // Middleware
 app.use(
     helmet({
-        contentSecurityPolicy: false,
+        contentSecurityPolicy: {
+            directives: {
+                "default-src": ["'self'"],
+                // 1. Allow images from self, data URIs, and Cloudinary
+                "img-src": ["'self'", "data:", "https://res.cloudinary.com"],
+                // 2. Allow scripts from your own domain (React's build files)
+                "script-src": ["'self'", "'unsafe-inline'"],
+                // enable Google Fonts to load for React client
+                "style-src": [
+                    "'self'",
+                    "'unsafe-inline'",
+                    "https://fonts.googleapis.com",
+                ],
+                "font-src": ["'self'", "https://fonts.gstatic.com"],
+                // 3. Connect-src must allow your API and Cloudinary if using their SDK
+                "connect-src": ["'self'", "https://res.cloudinary.com"],
+                "upgrade-insecure-requests": [],
+            },
+        },
+        crossOriginResourcePolicy: {
+            policy: "cross-origin",
+        },
         crossOriginEmbedderPolicy: false,
     }),
 );
