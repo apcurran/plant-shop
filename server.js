@@ -28,9 +28,11 @@ app.use(
         contentSecurityPolicy: {
             directives: {
                 "default-src": ["'self'"],
-                // 1. Allow images from self, data URIs, and Cloudinary
+                // Allow images from self, data URIs, and Cloudinary
                 "img-src": ["'self'", "data:", "https://res.cloudinary.com"],
-                // 2. Allow scripts from your own domain (React's build files)
+                // Allow media vids
+                "media-src": ["'self'", "https://res.cloudinary.com", "blob:"],
+                // Allow scripts from your own domain (React's build files)
                 "script-src": ["'self'", "'unsafe-inline'"],
                 // enable Google Fonts to load for React client
                 "style-src": [
@@ -39,7 +41,7 @@ app.use(
                     "https://fonts.googleapis.com",
                 ],
                 "font-src": ["'self'", "https://fonts.gstatic.com"],
-                // 3. Connect-src must allow your API and Cloudinary if using their SDK
+                // Connect-src must allow your API and Cloudinary if using their SDK
                 "connect-src": ["'self'", "https://res.cloudinary.com"],
                 "upgrade-insecure-requests": [],
             },
