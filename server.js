@@ -2,7 +2,7 @@
 
 const express = require("express");
 const path = require("path");
-const rateLimit = require("express-rate-limit");
+const { rateLimit } = require("express-rate-limit");
 const helmet = require("helmet");
 
 const PORT = process.env.PORT || 5000;
@@ -35,11 +35,12 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 // Rate-limiting setup
 const authLimiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minute
-    max: 7,
+    limit: 100,
+    standardHeaders: "draft-8",
+    legacyHeaders: false,
     message: JSON.stringify({
         error: "Too many requests, please try again in a minute.",
     }),
-    legacyHeaders: false,
 });
 
 // API routers
