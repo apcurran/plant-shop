@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 import { saveCartItemsToStorage } from "../utils/save-cart-items-to-storage";
 import { saveQtyToStorage } from "../utils/save-qty-to-storage";
