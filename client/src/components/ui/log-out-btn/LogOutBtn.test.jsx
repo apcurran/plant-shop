@@ -3,7 +3,7 @@ import LogOutBtn from "./LogOutBtn";
 
 describe("LogOutBtn component", () => {
     test("renders log out btn properly", () => {
-        const mockedHandleLogOutFunc = jest.fn();
+        const mockedHandleLogOutFunc = vi.fn();
         render(<LogOutBtn handleLogOut={mockedHandleLogOutFunc} />);
 
         const logOutBtn = screen.getByRole("button", { name: /Log Out/i });
@@ -11,7 +11,7 @@ describe("LogOutBtn component", () => {
     });
 
     test("log out btn has proper class for styling", () => {
-        const mockedHandleLogOutFunc = jest.fn();
+        const mockedHandleLogOutFunc = vi.fn();
         render(<LogOutBtn handleLogOut={mockedHandleLogOutFunc} />);
 
         const logOutBtn = screen.getByRole("button", { name: /Log Out/i });
