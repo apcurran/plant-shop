@@ -51,12 +51,7 @@ function App() {
 
     return (
         <CloudinaryContext cloudName="dev-project" secure="true">
-            <Router
-                future={{
-                    v7_relativeSplatPath: true,
-                    v7_startTransition: true,
-                }}
-            >
+            <Router>
                 <div className="App">
                     <Routes>
                         <Route path="/" element={<Home />} />
