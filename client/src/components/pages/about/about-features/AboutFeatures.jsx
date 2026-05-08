@@ -1,4 +1,7 @@
 import { Image, Video, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "@utils/cloudinary-setup";
 
 import "./AboutFeatures.css";
 

@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
         "module": "ES6",
-        "target": "es6"
+        "target": "es6",
+        "paths": {
+            "@utils/*": ["./src/utils/*"]
+        }
     },
     "exclude": ["node_modules"]
 }
