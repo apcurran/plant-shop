@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "@utils/cloudinary-setup";
 
 import "./CollectionCard.css";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 function CollectionCard({
     title,
@@ -12,26 +15,24 @@ function CollectionCard({
     imgWidth,
     imgHeight,
 }) {
+    const img = cld
+        .image(imgPublicId)
+        .resize(fill().width(550).height(550))
+        .quality("auto")
+        .format("auto");
+
     return (
         <section className="home__collection-card home__collection-card--narrow">
             <div className="home__collection-card__inner-container">
                 <figure className="home__collection-card__fig">
-                    <Image
-                        publicId={imgPublicId}
-                        alt={imgAlt}
+                    <AdvancedImage
+                        cldImg={img}
                         className="home__collection-card__fig__img"
-                        loading="lazy"
+                        alt={imgAlt}
                         width={imgWidth}
                         height={imgHeight}
-                    >
-                        <Transformation
-                            width="550"
-                            height="550"
-                            crop="fill"
-                            quality="auto"
-                            fetchFormat="auto"
-                        />
-                    </Image>
+                        loading="lazy"
+                    />
                 </figure>
                 <article className="home__collection-card__article">
                     <Link to={linkHref}>
