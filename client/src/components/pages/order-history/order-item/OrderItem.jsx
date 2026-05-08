@@ -1,6 +1,9 @@
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "@utils/cloudinary-setup";
 
 import "./OrderItem.css";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 function OrderItem({
     title,
@@ -13,24 +16,23 @@ function OrderItem({
     width,
     height,
 }) {
+    const img = cld
+        .image(publicId)
+        .resize(fill().width(150))
+        .quality("auto")
+        .format("auto");
+
     return (
         <div className="order-item">
             <div className="order-item__inner-container">
                 <figure className="order-item__fig">
-                    <Image
+                    <AdvancedImage
+                        cldImg={img}
                         className="order-item__fig__img"
-                        publicId={publicId}
+                        alt={altText}
                         width={width}
                         height={height}
-                        alt={altText}
-                    >
-                        <Transformation
-                            width="150"
-                            crop="fill"
-                            quality="auto"
-                            fetchFormat="auto"
-                        />
-                    </Image>
+                    />
                 </figure>
                 <div className="order-item__content">
                     <h3 className="order-item__content__title">{title}</h3>
