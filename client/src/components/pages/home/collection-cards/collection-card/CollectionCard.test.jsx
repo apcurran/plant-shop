@@ -1,5 +1,4 @@
 import { MemoryRouter } from "react-router-dom";
-import { CloudinaryContext } from "cloudinary-react";
 import { render, screen } from "@testing-library/react";
 
 import CollectionCard from "./CollectionCard";
@@ -20,18 +19,16 @@ describe("CollectionCard component", () => {
 
         render(
             <MemoryRouter>
-                <CloudinaryContext cloudName="dev-project" secure="true">
-                    <CollectionCard
-                        key={card.title}
-                        title={card.title}
-                        desc={card.desc}
-                        linkHref={card.linkHref}
-                        imgPublicId={card.imgData.publicId}
-                        imgAlt={card.imgData.alt}
-                        imgWidth={card.imgData.width}
-                        imgHeight={card.imgData.height}
-                    />
-                </CloudinaryContext>
+                <CollectionCard
+                    key={card.title}
+                    title={card.title}
+                    desc={card.desc}
+                    linkHref={card.linkHref}
+                    imgPublicId={card.imgData.publicId}
+                    imgAlt={card.imgData.alt}
+                    imgWidth={card.imgData.width}
+                    imgHeight={card.imgData.height}
+                />
             </MemoryRouter>,
         );
 
