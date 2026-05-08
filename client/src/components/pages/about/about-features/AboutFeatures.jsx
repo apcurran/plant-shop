@@ -1,28 +1,45 @@
-import { Image, Video, Transformation } from "cloudinary-react";
-import { AdvancedImage } from "@cloudinary/react";
+import { AdvancedImage, AdvancedVideo } from "@cloudinary/react";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 import { cld } from "@utils/cloudinary-setup";
 
 import "./AboutFeatures.css";
 
 function AboutFeatures() {
+    const livingRoomPlantsImg = cld
+        .image("evergreen-app/living-room-table-plants_dv16lm.jpg")
+        .resize(fill().width(600))
+        .format("auto")
+        .quality("auto");
+
+    const pearsImg = cld
+        .image("evergreen-app/three-pears_pvexbh.jpg")
+        .resize(fill().width(600))
+        .format("auto")
+        .quality("auto");
+
+    const leavesImg = cld
+        .image("evergreen-app/light-through-leaves_sllhnh.jpg")
+        .resize(fill().width(1300).height(600))
+        .format("auto")
+        .quality("auto");
+
+    const windVideo = cld
+        .video("evergreen-app/potted-plant-blowing-in-wind_gb7lya")
+        .resize(fill().width(1300).height(600))
+        .format("auto")
+        .quality("auto");
+
     return (
         <section className="about__features">
             <figure className="about__features__fig">
-                <Image
+                <AdvancedImage
+                    cldImg={livingRoomPlantsImg}
                     className="about__features__fig__img"
-                    publicId="evergreen-app/living-room-table-plants_dv16lm.jpg"
                     width="1920"
                     height="1440"
                     loading="lazy"
-                >
-                    <Transformation
-                        width="600"
-                        crop="fill"
-                        quality="auto"
-                        fetchFormat="auto"
-                    />
-                </Image>
+                />
             </figure>
             <article className="about__features__article">
                 <h2 className="about__features__article__title">
@@ -39,23 +56,15 @@ function AboutFeatures() {
                 </p>
             </article>
             <div className="about__features__video-container">
-                <Video
+                <AdvancedVideo
+                    cldVid={windVideo}
                     className="about__features__video"
                     width="1920"
                     height="1080"
-                    publicId="evergreen-app/potted-plant-blowing-in-wind_gb7lya"
                     loop={true}
                     autoPlay={true}
-                    muted="muted"
-                >
-                    <Transformation
-                        width="1300"
-                        height="600"
-                        crop="fill"
-                        quality="auto"
-                        fetchFormat="auto"
-                    />
-                </Video>
+                    muted={true}
+                />
             </div>
             <article className="about__features__article">
                 <h2 className="about__features__article__title">
@@ -70,37 +79,22 @@ function AboutFeatures() {
                 </p>
             </article>
             <figure className="about__features__fig about__features__fig--right">
-                <Image
+                <AdvancedImage
+                    cldImg={pearsImg}
                     className="about__features__fig__img"
-                    publicId="evergreen-app/three-pears_pvexbh.jpg"
                     width="1920"
                     height="1228"
                     loading="lazy"
-                >
-                    <Transformation
-                        width="600"
-                        crop="fill"
-                        quality="auto"
-                        fetchFormat="auto"
-                    />
-                </Image>
+                />
             </figure>
             <figure className="about__features__fig about__features__fig--span-all">
-                <Image
+                <AdvancedImage
+                    cldImg={leavesImg}
                     className="about__features__fig__img"
-                    publicId="evergreen-app/light-through-leaves_sllhnh.jpg"
                     width="1920"
                     height="1282"
                     loading="lazy"
-                >
-                    <Transformation
-                        width="1300"
-                        height="600"
-                        crop="fill"
-                        quality="auto"
-                        fetchFormat="auto"
-                    />
-                </Image>
+                />
             </figure>
         </section>
     );
