@@ -1,10 +1,13 @@
 import { useCallback, useState } from "react";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "@utils/cloudinary-setup";
 
 import useCartStore from "../../../../stores/CartStore";
 
 import "./CartTable.css";
 import CheckoutLink from "../../../ui/checkout-link/CheckoutLink";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 function CartTable({ items }) {
     // Local state
@@ -25,85 +28,85 @@ function CartTable({ items }) {
         0,
     );
 
-    const itemsArr = items.map((item) => (
-        <tr key={item.productExtraInfoId} className="cart-table__tbody__tr">
-            <td className="cart-table__tbody__tr__td cart-table__prod-info">
-                <figure className="cart-table__prod-info__fig">
-                    <Image
-                        publicId={item.imgPublicId}
-                        width="125"
-                        height="150"
-                        alt={item.imgAltTxt}
-                        className="cart-table__prod-info__fig__img"
-                    >
-                        <Transformation
+    const itemsArr = items.map((item) => {
+        const cldImg = cld
+            .image(item.imgPublicId)
+            .resize(fill().width(125).height(150))
+            .quality("auto")
+            .format("auto");
+
+        return (
+            <tr key={item.productExtraInfoId} className="cart-table__tbody__tr">
+                <td className="cart-table__tbody__tr__td cart-table__prod-info">
+                    <figure className="cart-table__prod-info__fig">
+                        <AdvancedImage
+                            cldImg={cldImg}
+                            alt={item.imgAltTxt}
+                            className="cart-table__prod-info__fig__img"
                             width="125"
                             height="150"
-                            crop="fill"
-                            quality="auto"
-                            fetchFormat="auto"
                         />
-                    </Image>
-                </figure>
-                <div className="cart-table__prod-info__desc-container">
-                    <h2 className="cart-table__prod-info__title">
-                        {item.title}
-                    </h2>
-                    <p className="cart-table__prod-info__size">
-                        {item.size} Gallon
-                    </p>
-                </div>
-            </td>
-            <td className="cart-table__tbody__tr__td cart-table__price">
-                ${item.price}
-            </td>
-            <td className="cart-table__tbody__tr__td cart-table__qty-container">
-                <button
-                    onClick={() => decrementOneItem(item)}
-                    className="cart-table__qty-container__btn"
-                >
-                    -
-                </button>
-                <span>{item.itemQuantity}</span>
-                <button
-                    onClick={() => incrementOneItem(item)}
-                    className="cart-table__qty-container__btn"
-                >
-                    +
-                </button>
-            </td>
-            <td className="cart-table__tbody__tr__td cart-table__total">
-                ${item.itemTotalPrice}
-            </td>
-            <td className="cart-table__tbody__tr__td">
-                <button
-                    onClick={() =>
-                        removeItemFromCart(
-                            item.productId,
-                            item.productExtraInfoId,
-                        )
-                    }
-                    aria-label="Close"
-                    className="cart-table__tbody__tr__td__close-btn"
-                >
-                    <svg
-                        className="x-icon"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
+                    </figure>
+                    <div className="cart-table__prod-info__desc-container">
+                        <h2 className="cart-table__prod-info__title">
+                            {item.title}
+                        </h2>
+                        <p className="cart-table__prod-info__size">
+                            {item.size} Gallon
+                        </p>
+                    </div>
+                </td>
+                <td className="cart-table__tbody__tr__td cart-table__price">
+                    ${item.price}
+                </td>
+                <td className="cart-table__tbody__tr__td cart-table__qty-container">
+                    <button
+                        onClick={() => decrementOneItem(item)}
+                        className="cart-table__qty-container__btn"
                     >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </button>
-            </td>
-        </tr>
-    ));
+                        -
+                    </button>
+                    <span>{item.itemQuantity}</span>
+                    <button
+                        onClick={() => incrementOneItem(item)}
+                        className="cart-table__qty-container__btn"
+                    >
+                        +
+                    </button>
+                </td>
+                <td className="cart-table__tbody__tr__td cart-table__total">
+                    ${item.itemTotalPrice}
+                </td>
+                <td className="cart-table__tbody__tr__td">
+                    <button
+                        onClick={() =>
+                            removeItemFromCart(
+                                item.productId,
+                                item.productExtraInfoId,
+                            )
+                        }
+                        aria-label="Close"
+                        className="cart-table__tbody__tr__td__close-btn"
+                    >
+                        <svg
+                            className="x-icon"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        );
+    });
 
     const totalInfo = (
         <section className="total-info">
