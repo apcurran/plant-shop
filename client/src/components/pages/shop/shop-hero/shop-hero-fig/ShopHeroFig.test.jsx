@@ -1,4 +1,3 @@
-import { CloudinaryContext } from "cloudinary-react";
 import { render, screen } from "@testing-library/react";
 
 import ShopHeroFig from "./ShopHeroFig";
@@ -11,11 +10,7 @@ const imgData = {
 function MockShopHeroFig({ img }) {
     // Mock the component to allow the use of Cloudinary's image CDN.
 
-    return (
-        <CloudinaryContext cloudName="dev-project" secure="true">
-            <ShopHeroFig img={img} />
-        </CloudinaryContext>
-    );
+    return <ShopHeroFig img={img} />;
 }
 
 describe("ShopHeroFig component", () => {

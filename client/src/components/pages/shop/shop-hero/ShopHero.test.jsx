@@ -1,4 +1,3 @@
-import { CloudinaryContext } from "cloudinary-react";
 import { render, screen } from "@testing-library/react";
 
 import ShopHero from "./ShopHero";
@@ -6,11 +5,7 @@ import ShopHero from "./ShopHero";
 function MockShopHero({ categoryQueryText }) {
     // Mock the component to allow the use of Cloudinary's image CDN.
 
-    return (
-        <CloudinaryContext cloudName="dev-project" secure="true">
-            <ShopHero categoryQueryText={categoryQueryText} />
-        </CloudinaryContext>
-    );
+    return <ShopHero categoryQueryText={categoryQueryText} />;
 }
 
 describe("ShopHero component", () => {
