@@ -1,25 +1,26 @@
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "@utils/cloudinary-setup";
 
 import "./ShopHeroFig.css";
+import { scale } from "@cloudinary/url-gen/actions/resize";
 
 function ShopHeroFig({ img }) {
+    const cldImg = cld
+        .image(img.publicId)
+        .resize(scale().width(300).height(450))
+        .quality("auto")
+        .format("auto");
+
     return (
         <figure className="shop__hero__fig">
-            <Image
-                publicId={img.publicId}
+            <AdvancedImage
+                cldImg={cldImg}
                 alt={img.alt}
                 className="shop__hero__fig__img"
                 width="300"
                 height="450"
-            >
-                <Transformation
-                    width="300"
-                    height="450"
-                    crop="scale"
-                    quality="auto"
-                    fetchFormat="auto"
-                />
-            </Image>
+            />
         </figure>
     );
 }
