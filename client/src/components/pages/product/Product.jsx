@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "@utils/cloudinary-setup";
 
 import "./Product.css";
 import Header from "../../layout/header/Header";
@@ -9,6 +11,7 @@ import MainWrapper from "../../layout/main-wrapper/MainWrapper";
 import ProductSizeBtn from "./product-size-btn/ProductSizeBtn";
 
 import useCartStore from "../../../stores/CartStore";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 function Product() {
     const { productId } = useParams();
@@ -80,6 +83,12 @@ function Product() {
         </span>
     );
 
+    const img = cld
+        .image(productData.publicId)
+        .resize(fill().width(500))
+        .quality("auto")
+        .format("auto");
+
     return (
         <div className="product">
             <Header />
@@ -87,20 +96,13 @@ function Product() {
                 <TitleBar>{productData.category}</TitleBar>
                 <div className="product__grid-wrapper">
                     <figure className="product__fig">
-                        <Image
-                            publicId={productData.publicId}
+                        <AdvancedImage
+                            cldImg={img}
                             alt={productData.altText}
+                            className="product__fig__img"
                             width={productData.width}
                             height={productData.height}
-                            className="product__fig__img"
-                        >
-                            <Transformation
-                                width="500"
-                                crop="fill"
-                                quality="auto"
-                                fetchFormat="auto"
-                            />
-                        </Image>
+                        />
                     </figure>
                     <section className="product__content">
                         <div className="product__content__heading-container">
