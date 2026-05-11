@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
-import { Image, Transformation } from "cloudinary-react";
+import { AdvancedImage } from "@cloudinary/react";
+
+import { cld } from "@utils/cloudinary-setup";
 
 import useAuthStore from "../../../../../stores/AuthStore";
 
 import "./ProductCard.css";
 import AdminDeleteBtn from "./admin-delete-btn/AdminDeleteBtn";
 import AdminUpdateProductLink from "../../../../ui/admin-update-product-link/AdminUpdateProductLink";
+import { fill } from "@cloudinary/url-gen/actions/resize";
 
 function ProductCard({ productData }) {
     const isAdmin = useAuthStore((state) => state.user.isAdmin);
@@ -21,6 +24,12 @@ function ProductCard({ productData }) {
         />
     ) : null;
 
+    const img = cld
+        .image(productData.publicId)
+        .resize(fill().width(400).height(600))
+        .quality("auto")
+        .format("auto");
+
     return (
         <div className="shop__product-outer-wrapper">
             <Link
@@ -29,22 +38,13 @@ function ProductCard({ productData }) {
             >
                 <article className="shop__products-section__card">
                     <figure className="shop__products-section__card__fig">
-                        <Image
-                            publicId={productData.publicId}
-                            alt={productData.altText}
+                        <AdvancedImage
+                            cldImg={img}
                             className="shop__products-section__card__img"
-                            loading="lazy"
                             width={productData.width}
                             height={productData.height}
-                        >
-                            <Transformation
-                                width="400"
-                                height="600"
-                                crop="fill"
-                                quality="auto"
-                                fetchFormat="auto"
-                            />
-                        </Image>
+                            loading="lazy"
+                        />
                     </figure>
                     <div className="shop__products-section__card__content-group">
                         <h3 className="shop__products-section__card__title">
