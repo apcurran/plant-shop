@@ -1,16 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { CloudinaryContext } from "cloudinary-react";
 
 function AllProviders({ children }) {
-    return (
-        <MemoryRouter>
-            <CloudinaryContext cloudName="dev-project" secure="true">
-                {children}
-            </CloudinaryContext>
-        </MemoryRouter>
-    );
+    return <MemoryRouter>{children}</MemoryRouter>;
 }
 
 function customRender(ui, options) {
