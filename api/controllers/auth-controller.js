@@ -90,11 +90,9 @@ async function postLogin(req, res, next) {
         const validPassword = await bcrypt.compare(password, user.password);
 
         if (!validPassword) {
-            return res
-                .status(400)
-                .json({
-                    error: "Invalid credentials provided. Check your email or password again.",
-                });
+            return res.status(400).json({
+                error: "Invalid credentials provided. Check your email or password again.",
+            });
         }
 
         const token = jwt.sign(
