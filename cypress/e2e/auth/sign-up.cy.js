@@ -12,16 +12,17 @@ describe("user sign up", () => {
 
         cy.visit("/auth/sign-up");
 
-        cy.get("#first-name").type("Bob");
+        // get the env variable async
+        cy.env(["testUserPassword"]).then(({ testUserPassword }) => {
+            cy.get("#first-name").type("Bob");
+            cy.get("#last-name").type("Doe");
+            cy.get("#email").type("bobdoe@gmail.com");
 
-        cy.get("#last-name").type("Doe");
+            // Safe to type now that the value has yielded
+            cy.get("#password").type(testUserPassword);
 
-        cy.get("#email").type("bobdoe@gmail.com");
-
-        cy.get("#password").type(Cypress.env("testUserPassword"));
-
-        cy.contains("button", "Submit").click();
-
-        cy.url().should("include", "/log-in");
+            cy.contains("button", "Submit").click();
+            cy.url().should("include", "/log-in");
+        });
     });
 });
