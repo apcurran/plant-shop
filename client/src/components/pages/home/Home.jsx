@@ -9,7 +9,7 @@ function Home() {
     return (
         <div className="home">
             <div className="home-grid-wrapper">
-                <Header homePageRendering="true" />
+                <Header homePageRendering={true} />
                 <HeroSection />
             </div>
             <PlantTypes />

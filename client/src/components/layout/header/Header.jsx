@@ -30,9 +30,7 @@ function Header({ homePageRendering }) {
             <SignedOutLinks />
         );
     // If the Home page is rendering from the current route, apply CSS class
-    const homePageHeaderClass = Boolean(homePageRendering)
-        ? "header--home"
-        : "";
+    const homePageHeaderClass = homePageRendering ? "header--home" : "";
 
     return (
         <header className={`header ${homePageHeaderClass}`}>
