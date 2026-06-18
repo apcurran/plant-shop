@@ -1,10 +1,8 @@
-"use strict";
+import { Readable } from "stream";
 
-const { Readable } = require("stream");
+import { cloudinary } from "../util/cloudinary.js";
 
-const { cloudinary } = require("../util/cloudinary");
-
-function streamUploadToCloudinary(imgFile, folderPath) {
+export function streamUploadToCloudinary(imgFile, folderPath) {
     return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
             {
@@ -22,5 +20,3 @@ function streamUploadToCloudinary(imgFile, folderPath) {
         Readable.from(imgFile.buffer).pipe(stream);
     });
 }
-
-module.exports = { streamUploadToCloudinary };
