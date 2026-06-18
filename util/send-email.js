@@ -1,8 +1,6 @@
-"use strict";
+import nodemailer from "nodemailer";
 
-const nodemailer = require("nodemailer");
-
-async function sendResetLink(id, userEmail) {
+export async function sendResetLink(id, userEmail) {
     try {
         const transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",
@@ -30,5 +28,3 @@ async function sendResetLink(id, userEmail) {
         console.error(err);
     }
 }
-
-module.exports = { sendResetLink };

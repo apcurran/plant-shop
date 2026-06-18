@@ -1,11 +1,9 @@
-"use strict";
-
 /**
  * @param {array} cartItemsArr - Shopping cart items from client req
  * @param {array} itemsFromDbArr - Cart items secure data directly from db
  * @returns {array} - Prepped line items array ready for Stripe API use
  */
-function prepareLineItems(itemsFromDbArr, cartItemsArr) {
+export function prepareLineItems(itemsFromDbArr, cartItemsArr) {
     return itemsFromDbArr.map((item, itemIndex) => {
         return {
             price_data: {
@@ -19,5 +17,3 @@ function prepareLineItems(itemsFromDbArr, cartItemsArr) {
         };
     });
 }
-
-module.exports = { prepareLineItems };

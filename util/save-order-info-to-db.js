@@ -1,6 +1,4 @@
-"use strict";
-
-async function saveOrderInfoToDb(
+export async function saveOrderInfoToDb(
     itemsInfoFromDb,
     userId,
     paymentTotal,
@@ -67,5 +65,3 @@ async function saveOrderInfoToDb(
         next(err);
     }
 }
-
-module.exports = { saveOrderInfoToDb };
