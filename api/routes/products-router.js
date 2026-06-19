@@ -1,10 +1,8 @@
-"use strict";
+import express from "express";
+import multer from "multer";
 
-const express = require("express");
-const multer = require("multer");
-
-const productsController = require("../controllers/products-controller");
-const { verifyAdmin } = require("../middleware/verify-admin");
+import * as productsController from "../controllers/products-controller.js";
+import { verifyAdmin } from "../middleware/verify-admin.js";
 
 const router = express.Router();
 const fileUpload = multer();
@@ -32,4 +30,4 @@ router.post(
     productsController.postProduct,
 );
 
-module.exports = router;
+export default router;

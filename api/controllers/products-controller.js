@@ -1,16 +1,13 @@
-"use strict";
-
-const { db } = require("../../db/index");
-const pgp = db.$config.pgp;
-const {
+import { db } from "../../db/index.js";
+import {
     postProductValidation,
     patchProductValidation,
-} = require("../validation/products-validation");
-const {
-    streamUploadToCloudinary,
-} = require("../../util/stream-upload-to-cloudinary");
+} from "../validation/products-validation.js";
+import { streamUploadToCloudinary } from "../../util/stream-upload-to-cloudinary.js";
 
-async function getProducts(req, res, next) {
+const pgp = db.$config.pgp;
+
+export async function getProducts(req, res, next) {
     try {
         const products = await db.many(`
             SELECT
@@ -40,7 +37,7 @@ async function getProducts(req, res, next) {
     }
 }
 
-async function getProduct(req, res, next) {
+export async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
         const queries = [
@@ -88,7 +85,7 @@ async function getProduct(req, res, next) {
     }
 }
 
-async function getProductsByCategory(req, res, next) {
+export async function getProductsByCategory(req, res, next) {
     try {
         const { q } = req.query;
         const products = await db.manyOrNone(
@@ -122,7 +119,7 @@ async function getProductsByCategory(req, res, next) {
     }
 }
 
-async function postProduct(req, res, next) {
+export async function postProduct(req, res, next) {
     const imgFile = req.file;
     const uploadedProductImgData = await streamUploadToCloudinary(
         imgFile,
@@ -198,7 +195,7 @@ async function postProduct(req, res, next) {
     res.status(201).json({ msg: "Product information added." });
 }
 
-async function patchProduct(req, res, next) {
+export async function patchProduct(req, res, next) {
     const { productId } = req.params;
     const imgFile = req.file ? req.file : null;
     const uploadedProductImgData = imgFile
@@ -287,7 +284,7 @@ async function patchProduct(req, res, next) {
     res.status(200).json({ msg: "Product information updated." });
 }
 
-async function deleteProduct(req, res, next) {
+export async function deleteProduct(req, res, next) {
     try {
         const { productId } = req.params;
 
@@ -304,12 +301,3 @@ async function deleteProduct(req, res, next) {
         next(err);
     }
 }
-
-module.exports = {
-    getProducts,
-    getProduct,
-    getProductsByCategory,
-    postProduct,
-    patchProduct,
-    deleteProduct,
-};
