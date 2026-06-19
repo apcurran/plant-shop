@@ -1,6 +1,4 @@
-"use strict";
-
-const { calcOrderTotal } = require("../calc-order-total");
+import { calcOrderTotal } from "../calc-order-total.js";
 
 describe("calcOrderTotal", () => {
     test("calculates order total from items array", () => {
