@@ -1,8 +1,6 @@
-"use strict";
+import jwt from "jsonwebtoken";
 
-const jwt = require("jsonwebtoken");
-
-function verifyAuth(req, res, next) {
+export function verifyAuth(req, res, next) {
     const authHeader = req.header("Authorization");
     const token = authHeader && authHeader.split(" ")[1];
 
@@ -27,5 +25,3 @@ function verifyAuth(req, res, next) {
         },
     );
 }
-
-module.exports = { verifyAuth };
