@@ -1,21 +1,18 @@
-"use strict";
+import express from "express";
+import path from "path";
+import { rateLimit } from "express-rate-limit";
+import helmet from "helmet";
 
-const express = require("express");
-const path = require("path");
-const { rateLimit } = require("express-rate-limit");
-const helmet = require("helmet");
+import productsRouter from "./api/routes/products-router.js";
+import authRouter from "./api/routes/auth-router.js";
+import ordersRouter from "./api/routes/orders-router.js";
 
 const PORT = process.env.PORT || 5000;
 // Import routers
-const productsRouter = require("./api/routes/products-router");
-const authRouter = require("./api/routes/auth-router");
-const ordersRouter = require("./api/routes/orders-router");
-
 const app = express();
 
 if (process.env.NODE_ENV === "development") {
-    const morgan = require("morgan");
-
+    const { default: morgan } = await import("morgan");
     app.use(morgan("dev"));
 }
 
@@ -53,7 +50,7 @@ app.use(
     }),
 );
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(import.meta.dirname, "client", "build")));
 
 // Rate-limiting setup
 const authLimiter = rateLimit({
@@ -81,7 +78,9 @@ app.use((err, req, res, next) => {
 
 // Catch-all GET handler to send back React's index.html file
 app.get("/{*splat}", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+    res.sendFile(
+        path.join(import.meta.dirname, "client", "build", "index.html"),
+    );
 });
 
 app.listen(PORT, () =>
