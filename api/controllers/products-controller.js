@@ -121,29 +121,29 @@ export async function getProductsByCategory(req, res, next) {
 
 export async function postProduct(req, res, next) {
     const imgFile = req.file;
-    const uploadedProductImgData = await streamUploadToCloudinary(
-        imgFile,
-        "evergreen-app",
-    ).catch((err) => next(err));
-    const productImgPublicId = uploadedProductImgData.public_id;
-    const productImgWidth = uploadedProductImgData.width;
-    const productImgHeight = uploadedProductImgData.height;
+
     try {
-        // Function-scoped vars
-        var { title, description, category, imgAltText } =
-            await postProductValidation(req.body);
-    } catch (err) {
-        if (err.isJoi) {
-            return res.status(400).json({ error: err.message });
+        if (!imgFile) {
+            return res
+                .status(400)
+                .json({ error: "Product image is required." });
         }
 
-        next(err);
-    }
+        // validate data first
+        const { title, description, category, imgAltText } =
+            await postProductValidation(req.body);
+        /** @type {object[]} */
+        const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
-    /** @type {object[]} */
-    const productExtraInfo = JSON.parse(req.body.productExtraInfo);
+        // run Cloudinary upload
+        const uploadedProductImgData = await streamUploadToCloudinary(
+            imgFile,
+            "evergreen-app",
+        );
+        const productImgPublicId = uploadedProductImgData.public_id;
+        const productImgWidth = uploadedProductImgData.width;
+        const productImgHeight = uploadedProductImgData.height;
 
-    try {
         // db.tx() method already adds BEGIN, COMMIT, and ROLLBACK for postgres transaction
         await db.tx("add-product-transaction", async (currTx) => {
             // Save to product table (returning the product_id)
@@ -189,7 +189,11 @@ export async function postProduct(req, res, next) {
             );
         });
     } catch (err) {
-        next(err);
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        return next(err);
     }
 
     res.status(201).json({ msg: "Product information added." });
