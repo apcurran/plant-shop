@@ -1,14 +1,13 @@
 import Stripe from "stripe";
 
-const Stripe = require("stripe");
+import { db } from "../../db/index.js";
+import { prepareLineItems } from "../../util/prepare-line-items.js";
+import { saveOrderInfoToDb } from "../../util/save-order-info-to-db.js";
+import { calcOrderTotal } from "../../util/calc-order-total.js";
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-const { db } = require("../../db/index");
-const { prepareLineItems } = require("../../util/prepare-line-items");
-const { saveOrderInfoToDb } = require("../../util/save-order-info-to-db");
-const { calcOrderTotal } = require("../../util/calc-order-total");
-
-async function getOrderHistory(req, res, next) {
+export async function getOrderHistory(req, res, next) {
     const userId = req.user._id;
 
     try {
@@ -72,7 +71,7 @@ async function getOrderHistory(req, res, next) {
     }
 }
 
-async function postCreatePaymentIntent(req, res, next) {
+export async function postCreatePaymentIntent(req, res, next) {
     const { currItemsArr } = req.body.cartData;
 
     try {
@@ -155,7 +154,7 @@ async function postCreatePaymentIntent(req, res, next) {
     }
 }
 
-async function patchCompleteCheckout(req, res, next) {
+export async function patchCompleteCheckout(req, res, next) {
     try {
         const { sessionId, orderId } = req.body;
 
@@ -175,9 +174,3 @@ async function patchCompleteCheckout(req, res, next) {
         next(err);
     }
 }
-
-module.exports = {
-    getOrderHistory,
-    postCreatePaymentIntent,
-    patchCompleteCheckout,
-};

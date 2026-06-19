@@ -1,24 +1,20 @@
 import express from "express";
 
-const express = require("express");
-
-const ordersController = require("../controllers/orders-controller");
-const { verifyAuth } = require("../middleware/verify-auth");
+import * as ordersController from "../controllers/orders-controller.js";
+import { verifyAuth } from "../middleware/verify-auth.js";
 
 const router = express.Router();
 
 router.get("/order-history", verifyAuth, ordersController.getOrderHistory);
-
 router.post(
     "/create-checkout-session",
     verifyAuth,
     ordersController.postCreatePaymentIntent,
 );
-
 router.patch(
     "/complete-checkout",
     verifyAuth,
     ordersController.patchCompleteCheckout,
 );
 
-module.exports = router;
+export default router;
