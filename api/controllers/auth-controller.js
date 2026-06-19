@@ -1,20 +1,17 @@
-"use strict";
-
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
-
-const { db } = require("../../db/index");
-const {
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
+import { db } from "../../db/index.js";
+import {
     signupValidation,
     loginValidation,
     forgotPasswordValidation,
     resetPasswordValidation,
-} = require("../validation/auth-validation");
-const { sendResetLink } = require("../../util/send-email");
+} from "../validation/auth-validation.js";
+import { sendResetLink } from "../../util/send-email.js";
 
 // POST controllers
-async function postSignup(req, res, next) {
+export async function postSignup(req, res, next) {
     try {
         const { firstName, lastName, email, password, adminPassword } =
             await signupValidation(req.body);
@@ -65,7 +62,7 @@ async function postSignup(req, res, next) {
     }
 }
 
-async function postLogin(req, res, next) {
+export async function postLogin(req, res, next) {
     try {
         const { email, password } = await loginValidation(req.body);
         const user = await db.oneOrNone(
@@ -125,7 +122,7 @@ async function postLogin(req, res, next) {
     }
 }
 
-async function postForgot(req, res, next) {
+export async function postForgot(req, res, next) {
     try {
         // Validate incoming data first
         const { email } = await forgotPasswordValidation(req.body);
@@ -177,7 +174,7 @@ async function postForgot(req, res, next) {
     }
 }
 
-async function patchResetPassword(req, res, next) {
+export async function patchResetPassword(req, res, next) {
     try {
         // Get tempId from client req
         const { tempId, newPassword } = await resetPasswordValidation(req.body);
@@ -229,10 +226,3 @@ async function patchResetPassword(req, res, next) {
         next(err);
     }
 }
-
-module.exports = {
-    postSignup,
-    postLogin,
-    postForgot,
-    patchResetPassword,
-};
