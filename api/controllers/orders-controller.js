@@ -62,7 +62,7 @@ export async function getOrderHistory(req, res, next) {
                         orderItems: orderItemsArr,
                     };
                 }),
-            ).catch((err) => next(err));
+            );
 
             res.json(formattedOrders);
         });
