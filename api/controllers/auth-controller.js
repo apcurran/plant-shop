@@ -190,13 +190,14 @@ export async function patchResetPassword(req, res, next) {
             `,
                 { tempId },
             );
-            const userEmail = userRequest.email;
 
             if (!userRequest) {
                 return res
                     .status(404)
                     .json({ error: "That account does not exist." });
             }
+
+            const userEmail = userRequest.email;
 
             const saltRounds = 12;
             const newHashedPassword = await bcrypt.hash(
