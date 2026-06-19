@@ -1,8 +1,6 @@
-"use strict";
+import Joi from "joi";
 
-const Joi = require("joi");
-
-function signupValidation(data) {
+export function signupValidation(data) {
     const schema = Joi.object({
         firstName: Joi.string().max(50).trim().required(),
         lastName: Joi.string().max(50).trim().required(),
@@ -14,7 +12,7 @@ function signupValidation(data) {
     return schema.validateAsync(data);
 }
 
-function loginValidation(data) {
+export function loginValidation(data) {
     const schema = Joi.object({
         email: Joi.string().email().max(100).trim().required(),
         password: Joi.string().min(6).max(50).trim().required(),
@@ -23,7 +21,7 @@ function loginValidation(data) {
     return schema.validateAsync(data);
 }
 
-function forgotPasswordValidation(data) {
+export function forgotPasswordValidation(data) {
     const schema = Joi.object({
         email: Joi.string().trim().email().max(100).required(),
     });
@@ -31,7 +29,7 @@ function forgotPasswordValidation(data) {
     return schema.validateAsync(data);
 }
 
-function resetPasswordValidation(data) {
+export function resetPasswordValidation(data) {
     const schema = Joi.object({
         tempId: Joi.string().required(),
         newPassword: Joi.string().trim().min(6).max(50).required(),
@@ -39,10 +37,3 @@ function resetPasswordValidation(data) {
 
     return schema.validateAsync(data);
 }
-
-module.exports = {
-    signupValidation,
-    loginValidation,
-    forgotPasswordValidation,
-    resetPasswordValidation,
-};

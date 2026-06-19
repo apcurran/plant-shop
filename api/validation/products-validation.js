@@ -1,8 +1,6 @@
-"use strict";
+import Joi from "joi";
 
-const Joi = require("joi");
-
-function postProductValidation(data) {
+export function postProductValidation(data) {
     const schema = Joi.object({
         title: Joi.string().trim().required(),
         description: Joi.string().trim().required(),
@@ -15,7 +13,7 @@ function postProductValidation(data) {
     return schema.validateAsync(data);
 }
 
-function patchProductValidation(data) {
+export function patchProductValidation(data) {
     const schema = Joi.object({
         title: Joi.string().trim(),
         description: Joi.string().trim(),
@@ -27,8 +25,3 @@ function patchProductValidation(data) {
 
     return schema.validateAsync(data);
 }
-
-module.exports = {
-    postProductValidation,
-    patchProductValidation,
-};
