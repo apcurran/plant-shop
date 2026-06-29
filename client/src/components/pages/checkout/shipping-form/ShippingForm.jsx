@@ -35,9 +35,55 @@ function ShippingForm() {
         setZip(event.target.value);
     }
 
+    function validateOrderData(userData, cartItemsArr) {
+        if (!Array.isArray(cartItemsArr) || cartItemsArr.length === 0) {
+            throw new Error("Your cart is empty. Add items before checkout.");
+        }
+
+        for (const item of cartItemsArr) {
+            if (
+                !Number.isInteger(item.itemQuantity) ||
+                item.itemQuantity <= 0
+            ) {
+                throw new Error(
+                    `Invalid quantity for ${item.title}. Quantity must be a positive number.`,
+                );
+            }
+
+            if (typeof item.price !== "number" || item.price <= 0) {
+                throw new Error(
+                    `Invalid price for ${item.title}. Price must be positive.`,
+                );
+            }
+        }
+
+        // Validate shipping address fields
+        if (!userData.street || userData.street.trim() === "") {
+            throw new Error("Street address is required.");
+        }
+        if (!userData.city || userData.city.trim() === "") {
+            throw new Error("City is required.");
+        }
+        if (!userData.state || userData.state.trim() === "") {
+            throw new Error("State is required.");
+        }
+        if (!userData.zip || userData.zip.trim() === "") {
+            throw new Error("Zip code is required.");
+        }
+
+        const zipRegex = /^\d{5}(-\d{4})?$/;
+
+        if (!zipRegex.test(userData.zip)) {
+            throw new Error(
+                "Zip code must be valid (e.g., 12345 or 12345-6789).",
+            );
+        }
+    }
+
     async function handleSubmit(event) {
         event.preventDefault();
 
+        setError("");
         setIsLoading(true);
 
         const userData = {
@@ -52,6 +98,9 @@ function ShippingForm() {
         };
 
         try {
+            // Validate all data before sending to API
+            validateOrderData(userData, cartItemsArr);
+
             const response = await fetch(
                 "/api/orders/create-checkout-session",
                 {
