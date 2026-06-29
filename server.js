@@ -10,8 +10,9 @@ import ordersRouter from "./api/routes/orders-router.js";
 const PORT = process.env.PORT || 5000;
 // Import routers
 const app = express();
+const isDev = process.env.NODE_ENV === "development";
 
-if (process.env.NODE_ENV === "development") {
+if (isDev) {
     const { default: morgan } = await import("morgan");
     app.use(morgan("dev"));
 }
@@ -73,7 +74,9 @@ app.use("/api/orders", ordersRouter);
 app.use((err, req, res, next) => {
     console.error(err);
 
-    return res.status(500).json({ error: err.message });
+    const message = isDev ? err.message : "Internal server error";
+
+    return res.status(500).json({ error: message });
 });
 
 // Catch-all GET handler to send back React's index.html file
