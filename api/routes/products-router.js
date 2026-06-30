@@ -5,7 +5,28 @@ import * as productsController from "../controllers/products-controller.js";
 import { verifyAdmin } from "../middleware/verify-admin.js";
 
 const router = express.Router();
-const fileUpload = multer();
+
+const ALLOWED_IMAGE_TYPES = [
+    "image/jpeg",
+    "image/jpg",
+    "image/png",
+    "image/webp",
+    "image/avif",
+];
+
+const fileUpload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024, // 5 MiB
+    },
+    fileFilter(req, file, cb) {
+        if (ALLOWED_IMAGE_TYPES.includes(file.mimetype)) {
+            cb(null, true);
+        } else {
+            cb(new Error("Only JPEG, PNG, WebP, and AVIF images are allowed."));
+        }
+    },
+});
 
 // GET products by category
 router.get("/category", productsController.getProductsByCategory);
