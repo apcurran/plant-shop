@@ -111,9 +111,13 @@ export async function postCreatePaymentIntent(req, res, next) {
 
             // Payment total
             const orderTotal = calcOrderTotal(itemsInfoFromDb);
-            
+
             // Validate order total is valid and reasonable
-            if (typeof orderTotal !== 'number' || orderTotal <= 0 || !isFinite(orderTotal)) {
+            if (
+                typeof orderTotal !== "number" ||
+                orderTotal <= 0 ||
+                !isFinite(orderTotal)
+            ) {
                 return res.status(400).json({ error: "Invalid order total" });
             }
 
@@ -135,7 +139,6 @@ export async function postCreatePaymentIntent(req, res, next) {
                 shippingAddress,
                 now,
                 currTask,
-                next,
             );
 
             // Convert to Stripe API format
