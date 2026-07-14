@@ -166,17 +166,24 @@ export async function postCreatePaymentIntent(req, res, next) {
 export async function patchCompleteCheckout(req, res, next) {
     try {
         const { sessionId, orderId } = req.body;
+        const userId = req.user._id;
 
-        await db.none(
+        const result = await db.result(
             `
             UPDATE app_user_order
             SET
                 stripe_payment_id = $<sessionId>,
                 is_complete = TRUE
-            WHERE order_id = $<orderId>
+            WHERE order_id = $<orderId> AND
+                  user_id = $<userId>
         `,
-            { sessionId, orderId },
+            { sessionId, orderId, userId },
         );
+
+        // if no rows were returned, the order doesn't exist OR doesn't belong to this userId
+        if (result.rowCount === 0) {
+            return res.status(404).json({ error: "Order not found." });
+        }
 
         res.status(200).json({ msg: "Payment successful" });
     } catch (err) {
