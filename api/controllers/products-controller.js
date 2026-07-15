@@ -71,11 +71,19 @@ export async function getProduct(req, res, next) {
                 values: { productId },
             },
         ]);
-        const [primaryProductDataArr, productExtraInfoArr] =
+        const [productRows, productExtraInfoRows] =
             await db.multi(formattedQueries);
+
+        // handle product not found gracefully here
+        if (!productRows || productRows.length === 0) {
+            return res.status(404).json({
+                message: "Product not found",
+            });
+        }
+
         const finalFormattedProduct = {
-            ...primaryProductDataArr[0],
-            productExtraInfo: productExtraInfoArr,
+            ...productRows[0],
+            productExtraInfo: productExtraInfoRows,
         };
 
         res.status(200).json(finalFormattedProduct);
