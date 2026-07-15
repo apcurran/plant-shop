@@ -40,53 +40,49 @@ export async function getProducts(req, res, next) {
 export async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
-        const formattedQueries = pgp.helpers.concat([
-            {
-                query: `
-                    SELECT
-                        product.title,
-                        product.description,
-                        product.category,
+        const product = await db.oneOrNone(
+            `
+            SELECT
+                product.title,
+                product.description,
+                product.category,
 
-                        product_img.public_id AS "publicId",
-                        product_img.alt_text AS "altText",
-                        product_img.width,
-                        product_img.height
-                    FROM product
-                    INNER JOIN product_img
-                        ON product.product_id = product_img.product_id
-                    WHERE product.product_id = $<productId>
-                `,
-                values: { productId },
-            },
-            {
-                query: `
-                    SELECT
-                        product_extra_info.product_extra_info_id AS "productExtraInfoId",
-                        product_extra_info.size,
-                        product_extra_info.price
-                    FROM product_extra_info
-                    WHERE product_extra_info.product_id = $<productId>
-                `,
-                values: { productId },
-            },
-        ]);
-        const [productRows, productExtraInfoRows] =
-            await db.multi(formattedQueries);
+                product_img.public_id AS "publicId",
+                product_img.alt_text AS "altText",
+                product_img.width,
+                product_img.height,
+
+                COALESCE(
+                    (
+                        SELECT jsonb_agg(
+                            jsonb_build_object(
+                                'productExtraInfoId', pei.product_extra_info_id,
+                                'size', pei.size,
+                                'price', pei.price
+                            )
+                        )
+                        FROM product_extra_info AS pei
+                        WHERE pei.product_id = product.product_id
+                    ),
+                    '[]'::jsonb
+                ) AS "productExtraInfo"
+
+            FROM product
+            INNER JOIN product_img
+                ON product.product_id = product_img.product_id
+            WHERE product.product_id = $<productId>
+            `,
+            { productId },
+        );
 
         // handle product not found gracefully here
-        if (!productRows || productRows.length === 0) {
+        if (!product) {
             return res.status(404).json({
                 message: "Product not found",
             });
         }
 
-        const finalFormattedProduct = {
-            ...productRows[0],
-            productExtraInfo: productExtraInfoRows,
-        };
-
-        res.status(200).json(finalFormattedProduct);
+        res.status(200).json(product);
     } catch (err) {
         next(err);
     }
