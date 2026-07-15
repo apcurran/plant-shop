@@ -40,7 +40,7 @@ export async function getProducts(req, res, next) {
 export async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
-        const queries = [
+        const formattedQueries = pgp.helpers.concat([
             {
                 query: `
                     SELECT
@@ -70,8 +70,7 @@ export async function getProduct(req, res, next) {
                 `,
                 values: { productId },
             },
-        ];
-        const formattedQueries = pgp.helpers.concat(queries);
+        ]);
         const [primaryProductDataArr, productExtraInfoArr] =
             await db.multi(formattedQueries);
         const finalFormattedProduct = {
