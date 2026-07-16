@@ -7,6 +7,11 @@ import { streamUploadToCloudinary } from "../../util/stream-upload-to-cloudinary
 
 const pgp = db.$config.pgp;
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function getProducts(req, res, next) {
     try {
         const products = await db.many(`
@@ -37,6 +42,11 @@ export async function getProducts(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function getProduct(req, res, next) {
     try {
         const { productId } = req.params;
@@ -88,6 +98,11 @@ export async function getProduct(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function getProductsByCategory(req, res, next) {
     try {
         const { q } = req.query;
@@ -122,6 +137,11 @@ export async function getProductsByCategory(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function postProduct(req, res, next) {
     const imgFile = req.file;
 
@@ -216,6 +236,11 @@ export async function postProduct(req, res, next) {
     res.status(201).json({ msg: "Product information added." });
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function patchProduct(req, res, next) {
     const { productId } = req.params;
     const imgFile = req.file ? req.file : null;
@@ -305,6 +330,11 @@ export async function patchProduct(req, res, next) {
     res.status(200).json({ msg: "Product information updated." });
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function deleteProduct(req, res, next) {
     try {
         const { productId } = req.params;
