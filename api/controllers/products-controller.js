@@ -135,7 +135,7 @@ export async function postProduct(req, res, next) {
         // validate data first
         const { title, description, category, imgAltText } =
             await postProductValidation(req.body);
-        /** @type {object[]} */
+        /** @type {{size: string, price: number}[]} */
         let productExtraInfo;
 
         try {
