@@ -5,8 +5,6 @@ import {
 } from "../validation/products-validation.js";
 import { streamUploadToCloudinary } from "../../util/stream-upload-to-cloudinary.js";
 
-const pgp = db.$config.pgp;
-
 /**
  * @param {import("express").Request} req
  * @param {import("express").Response} res
