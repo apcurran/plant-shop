@@ -7,6 +7,11 @@ import { calcOrderTotal } from "../../util/calc-order-total.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function getOrderHistory(req, res, next) {
     const userId = req.user._id;
 
@@ -71,6 +76,11 @@ export async function getOrderHistory(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function postCreatePaymentIntent(req, res, next) {
     const { currItemsArr } = req.body.cartData;
 
@@ -163,6 +173,11 @@ export async function postCreatePaymentIntent(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function patchCompleteCheckout(req, res, next) {
     try {
         const { sessionId, orderId } = req.body;

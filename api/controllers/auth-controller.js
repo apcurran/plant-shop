@@ -11,7 +11,11 @@ import {
 } from "../validation/auth-validation.js";
 import { sendResetLink } from "../../util/send-email.js";
 
-// POST controllers
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function postSignup(req, res, next) {
     try {
         const { firstName, lastName, email, password, adminPassword } =
@@ -63,6 +67,11 @@ export async function postSignup(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function postLogin(req, res, next) {
     try {
         const { email, password } = await loginValidation(req.body);
@@ -123,6 +132,11 @@ export async function postLogin(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function postForgot(req, res, next) {
     try {
         // Validate incoming data first
@@ -175,6 +189,11 @@ export async function postForgot(req, res, next) {
     }
 }
 
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ */
 export async function patchResetPassword(req, res, next) {
     try {
         // Get tempId from client req
