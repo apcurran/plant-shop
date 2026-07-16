@@ -136,7 +136,22 @@ export async function postProduct(req, res, next) {
         const { title, description, category, imgAltText } =
             await postProductValidation(req.body);
         /** @type {object[]} */
-        const productExtraInfo = JSON.parse(req.body.productExtraInfo);
+        // const productExtraInfo = JSON.parse(req.body.productExtraInfo);
+        let productExtraInfo;
+
+        try {
+            productExtraInfo = JSON.parse(req.body.productExtraInfo);
+        } catch {
+            return res
+                .status(400)
+                .json({ error: "Invalid productExtraInfo format." });
+        }
+
+        if (!Array.isArray(productExtraInfo)) {
+            return res
+                .status(400)
+                .json({ error: "productExtraInfo must be an array." });
+        }
 
         // run Cloudinary upload
         const uploadedProductImgData = await streamUploadToCloudinary(
