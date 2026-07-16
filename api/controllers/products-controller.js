@@ -136,7 +136,6 @@ export async function postProduct(req, res, next) {
         const { title, description, category, imgAltText } =
             await postProductValidation(req.body);
         /** @type {object[]} */
-        // const productExtraInfo = JSON.parse(req.body.productExtraInfo);
         let productExtraInfo;
 
         try {
