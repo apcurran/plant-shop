@@ -154,30 +154,29 @@ export async function postForgot(req, res, next) {
                 { email },
             );
 
-            // Reject if user does not exist in db
-            if (!user) {
-                return res.status(400).json({ error: "Email is not found." });
+            if (user) {
+                // Generate uuid
+                const id = crypto.randomUUID();
+                // Save in db table for forgotten passwords
+                await currTask.none(
+                    `
+                    INSERT INTO app_user_password_requests
+                        (temp_id, email)
+                    VALUES
+                        ($<id>, $<email>)
+                `,
+                    { id, email },
+                );
+
+                // Send reset link to user's email
+                await sendResetLink(id, email);
             }
 
-            // Generate uuid
-            const id = crypto.randomUUID();
-            // Save in db table for forgotten passwords
-            await currTask.none(
-                `
-                INSERT INTO app_user_password_requests
-                    (temp_id, email)
-                VALUES
-                    ($<id>, $<email>)
-            `,
-                { id, email },
-            );
-
-            // Send reset link to user's email
-            await sendResetLink(id, email);
-
-            // Return response with ok status
+            // Return the same response message whether the user exists or not
+            // this generic behavior helps to deter account enumeration
             res.status(200).json({
-                message: "Email has been sent with your password reset link.",
+                message:
+                    "If an account exists for that email, a password reset link has been sent.",
             });
         });
     } catch (err) {
