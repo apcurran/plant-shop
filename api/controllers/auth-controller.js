@@ -199,21 +199,20 @@ export async function patchResetPassword(req, res, next) {
         const saltRounds = 12;
         const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
-        await db.task(async (currTask) => {
-            // Get user info by tempId
+        const passwordUpdated = await db.task(async (currTask) => {
+            // Consume the reset token. If no row is returned, the token is
+            // invalid, expired, or has already been used.
             const userRequest = await currTask.oneOrNone(
                 `
-                SELECT email
-                FROM app_user_password_requests
+                DELETE FROM app_user_password_requests
                 WHERE temp_id = $<tempId>
+                RETURNING email
             `,
                 { tempId },
             );
 
             if (!userRequest) {
-                return res
-                    .status(400)
-                    .json({ error: "Invalid or expired reset link." });
+                return false;
             }
 
             const userEmail = userRequest.email;
@@ -231,7 +230,15 @@ export async function patchResetPassword(req, res, next) {
             res.status(200).json({
                 message: "User password has been updated.",
             });
+
+            return true;
         });
+
+        if (!passwordUpdated) {
+            return res
+                .status(400)
+                .json({ error: "Invalid or expired reset link." });
+        }
     } catch (err) {
         if (err.isJoi) {
             return res.status(400).json({ error: err.message });
