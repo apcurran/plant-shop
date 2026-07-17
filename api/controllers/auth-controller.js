@@ -218,7 +218,7 @@ export async function patchResetPassword(req, res, next) {
             const userEmail = userRequest.email;
 
             // Update current user's pw in db table
-            await currTask.none(
+            const result = await currTask.result(
                 `
                 UPDATE app_user
                 SET password = $<newHashedPassword>
@@ -227,9 +227,13 @@ export async function patchResetPassword(req, res, next) {
                 { newHashedPassword, userEmail },
             );
 
-            res.status(200).json({
-                message: "User password has been updated.",
-            });
+            // This should never happen unless the user was deleted after
+            // requesting the password reset.
+            if (result.rowCount !== 1) {
+                throw new Error(
+                    `Password reset failed: expected to update 1 user, updated ${result.rowCount}.`,
+                );
+            }
 
             return true;
         });
@@ -239,6 +243,10 @@ export async function patchResetPassword(req, res, next) {
                 .status(400)
                 .json({ error: "Invalid or expired reset link." });
         }
+
+        res.status(200).json({
+            message: "User password has been updated.",
+        });
     } catch (err) {
         if (err.isJoi) {
             return res.status(400).json({ error: err.message });
