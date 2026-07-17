@@ -2,4 +2,3 @@ node_modules
 .env
 cypress.env.json
 *.dump
-.github/skills
