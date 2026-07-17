@@ -196,6 +196,8 @@ export async function patchResetPassword(req, res, next) {
     try {
         // Get tempId from client req
         const { tempId, newPassword } = await resetPasswordValidation(req.body);
+        const saltRounds = 12;
+        const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
         await db.task(async (currTask) => {
             // Get user info by tempId
@@ -215,12 +217,6 @@ export async function patchResetPassword(req, res, next) {
             }
 
             const userEmail = userRequest.email;
-
-            const saltRounds = 12;
-            const newHashedPassword = await bcrypt.hash(
-                newPassword,
-                saltRounds,
-            );
 
             // Update current user's pw in db table
             await currTask.none(
