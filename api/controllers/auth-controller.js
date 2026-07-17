@@ -146,8 +146,7 @@ export async function postForgot(req, res, next) {
             // Get user from db
             const user = await currTask.oneOrNone(
                 `
-                SELECT
-                    first_name AS "firstName"
+                SELECT first_name AS "firstName"
                 FROM app_user
                 WHERE app_user.email = $<email>
             `,
@@ -202,8 +201,7 @@ export async function patchResetPassword(req, res, next) {
             // Get user info by tempId
             const userRequest = await currTask.oneOrNone(
                 `
-                SELECT
-                    email
+                SELECT email
                 FROM app_user_password_requests
                 WHERE temp_id = $<tempId>
             `,
