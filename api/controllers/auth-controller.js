@@ -196,34 +196,29 @@ export async function patchResetPassword(req, res, next) {
     try {
         // Get tempId from client req
         const { tempId, newPassword } = await resetPasswordValidation(req.body);
+        const saltRounds = 12;
+        const newHashedPassword = await bcrypt.hash(newPassword, saltRounds);
 
-        await db.task(async (currTask) => {
-            // Get user info by tempId
-            const userRequest = await currTask.oneOrNone(
+        const resetSuccess = await db.tx(async (currTransaction) => {
+            // Consume the reset token. If no row is returned, the token is
+            // invalid, expired, or has already been used.
+            const userRequest = await currTransaction.oneOrNone(
                 `
-                SELECT email
-                FROM app_user_password_requests
+                DELETE FROM app_user_password_requests
                 WHERE temp_id = $<tempId>
+                RETURNING email
             `,
                 { tempId },
             );
 
             if (!userRequest) {
-                return res
-                    .status(400)
-                    .json({ error: "Invalid or expired reset link." });
+                return false;
             }
 
             const userEmail = userRequest.email;
 
-            const saltRounds = 12;
-            const newHashedPassword = await bcrypt.hash(
-                newPassword,
-                saltRounds,
-            );
-
             // Update current user's pw in db table
-            await currTask.none(
+            const result = await currTransaction.result(
                 `
                 UPDATE app_user
                 SET password = $<newHashedPassword>
@@ -232,9 +227,25 @@ export async function patchResetPassword(req, res, next) {
                 { newHashedPassword, userEmail },
             );
 
-            res.status(200).json({
-                message: "User password has been updated.",
-            });
+            // This should never happen unless the user was deleted after
+            // requesting the password reset.
+            if (result.rowCount !== 1) {
+                throw new Error(
+                    `Password reset failed: expected to update 1 user, updated ${result.rowCount}.`,
+                );
+            }
+
+            return true;
+        });
+
+        if (!resetSuccess) {
+            return res
+                .status(400)
+                .json({ error: "Invalid or expired reset link." });
+        }
+
+        res.status(200).json({
+            message: "User password has been updated.",
         });
     } catch (err) {
         if (err.isJoi) {
