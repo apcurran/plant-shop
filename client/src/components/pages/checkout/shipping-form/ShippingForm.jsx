@@ -17,7 +17,6 @@ function ShippingForm() {
     // Global store state
     const token = useAuthStore((state) => state.token);
     const cartItemsArr = useCartStore((state) => state.items);
-    const cartTotalQty = useCartStore((state) => state.totalQuantity);
 
     function handleStreetChange(event) {
         setStreet(event.target.value);
@@ -92,9 +91,9 @@ function ShippingForm() {
             state,
             zip,
         };
-        const cartData = {
-            currItemsArr: cartItemsArr,
-            totalQty: cartTotalQty,
+        const payload = {
+            userData,
+            items: cartItemsArr,
         };
 
         try {
@@ -109,10 +108,7 @@ function ShippingForm() {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                    body: JSON.stringify({
-                        userData,
-                        cartData,
-                    }),
+                    body: JSON.stringify(payload),
                 },
             );
 
