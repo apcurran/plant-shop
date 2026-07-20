@@ -82,13 +82,13 @@ export async function getOrderHistory(req, res, next) {
  * @param {import("express").NextFunction} next
  */
 export async function postCreatePaymentIntent(req, res, next) {
-    const { currItemsArr } = req.body.cartData;
+    const { items } = req.body;
 
     try {
         await db.task(async (currTask) => {
             let itemsInfoFromDb = [];
 
-            for (let itemObj of currItemsArr) {
+            for (let itemObj of items) {
                 const prodId = Number(itemObj.productId);
                 const productExtraInfoId = itemObj.productExtraInfoId;
                 const productQuantity = itemObj.itemQuantity;
@@ -152,10 +152,7 @@ export async function postCreatePaymentIntent(req, res, next) {
             );
 
             // Convert to Stripe API format
-            const preparedLineItems = prepareLineItems(
-                itemsInfoFromDb,
-                currItemsArr,
-            );
+            const preparedLineItems = prepareLineItems(itemsInfoFromDb, items);
             const session = await stripe.checkout.sessions.create({
                 mode: "payment",
                 payment_method_types: ["card"],
