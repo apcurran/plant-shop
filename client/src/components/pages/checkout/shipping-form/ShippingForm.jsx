@@ -91,9 +91,21 @@ function ShippingForm() {
             state,
             zip,
         };
+        // only include crucial data for checkout to complete on the backend
+        const checkoutItems = cartItemsArr.map(function minimizeItemData({
+            productId,
+            productExtraInfoId,
+            itemQuantity,
+        }) {
+            return {
+                productId,
+                productExtraInfoId,
+                itemQuantity,
+            };
+        });
         const payload = {
             userData,
-            items: cartItemsArr,
+            items: checkoutItems,
         };
 
         try {
