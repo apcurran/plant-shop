@@ -126,7 +126,7 @@ export async function postCreatePaymentIntent(req, res, next) {
             if (
                 typeof orderTotal !== "number" ||
                 orderTotal <= 0 ||
-                !isFinite(orderTotal)
+                !Number.isFinite(orderTotal)
             ) {
                 return res.status(400).json({ error: "Invalid order total" });
             }
