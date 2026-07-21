@@ -97,8 +97,10 @@ function ShippingForm() {
             productExtraInfoId,
             itemQuantity,
         }) {
+            const numProductId = Number(productId);
+
             return {
-                productId,
+                productId: numProductId,
                 productExtraInfoId,
                 itemQuantity,
             };
