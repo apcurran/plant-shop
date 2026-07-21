@@ -4,6 +4,7 @@ import { db } from "../../db/index.js";
 import { prepareLineItems } from "../../util/prepare-line-items.js";
 import { saveOrderInfoToDb } from "../../util/save-order-info-to-db.js";
 import { calcOrderTotal } from "../../util/calc-order-total.js";
+import { createPaymentIntentValidation } from "../validation/orders-validation.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -82,14 +83,14 @@ export async function getOrderHistory(req, res, next) {
  * @param {import("express").NextFunction} next
  */
 export async function postCreatePaymentIntent(req, res, next) {
-    const { items } = req.body;
+    const { userData, items } = await createPaymentIntentValidation(req.body);
 
     try {
         await db.task(async (currTask) => {
             let itemsInfoFromDb = [];
 
             for (let itemObj of items) {
-                const prodId = Number(itemObj.productId);
+                const prodId = itemObj.productId;
                 const productExtraInfoId = itemObj.productExtraInfoId;
                 const productQuantity = itemObj.itemQuantity;
                 const itemInfo = await currTask.one(
@@ -134,10 +135,10 @@ export async function postCreatePaymentIntent(req, res, next) {
             // Save order to db
             const userId = req.user._id;
             const shippingAddress = {
-                street: req.body.userData.street,
-                city: req.body.userData.city,
-                state: req.body.userData.state,
-                zip: req.body.userData.zip,
+                street: userData.street,
+                city: userData.city,
+                state: userData.state,
+                zip: userData.zip,
             };
             const now = new Date();
 
