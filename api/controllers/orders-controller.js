@@ -83,16 +83,16 @@ export async function getOrderHistory(req, res, next) {
  * @param {import("express").NextFunction} next
  */
 export async function postCreatePaymentIntent(req, res, next) {
-    const { userData, items } = await createPaymentIntentValidation(req.body);
-
     try {
+        const { userData, items } = await createPaymentIntentValidation(
+            req.body,
+        );
+
         await db.task(async (currTask) => {
             let itemsInfoFromDb = [];
 
-            for (let itemObj of items) {
-                const prodId = itemObj.productId;
-                const productExtraInfoId = itemObj.productExtraInfoId;
-                const productQuantity = itemObj.itemQuantity;
+            for (let item of items) {
+                const { productId, productExtraInfoId, itemQuantity } = item;
                 const itemInfo = await currTask.one(
                     `
                     SELECT
@@ -103,20 +103,19 @@ export async function postCreatePaymentIntent(req, res, next) {
                     INNER JOIN
                         product_extra_info ON product.product_id = product_extra_info.product_id
                     WHERE
-                        product.product_id = $<prodId>
+                        product.product_id = $<productId>
                         AND
                         product_extra_info.product_extra_info_id = $<productExtraInfoId>
                 `,
-                    { prodId, productExtraInfoId },
+                    { productId, productExtraInfoId },
                 );
 
                 const revisedItemInfo = {
-                    productId: prodId,
+                    productId,
                     productExtraInfoId,
-                    productQuantity,
+                    productQuantity: itemQuantity,
                     ...itemInfo,
                 };
-
                 itemsInfoFromDb.push(revisedItemInfo);
             }
 
