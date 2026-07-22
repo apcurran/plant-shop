@@ -4,7 +4,7 @@ import { db } from "../../db/index.js";
 import { prepareLineItems } from "../../util/prepare-line-items.js";
 import { saveOrderInfoToDb } from "../../util/save-order-info-to-db.js";
 import { calcOrderTotal } from "../../util/calc-order-total.js";
-import { createPaymentIntentValidation } from "../validation/orders-validation.js";
+import { createCheckoutSessionValidation } from "../validation/orders-validation.js";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -82,9 +82,9 @@ export async function getOrderHistory(req, res, next) {
  * @param {import("express").Response} res
  * @param {import("express").NextFunction} next
  */
-export async function postCreatePaymentIntent(req, res, next) {
+export async function postCreateCheckoutSession(req, res, next) {
     try {
-        const { userData, items } = await createPaymentIntentValidation(
+        const { userData, items } = await createCheckoutSessionValidation(
             req.body,
         );
 
@@ -151,6 +151,7 @@ export async function postCreatePaymentIntent(req, res, next) {
                 currTask,
             );
 
+            // TODO: need Stripe Webhook for payment confirmation (don't rely on client re-direct for PATCH req)
             // Convert to Stripe API format
             const preparedLineItems = prepareLineItems(itemsInfoFromDb, items);
             const session = await stripe.checkout.sessions.create({

@@ -9,7 +9,7 @@ router.get("/order-history", verifyAuth, ordersController.getOrderHistory);
 router.post(
     "/create-checkout-session",
     verifyAuth,
-    ordersController.postCreatePaymentIntent,
+    ordersController.postCreateCheckoutSession,
 );
 router.patch(
     "/complete-checkout",

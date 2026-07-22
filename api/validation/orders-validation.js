@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const createPaymentIntentSchema = Joi.object({
+const createCheckoutSessionSchema = Joi.object({
     userData: Joi.object({
         street: Joi.string().trim().required(),
         city: Joi.string().trim().required(),
@@ -25,6 +25,6 @@ const createPaymentIntentSchema = Joi.object({
         .required(),
 });
 
-export function createPaymentIntentValidation(data) {
-    return createPaymentIntentSchema.validateAsync(data);
+export function createCheckoutSessionValidation(data) {
+    return createCheckoutSessionSchema.validateAsync(data);
 }
