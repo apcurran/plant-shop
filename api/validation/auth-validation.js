@@ -1,39 +1,43 @@
 import Joi from "joi";
 
-export function signupValidation(data) {
-    const schema = Joi.object({
-        firstName: Joi.string().max(50).trim().required(),
-        lastName: Joi.string().max(50).trim().required(),
-        email: Joi.string().email().max(100).trim().required(),
-        password: Joi.string().min(6).max(50).trim().required(),
-        adminPassword: Joi.string().trim(),
-    });
+// reusable base rules (without .required() hardcoded)
+const emailRule = Joi.string().trim().email().max(100);
+const passwordRule = Joi.string().trim().min(6).max(50);
 
-    return schema.validateAsync(data);
+const signupSchema = Joi.object({
+    firstName: Joi.string().trim().max(50).required(),
+    lastName: Joi.string().trim().max(50).required(),
+    email: emailRule.required(),
+    password: passwordRule.required(),
+    adminPassword: Joi.string().trim(),
+});
+
+const loginSchema = Joi.object({
+    email: emailRule.required(),
+    password: passwordRule.required(),
+});
+
+const forgotPasswordSchema = Joi.object({
+    email: emailRule.required(),
+});
+
+const resetPasswordSchema = Joi.object({
+    tempId: Joi.string().required(),
+    newPassword: passwordRule.required(),
+});
+
+export function signupValidation(data) {
+    return signupSchema.validateAsync(data);
 }
 
 export function loginValidation(data) {
-    const schema = Joi.object({
-        email: Joi.string().email().max(100).trim().required(),
-        password: Joi.string().min(6).max(50).trim().required(),
-    });
-
-    return schema.validateAsync(data);
+    return loginSchema.validateAsync(data);
 }
 
 export function forgotPasswordValidation(data) {
-    const schema = Joi.object({
-        email: Joi.string().trim().email().max(100).required(),
-    });
-
-    return schema.validateAsync(data);
+    return forgotPasswordSchema.validateAsync(data);
 }
 
 export function resetPasswordValidation(data) {
-    const schema = Joi.object({
-        tempId: Joi.string().required(),
-        newPassword: Joi.string().trim().min(6).max(50).required(),
-    });
-
-    return schema.validateAsync(data);
+    return resetPasswordSchema.validateAsync(data);
 }
