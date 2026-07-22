@@ -162,7 +162,7 @@ export async function postCreatePaymentIntent(req, res, next) {
             });
             const redirectUrl = session.url;
 
-            // Payment cancellation
+            // return checkout URL
             res.json({ url: redirectUrl });
         });
     } catch (err) {
