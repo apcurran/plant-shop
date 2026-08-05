@@ -265,7 +265,7 @@ export async function patchProduct(req, res, next) {
             return res.status(400).json({ error: err.message });
         }
 
-        next(err);
+        return next(err);
     }
 
     /** @type {object[]} */
@@ -322,7 +322,7 @@ export async function patchProduct(req, res, next) {
             );
         });
     } catch (err) {
-        next(err);
+        return next(err);
     }
 
     res.status(200).json({ msg: "Product information updated." });
