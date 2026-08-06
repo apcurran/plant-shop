@@ -242,6 +242,35 @@ export async function postProduct(req, res, next) {
 export async function patchProduct(req, res, next) {
     const { productId } = req.params;
     const imgFile = req.file ?? null;
+
+    let title;
+    let description;
+    let category;
+    let imgAltText;
+    let productExtraInfo;
+
+    try {
+        // Function-scoped variables
+        ({ title, description, category, imgAltText } =
+            await patchProductValidation(req.body));
+    } catch (err) {
+        if (err.isJoi) {
+            return res.status(400).json({ error: err.message });
+        }
+
+        return next(err);
+    }
+
+    try {
+        /** @type {object[]} */
+        productExtraInfo = JSON.parse(req.body.productExtraInfo);
+    } catch {
+        return res
+            .status(400)
+            .json({ error: "Invalid productExtraInfo JSON." });
+    }
+
+    // only upload img after successful validation
     const uploadedProductImgData = imgFile
         ? await streamUploadToCloudinary(imgFile, "evergreen-app").catch(
               (err) => next(err),
@@ -256,20 +285,6 @@ export async function patchProduct(req, res, next) {
     const productImgHeight = uploadedProductImgData
         ? uploadedProductImgData.height
         : null;
-    try {
-        // Function-scoped vars
-        var { title, description, category, imgAltText } =
-            await patchProductValidation(req.body);
-    } catch (err) {
-        if (err.isJoi) {
-            return res.status(400).json({ error: err.message });
-        }
-
-        return next(err);
-    }
-
-    /** @type {object[]} */
-    const productExtraInfo = JSON.parse(req.body.productExtraInfo);
 
     try {
         // SQL transaction
