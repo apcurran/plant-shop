@@ -224,10 +224,6 @@ export async function postProduct(req, res, next) {
             );
         });
     } catch (err) {
-        if (err.isJoi) {
-            return res.status(400).json({ error: err.message });
-        }
-
         return next(err);
     }
 
