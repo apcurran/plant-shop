@@ -86,7 +86,7 @@ export async function getProduct(req, res, next) {
         // handle product not found gracefully here
         if (!product) {
             return res.status(404).json({
-                message: "Product not found",
+                msg: "Product not found",
             });
         }
 
@@ -356,13 +356,17 @@ export async function deleteProduct(req, res, next) {
     try {
         const { productId } = req.params;
 
-        await db.none(
+        const deletionResult = await db.result(
             `
             DELETE FROM product
             WHERE product.product_id = $<productId>
             `,
             { productId },
         );
+
+        if (deletionResult.rowCount === 0) {
+            return res.status(404).json({ msg: "Product not found" });
+        }
 
         res.status(200).json({ msg: "Product removed." });
     } catch (err) {
