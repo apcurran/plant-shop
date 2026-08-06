@@ -57,11 +57,6 @@ export async function postSignup(req, res, next) {
             res.status(201).json({ message: "New user created." });
         });
     } catch (err) {
-        if (err.isJoi) {
-            // Send back JOI validation error message
-            return res.status(400).json({ error: err.message });
-        }
-
         next(err);
     }
 }
@@ -123,10 +118,6 @@ export async function postLogin(req, res, next) {
 
         res.status(200).json({ accessToken: token, userInfo: baseUserInfo });
     } catch (err) {
-        if (err.isJoi) {
-            return res.status(400).json({ error: err.message });
-        }
-
         next(err);
     }
 }
@@ -178,10 +169,6 @@ export async function postForgot(req, res, next) {
             });
         });
     } catch (err) {
-        if (err.isJoi) {
-            return res.status(400).json({ error: err.message });
-        }
-
         next(err);
     }
 }
@@ -247,10 +234,6 @@ export async function patchResetPassword(req, res, next) {
             message: "User password has been updated.",
         });
     } catch (err) {
-        if (err.isJoi) {
-            return res.status(400).json({ error: err.message });
-        }
-
         next(err);
     }
 }
