@@ -270,26 +270,24 @@ export async function patchProduct(req, res, next) {
             .json({ error: "Invalid productExtraInfo JSON." });
     }
 
-    // only upload img after successful validation
-    const uploadedProductImgData = imgFile
-        ? await streamUploadToCloudinary(imgFile, "evergreen-app").catch(
-              (err) => next(err),
-          )
-        : null;
-    const productImgPublicId = uploadedProductImgData
-        ? uploadedProductImgData.public_id
-        : null;
-    const productImgWidth = uploadedProductImgData
-        ? uploadedProductImgData.width
-        : null;
-    const productImgHeight = uploadedProductImgData
-        ? uploadedProductImgData.height
-        : null;
-
     try {
+        // only upload img after successful validation
+        const uploadedProductImgData = imgFile
+            ? await streamUploadToCloudinary(imgFile, "evergreen-app")
+            : null;
+        const productImgPublicId = uploadedProductImgData
+            ? uploadedProductImgData.public_id
+            : null;
+        const productImgWidth = uploadedProductImgData
+            ? uploadedProductImgData.width
+            : null;
+        const productImgHeight = uploadedProductImgData
+            ? uploadedProductImgData.height
+            : null;
+
         // SQL transaction
         await db.tx("update-product-transaction", async (currTx) => {
-            await currTx.none(
+            const productResult = await currTx.result(
                 `
                 UPDATE product
                 SET
@@ -300,6 +298,12 @@ export async function patchProduct(req, res, next) {
                 `,
                 { title, description, category, productId },
             );
+
+            if (productResult.rowCount === 0) {
+                const err = new Error("Product not found.");
+                err.status = 404;
+                throw err;
+            }
 
             for (let { size, price, productExtraInfoId } of productExtraInfo) {
                 await currTx.none(
