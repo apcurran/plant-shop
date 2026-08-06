@@ -57,6 +57,11 @@ export async function postSignup(req, res, next) {
             res.status(201).json({ message: "New user created." });
         });
     } catch (err) {
+        // race condition check
+        if (err.code === "23505") {
+            return res.status(400).json({ error: "Email already exists." });
+        }
+
         next(err);
     }
 }
