@@ -21,22 +21,21 @@ export async function postSignup(req, res, next) {
         const { firstName, lastName, email, password, adminPassword } =
             await signupValidation(req.body);
 
-        // utilize pg-promise task to re-use db connection
-        await db.task(async (currTask) => {
-            // Reject if there is already an existing user with the same email
-            const emailExists = await currTask.oneOrNone(
-                `
+        // Reject if there is already an existing user with the same email
+        const emailExists = await db.oneOrNone(
+            `
                 SELECT app_user.user_id
                 FROM app_user
                 WHERE app_user.email = $<email>
             `,
-                { email },
-            );
+            { email },
+        );
 
-            if (emailExists) {
-                return res.status(400).json({ error: "Email already exists." });
-            }
-
+        if (emailExists) {
+            return res.status(400).json({ error: "Email already exists." });
+        }
+        // utilize pg-promise task to re-use db connection
+        await db.task(async (currTask) => {
             // Hash password
             const saltRounds = 12;
             const hashedPassword = await bcrypt.hash(password, saltRounds);
