@@ -241,7 +241,7 @@ export async function postProduct(req, res, next) {
  */
 export async function patchProduct(req, res, next) {
     const { productId } = req.params;
-    const imgFile = req.file ? req.file : null;
+    const imgFile = req.file ?? null;
     const uploadedProductImgData = imgFile
         ? await streamUploadToCloudinary(imgFile, "evergreen-app").catch(
               (err) => next(err),
