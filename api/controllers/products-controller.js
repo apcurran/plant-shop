@@ -243,23 +243,7 @@ export async function patchProduct(req, res, next) {
     const { productId } = req.params;
     const imgFile = req.file ?? null;
 
-    let title;
-    let description;
-    let category;
-    let imgAltText;
     let productExtraInfo;
-
-    try {
-        // Function-scoped variables
-        ({ title, description, category, imgAltText } =
-            await patchProductValidation(req.body));
-    } catch (err) {
-        if (err.isJoi) {
-            return res.status(400).json({ error: err.message });
-        }
-
-        return next(err);
-    }
 
     try {
         /** @type {object[]} */
@@ -271,6 +255,9 @@ export async function patchProduct(req, res, next) {
     }
 
     try {
+        const { title, description, category, imgAltText } =
+            await patchProductValidation(req.body);
+
         // only upload img after successful validation
         const uploadedProductImgData = imgFile
             ? await streamUploadToCloudinary(imgFile, "evergreen-app")
