@@ -74,6 +74,10 @@ app.use("/api/orders", ordersRouter);
 app.use((err, req, res, next) => {
     console.error(err);
 
+    if (err.isJoi) {
+        return res.status(400).json({ error: err.message });
+    }
+
     const message = isDev ? err.message : "Internal server error";
 
     return res.status(500).json({ error: message });
