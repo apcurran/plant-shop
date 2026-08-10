@@ -151,13 +151,15 @@ export async function postForgot(req, res, next) {
             if (user) {
                 // Generate uuid
                 const id = crypto.randomUUID();
-                // Save in db table for forgotten passwords
+                // Save in db table for forgotten passwords.
+                // Store reset token with a 15-minute lifetime.
+                // Postgres calculates the expiration timestamp.
                 await currTask.none(
                     `
                     INSERT INTO app_user_password_requests
-                        (temp_id, email)
+                        (temp_id, email, expires_at)
                     VALUES
-                        ($<id>, $<email>)
+                        ($<id>, $<email>, NOW() + INTERVAL '15 minutes')
                 `,
                     { id, email },
                 );
