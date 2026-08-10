@@ -211,7 +211,7 @@ export async function patchResetPassword(req, res, next) {
 
             const userEmail = userRequest.email;
 
-            // Update current user's pw in db table
+            // Update the user's password in the db table
             const result = await currTransaction.result(
                 `
                 UPDATE app_user
