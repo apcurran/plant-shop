@@ -198,7 +198,8 @@ export async function patchResetPassword(req, res, next) {
             const userRequest = await currTransaction.oneOrNone(
                 `
                 DELETE FROM app_user_password_requests
-                WHERE temp_id = $<tempId>
+                WHERE temp_id = $<tempId> AND
+                      expires_at > NOW()
                 RETURNING email
             `,
                 { tempId },
