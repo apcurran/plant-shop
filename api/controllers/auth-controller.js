@@ -18,8 +18,9 @@ import { sendResetLink } from "../../util/send-email.js";
  */
 export async function postSignup(req, res, next) {
     try {
-        const { firstName, lastName, email, password, adminPassword } =
-            await signupValidation(req.body);
+        const { firstName, lastName, email, password } = await signupValidation(
+            req.body,
+        );
 
         // Reject if there is already an existing user with the same email
         const emailExists = await db.oneOrNone(
@@ -39,9 +40,7 @@ export async function postSignup(req, res, next) {
             // Hash password
             const saltRounds = 12;
             const hashedPassword = await bcrypt.hash(password, saltRounds);
-            // Is this new user an admin?
-            const isAdmin =
-                adminPassword === process.env.ADMIN_PW ? true : false;
+            const isAdmin = false;
 
             // Add new user to db
             await currTask.none(
