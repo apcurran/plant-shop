@@ -2,11 +2,24 @@ import jwt from "jsonwebtoken";
 
 export function verifyAuth(req, res, next) {
     const authHeader = req.header("Authorization");
-    const token = authHeader && authHeader.split(" ")[1];
 
-    if (!token) {
+    if (!authHeader) {
         return res.status(401).json({ error: "Access denied." });
     }
+
+    const parts = authHeader.split(" ");
+
+    if (
+        parts.length !== 2 ||
+        parts[0].toLowerCase() !== "bearer" ||
+        !parts[1]
+    ) {
+        return res
+            .status(401)
+            .json({ error: "Malformed Authorization header." });
+    }
+
+    const token = parts[1];
 
     jwt.verify(
         token,
@@ -16,10 +29,12 @@ export function verifyAuth(req, res, next) {
             if (err) {
                 console.error(err);
 
-                return res.status(403).json({ error: "Invalid token." });
+                return res
+                    .status(403)
+                    .json({ error: "Invalid or expired token." });
             }
 
-            // Validation passed
+            // Authentication passed
             req.user = user;
             next();
         },
