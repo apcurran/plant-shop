@@ -50,7 +50,7 @@ app.use(
         crossOriginEmbedderPolicy: false,
     }),
 );
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 app.use(express.static(path.join(import.meta.dirname, "client", "build")));
 
 // Rate-limiting setup
