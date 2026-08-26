@@ -150,7 +150,7 @@ export async function postProduct(req, res, next) {
                 .json({ error: "Product image is required." });
         }
 
-        // validate data first
+        // validate form fields data first
         const { title, description, category, imgAltText } =
             await postProductValidation(req.body);
         /** @type {{size: string, price: number}[]} */
