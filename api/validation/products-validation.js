@@ -9,6 +9,16 @@ const createProductSchema = Joi.object({
     imgAltText: Joi.string().trim().required(),
 });
 
+const postExtraInfoArraySchema = Joi.array()
+    .items(
+        Joi.object({
+            size: Joi.string().trim().required(),
+            price: Joi.number().positive().required(),
+        }),
+    )
+    .min(1)
+    .required();
+
 const updateProductSchema = Joi.object({
     title: Joi.string().trim(),
     description: Joi.string().trim(),
@@ -20,6 +30,10 @@ const updateProductSchema = Joi.object({
 
 export function postProductValidation(data) {
     return createProductSchema.validateAsync(data);
+}
+
+export function postProductExtraInfoValidation(data) {
+    return postExtraInfoArraySchema.validateAsync(data);
 }
 
 export function patchProductValidation(data) {
