@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { rateLimit } from "express-rate-limit";
 import helmet from "helmet";
+import multer from "multer";
 
 import productsRouter from "./api/routes/products-router.js";
 import authRouter from "./api/routes/auth-router.js";
@@ -74,7 +75,11 @@ app.use("/api/orders", ordersRouter);
 app.use((err, req, res, next) => {
     console.error(err);
 
-    if (err.isJoi) {
+    if (
+        err.isJoi ||
+        err instanceof multer.MulterError ||
+        err.message === "Only JPEG, PNG, WebP, and AVIF images are allowed."
+    ) {
         return res.status(400).json({ error: err.message });
     }
 
