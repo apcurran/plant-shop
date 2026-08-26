@@ -1,6 +1,7 @@
 import { db } from "../../db/index.js";
 import {
     postProductValidation,
+    postProductExtraInfoValidation,
     patchProductValidation,
 } from "../validation/products-validation.js";
 import { streamUploadToCloudinary } from "../../util/stream-upload-to-cloudinary.js";
@@ -154,21 +155,20 @@ export async function postProduct(req, res, next) {
         const { title, description, category, imgAltText } =
             await postProductValidation(req.body);
         /** @type {{size: string, price: number}[]} */
-        let productExtraInfo;
+        // parse JSON str
+        let rawProductExtraInfo;
 
         try {
-            productExtraInfo = JSON.parse(req.body.productExtraInfo);
+            rawProductExtraInfo = JSON.parse(req.body.productExtraInfo);
         } catch {
             return res
                 .status(400)
                 .json({ error: "Invalid productExtraInfo format." });
         }
 
-        if (!Array.isArray(productExtraInfo)) {
-            return res
-                .status(400)
-                .json({ error: "productExtraInfo must be an array." });
-        }
+        // validate parsed extraInfo array items
+        const productExtraInfo =
+            await postProductExtraInfoValidation(rawProductExtraInfo);
 
         // run Cloudinary upload
         const uploadedProductImgData = await streamUploadToCloudinary(
