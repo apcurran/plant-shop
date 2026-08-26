@@ -3,6 +3,7 @@ import {
     postProductValidation,
     postProductExtraInfoValidation,
     patchProductValidation,
+    patchProductExtraInfoValidation,
 } from "../validation/products-validation.js";
 import { streamUploadToCloudinary } from "../../util/stream-upload-to-cloudinary.js";
 
@@ -239,20 +240,28 @@ export async function patchProduct(req, res, next) {
     const { productId } = req.params;
     const imgFile = req.file ?? null;
 
-    let productExtraInfo;
-
-    try {
-        /** @type {object[]} */
-        productExtraInfo = JSON.parse(req.body.productExtraInfo);
-    } catch {
-        return res
-            .status(400)
-            .json({ error: "Invalid productExtraInfo JSON." });
-    }
-
     try {
         const { title, description, category, imgAltText } =
             await patchProductValidation(req.body);
+
+        // parse & validate extra info if given
+        let productExtraInfo = [];
+
+        if (req.body.productExtraInfo) {
+            let rawProductExtraInfo;
+
+            try {
+                /** @type {object[]} */
+                rawProductExtraInfo = JSON.parse(req.body.productExtraInfo);
+            } catch {
+                return res
+                    .status(400)
+                    .json({ error: "Invalid productExtraInfo JSON." });
+            }
+
+            productExtraInfo =
+                await patchProductExtraInfoValidation(rawProductExtraInfo);
+        }
 
         // only upload img after successful validation
         const uploadedProductImgData = imgFile

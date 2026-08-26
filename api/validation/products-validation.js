@@ -12,8 +12,8 @@ const createProductSchema = Joi.object({
 const postExtraInfoArraySchema = Joi.array()
     .items(
         Joi.object({
-            size: Joi.string().trim().required(),
-            price: Joi.number().positive().required(),
+            size: Joi.number().integer().positive().required(),
+            price: Joi.number().positive().precision(2).required(),
         }),
     )
     .min(1)
@@ -28,6 +28,17 @@ const updateProductSchema = Joi.object({
     imgAltText: Joi.string().trim(),
 });
 
+const patchExtraInfoArraySchema = Joi.array()
+    .items(
+        Joi.object({
+            productExtraInfoId: Joi.number().integer().positive().required(),
+            size: Joi.number().integer().positive(),
+            price: Joi.number().positive().precision(2),
+        }),
+    )
+    .min(1)
+    .required();
+
 export function postProductValidation(data) {
     return createProductSchema.validateAsync(data);
 }
@@ -38,4 +49,8 @@ export function postProductExtraInfoValidation(data) {
 
 export function patchProductValidation(data) {
     return updateProductSchema.validateAsync(data);
+}
+
+export function patchProductExtraInfoValidation(data) {
+    return patchExtraInfoArraySchema.validateAsync(data);
 }
